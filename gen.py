@@ -1,6 +1,6 @@
 import urllib.request
 import json
-import os
+import os, time
 
 class MarkdownConvert():
     def __init__(self, md):
@@ -32,13 +32,13 @@ class GenerateCXY():
                 filename = os.path.splitext(post)[0]
                 ret.append({
                     'title': self._get_title(filename),
+                    'create_time' : time.ctime(os.stat(filepath).st_mtime),
                     'filename' : filename,
                     'filepath' : filepath,
-                    'md_file' : post,
                     'html_file' : filename + '.html'
                 })
+        ret.sort(key=lambda item: item['create_time'], reverse=True)
         return ret
-
     def _get_css(self):
         return '<link rel="stylesheet" type="text/css" href="{}">'.format('./css/github_new.css')
     def build_index_md(self):
@@ -89,6 +89,7 @@ just for fun. mail:caixiangyue007@gmail.com
             html += "</head><body>"
             html += MarkdownConvert(self._read_md(post['filepath'])).md2html().decode('utf8')
             if post['filename'] != 'index':
+                html += '<hr><p>{}</p>'.format(post['create_time'])
                 html += gitalk
             html += "</body>"
             html += "</html>"
