@@ -88,7 +88,8 @@ just for fun. mail:caixiangyue007@gmail.com
             html += '<title>{}</title>'.format(post['title'])
             html += "</head><body>"
             html += MarkdownConvert(self._read_md(post['filepath'])).md2html().decode('utf8')
-            html += gitalk
+            if post['filename'] != 'index':
+                html += gitalk
             html += "</body>"
             html += "</html>"
             self._save_file(post['html_file'], html)
