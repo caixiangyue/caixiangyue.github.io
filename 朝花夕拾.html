@@ -4,26 +4,22 @@
 <p><code>do{}while(0)</code> 宏的用处?</p>
 <p>避免调用者出现使用错误，保证程序执行的一致性。<br>
 例如：</p>
-<pre><code>#define FOO() foo1();foo2();
-</code></pre>
+<div class="highlight highlight-source-c"><pre>#<span class="pl-k">define</span> <span class="pl-en">FOO</span>() foo1();foo2();</pre></div>
 <p>调用代码：</p>
-<pre><code>if (a &gt; 0)
-    FOO();
-</code></pre>
+<div class="highlight highlight-source-c"><pre><span class="pl-k">if</span> (a &gt; <span class="pl-c1">0</span>)
+    <span class="pl-en">FOO</span>();</pre></div>
 <p>会被扩展成:</p>
-<pre><code>if (a &gt; 0)
-    foo1();foo2();
-</code></pre>
+<div class="highlight highlight-source-c"><pre><span class="pl-k">if</span> (a &gt; <span class="pl-c1">0</span>)
+    <span class="pl-en">foo1</span>();foo2();</pre></div>
 <p>这时就产生了一个问题，若是<code>a &lt;= 0</code>，<code>foo2()</code>仍然会被调用。<br>
 正确的写法：</p>
-<pre><code>#define FOO() \
-        do{ \
-            foo1(); \
-            foo2(); \
-        }while(0); \
-</code></pre>
+<div class="highlight highlight-source-c"><pre>#<span class="pl-k">define</span> <span class="pl-en">FOO</span>() \
+        <span class="pl-k">do</span>{ \
+            <span class="pl-c1">foo1</span>(); \
+            <span class="pl-c1">foo2</span>(); \
+        }<span class="pl-k">while</span>(<span class="pl-c1">0</span>); \</pre></div>
 </li>
-</ol><hr><p>Wed Dec 11 14:18:03 2019</p><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+</ol><hr><p>Wed Dec 11 16:10:26 2019</p><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
 <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
 <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
 <div id="gitalk-container"></div>
