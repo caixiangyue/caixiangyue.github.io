@@ -32,7 +32,7 @@ class GenerateCXY():
                 filename = os.path.splitext(post)[0]
                 ret.append({
                     'title': self._get_title(filename),
-                    'create_time' : time.ctime(os.stat(filepath).st_mtime),
+                    'create_time' : os.stat(filepath).st_mtime,
                     'filename' : filename,
                     'filepath' : filepath,
                     'html_file' : filename + '.html'
@@ -89,11 +89,13 @@ just for fun. mail:caixiangyue007@gmail.com
             title = '<title>cxy</title>'
             if post['filename'] != 'index':
                 title = '<title>{}</title>'.format(post['title'])
+                if time.time() - post['create_time'] > 1800:
+                    continue
             html += title
             html += "</head><body>"
             html += MarkdownConvert(self._read_md(post['filepath'])).md2html().decode('utf8')
             if post['filename'] != 'index':
-                html += '<hr><p>{}</p>'.format(post['create_time'])
+                html += '<hr><p>{}</p>'.format(time.ctime(post['create_time']))
                 html += gitalk
             html += "</body>"
             html += "</html>"
