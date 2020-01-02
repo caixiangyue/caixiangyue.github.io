@@ -1,0 +1,110 @@
+<?xml version="1.0"?>
+<rss version="2.0">
+<channel>
+<language>zh-cn</language>
+<copyright>cxy</copyright>
+<generator>cxy.fun</generator>
+<title>cxy</title>
+<link>https://cxy.fun</link>
+<description> cxy's blog </description>
+<item>
+<title>朝花夕拾</title>
+<link>https://cxy.fun/朝花夕拾.html</link>
+<description> <![CDATA["<h2>一. c宏</h2>
+<ol>
+<li>
+<p><code>do{}while(0)</code> 宏的用处?</p>
+<p>避免调用者出现使用错误，保证程序执行的一致性。<br>
+例如：</p>
+<div class="highlight highlight-source-c"><pre>#<span class="pl-k">define</span> <span class="pl-en">FOO</span>() foo1();foo2();</pre></div>
+<p>调用代码：</p>
+<div class="highlight highlight-source-c"><pre><span class="pl-k">if</span> (a &gt; <span class="pl-c1">0</span>)
+    <span class="pl-en">FOO</span>();</pre></div>
+<p>会被扩展成:</p>
+<div class="highlight highlight-source-c"><pre><span class="pl-k">if</span> (a &gt; <span class="pl-c1">0</span>)
+    <span class="pl-en">foo1</span>();foo2();</pre></div>
+<p>这时就产生了一个问题，若是<code>a &lt;= 0</code>，<code>foo2()</code>仍然会被调用。<br>
+正确的写法：</p>
+<div class="highlight highlight-source-c"><pre>#<span class="pl-k">define</span> <span class="pl-en">FOO</span>() \
+        <span class="pl-k">do</span>{ \
+            <span class="pl-c1">foo1</span>(); \
+            <span class="pl-c1">foo2</span>(); \
+        }<span class="pl-k">while</span>(<span class="pl-c1">0</span>)</pre></div>
+</li>
+</ol>
+<h2>二. 计算机二三事</h2>
+<ol>
+<li>
+<p>栈和堆的区别</p>
+<ul>
+<li>栈的结构是先进后出，永远操作的是栈顶</li>
+<li>栈中的数据必须已知且大小固定（如c语言的数组）</li>
+<li>堆是缺乏组织的，当向堆中放入数据，操作系统会去寻找到一块足够大的空间，标记为已使用，并返回一个指向这块空间的指针</li>
+</ul>
+<p>操作栈空间是比堆速度快的，因为使用堆你需要先寻找到一块足够大的空间（<code>malloc</code>），而且使用的内存并不是连续的（如动态链表），需要在内存中跳来跳去，这些操作都会降低性能。<br>
+还有很多原因，如cpu对栈有直接支持（<code>push</code>, <code>pop</code>）；栈内存由操作系统管理，而堆内存由用户程序管理。</p>
+</li>
+</ol>
+<h2>三. linux命令</h2>
+<ol>
+<li>
+<p>删除当前目录除某文件外的所有文件</p>
+<div class="highlight highlight-source-shell"><pre>ls <span class="pl-k">|</span> grep -v except_filename <span class="pl-k">|</span> xargs rm -rf</pre></div>
+</li>
+</ol><hr><p>Tue Dec 24 17:36:43 2019</p><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+<div id="gitalk-container"></div>
+<script>
+  const gitalk = new Gitalk({
+    clientID: 'a22a0da2e464b1b98761',
+    clientSecret: 'b7630b913b13bd9cd26f93794d25367387bd2840',
+    repo: 'caixiangyue.github.io',
+    owner: 'caixiangyue',
+    admin: ['caixiangyue'],
+    id: md5(location.pathname), // Ensure uniqueness and length less than 50
+    distractionFreeMode: false // Facebook-like distraction free mode
+  });
+  (function() {
+    if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+      document.getElementById('gitalk-container').innerHTML = 'Gitalk comments not available by default when the website is previewed locally.';
+      return;
+    }
+    gitalk.render('gitalk-container');
+  })();
+</script>
+"]]></description>
+</item>
+<item>
+<title>hello world</title>
+<link>https://cxy.fun/hello-world.html</link>
+<description> <![CDATA["<h1>Hello World</h1>
+<h2>1.test</h2>
+<blockquote>
+<p>test</p>
+</blockquote><hr><p>Mon Nov 25 16:30:04 2019</p><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+<div id="gitalk-container"></div>
+<script>
+  const gitalk = new Gitalk({
+    clientID: 'a22a0da2e464b1b98761',
+    clientSecret: 'b7630b913b13bd9cd26f93794d25367387bd2840',
+    repo: 'caixiangyue.github.io',
+    owner: 'caixiangyue',
+    admin: ['caixiangyue'],
+    id: md5(location.pathname), // Ensure uniqueness and length less than 50
+    distractionFreeMode: false // Facebook-like distraction free mode
+  });
+  (function() {
+    if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+      document.getElementById('gitalk-container').innerHTML = 'Gitalk comments not available by default when the website is previewed locally.';
+      return;
+    }
+    gitalk.render('gitalk-container');
+  })();
+</script>
+"]]></description>
+</item>
+</channel>
+</rss>

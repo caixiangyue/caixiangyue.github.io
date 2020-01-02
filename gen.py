@@ -1,7 +1,7 @@
 import urllib.request
 import json
 import os, time
-
+from rss import Rss
 class MarkdownConvert():
     def __init__(self, md):
         self.data = {
@@ -44,6 +44,7 @@ class GenerateCXY():
     def build_index_md(self):
         header = """## cxy's blog
 just for fun. mail:caixiangyue007@gmail.com    
+[RSS](rss.xml)
 
 -----
         """
@@ -85,7 +86,10 @@ just for fun. mail:caixiangyue007@gmail.com
             html =  '<!DOCTYPE html>'
             html += '<html><head><meta charset="utf-8">'
             html += self._get_css()
-            html += '<title>{}</title>'.format(post['title'])
+            title = '<title>cxy</title>'
+            if post['filename'] != 'index':
+                title = '<title>{}</title>'.format(post['title'])
+            html += title
             html += "</head><body>"
             html += MarkdownConvert(self._read_md(post['filepath'])).md2html().decode('utf8')
             if post['filename'] != 'index':
@@ -100,4 +104,6 @@ if __name__ == "__main__":
     g = GenerateCXY()
     g.build_index_md()
     g.build_html()
+    r = Rss()
+    r.gen_rss()
     
