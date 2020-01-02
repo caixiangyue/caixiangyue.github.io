@@ -33,7 +33,7 @@ class Rss():
                 self.buffer += '<title>{}</title>\n'.format(self._get_title(os.path.splitext(html)[0]))
                 link = 'https://cxy.fun/{}'.format(html)
                 self.buffer += '<link>{}</link>\n'.format(link)
-                self.buffer += '<description> <![CDATA["{}"]]></description>\n'.format(self._get_html_body(html))
+                self.buffer += '<description> <![CDATA[{}]]></description>\n'.format(self._get_html_body(html))
                 self.buffer += '</item>\n'
         self.buffer += '</channel>\n'
         self.buffer += '</rss>'
