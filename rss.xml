@@ -8,6 +8,77 @@
 <link>https://cxy.fun</link>
 <description> cxy's blog </description>
 <item>
+<title>用C扩展Python</title>
+<link>https://cxy.fun/用C扩展Python.html</link>
+<description> <![CDATA[<blockquote>
+<p>用C语言写一个最简单的python扩展。</p>
+</blockquote>
+<h2>一. 上代码</h2>
+<ol>
+<li>hello.c</li>
+</ol>
+<div class="highlight highlight-source-c"><pre>#<span class="pl-k">include</span><span class="pl-s"><span class="pl-pds">&lt;</span>Python.h<span class="pl-pds">&gt;</span></span>
+
+<span class="pl-k">static</span> PyObject *<span class="pl-en">say_hello</span>(PyObject *self, PyObject *args) {
+    <span class="pl-k">return</span> <span class="pl-c1">Py_BuildValue</span>(<span class="pl-s"><span class="pl-pds">"</span>s<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>hello from c.<span class="pl-pds">"</span></span>);
+}
+
+<span class="pl-k">static</span> PyMethodDef methods[] = {
+    {<span class="pl-s"><span class="pl-pds">"</span>say_hello<span class="pl-pds">"</span></span>, say_hello, METH_VARARGS, <span class="pl-s"><span class="pl-pds">"</span>say hello.<span class="pl-pds">"</span></span>},
+    {<span class="pl-c1">NULL</span>, <span class="pl-c1">NULL</span>, <span class="pl-c1">0</span>, <span class="pl-c1">NULL</span>}
+};
+
+<span class="pl-k">static</span> <span class="pl-k">struct</span> PyModuleDef module_def =
+{
+    PyModuleDef_HEAD_INIT,
+    <span class="pl-s"><span class="pl-pds">"</span>hello<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>say hello<span class="pl-pds">"</span></span>,
+    -<span class="pl-c1">1</span>,
+    methods
+};
+
+PyMODINIT_FUNC <span class="pl-en">PyInit_hello</span>(<span class="pl-k">void</span>) {
+    <span class="pl-k">return</span> <span class="pl-c1">PyModule_Create</span>(&amp;module_def);
+}</pre></div>
+<ol start="2">
+<li>setup.py</li>
+</ol>
+<div class="highlight highlight-source-python"><pre><span class="pl-k">from</span> distutils.core <span class="pl-k">import</span> setup, Extension
+
+module <span class="pl-k">=</span> Extension(<span class="pl-s"><span class="pl-pds">'</span>hello<span class="pl-pds">'</span></span>, <span class="pl-v">sources</span> <span class="pl-k">=</span> [<span class="pl-s"><span class="pl-pds">'</span>hello.c<span class="pl-pds">'</span></span>])
+
+setup(<span class="pl-v">name</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>say hello<span class="pl-pds">'</span></span>, <span class="pl-v">version</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>0.0.1<span class="pl-pds">'</span></span>, <span class="pl-v">ext_modules</span> <span class="pl-k">=</span> [module])</pre></div>
+<h2>二. 编译</h2>
+<div class="highlight highlight-source-shell"><pre>$ python setup.py build</pre></div>
+<h2>三. 调用</h2>
+<p><strong>注</strong> 此时想要调用需要把<code>hello.so</code>共享库加到PYTHONPATH环境变量中。</p>
+<div class="highlight highlight-source-python"><pre><span class="pl-c"><span class="pl-c">#</span>!/usr/bin/env python3</span>
+<span class="pl-k">import</span> hello
+<span class="pl-c1">print</span>(hello.say_hello()) </pre></div><hr><p>Thu Jan  9 16:10:49 2020</p><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+<div id="gitalk-container"></div>
+<script>
+  const gitalk = new Gitalk({
+    clientID: 'a22a0da2e464b1b98761',
+    clientSecret: 'b7630b913b13bd9cd26f93794d25367387bd2840',
+    repo: 'caixiangyue.github.io',
+    owner: 'caixiangyue',
+    admin: ['caixiangyue'],
+    id: md5(location.pathname), // Ensure uniqueness and length less than 50
+    distractionFreeMode: false // Facebook-like distraction free mode
+  });
+  (function() {
+    if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+      document.getElementById('gitalk-container').innerHTML = 'Gitalk comments not available by default when the website is previewed locally.';
+      return;
+    }
+    gitalk.render('gitalk-container');
+  })();
+</script>
+]]></description>
+</item>
+<item>
 <title>朝花夕拾</title>
 <link>https://cxy.fun/朝花夕拾.html</link>
 <description> <![CDATA[<h2>一. c宏</h2>
