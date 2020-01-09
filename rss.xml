@@ -54,7 +54,11 @@ setup(<span class="pl-v">name</span> <span class="pl-k">=</span> <span class="pl
 <p><strong>注</strong> 此时想要调用需要把<code>hello.so</code>共享库加到PYTHONPATH环境变量中。</p>
 <div class="highlight highlight-source-python"><pre><span class="pl-c"><span class="pl-c">#</span>!/usr/bin/env python3</span>
 <span class="pl-k">import</span> hello
-<span class="pl-c1">print</span>(hello.say_hello()) </pre></div><hr><p>Thu Jan  9 16:10:49 2020</p><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<span class="pl-c1">print</span>(hello.say_hello()) </pre></div>
+<h2>四. 参考</h2>
+<ul>
+<li><a href="https://docs.python.org/3/extending/extending.html" rel="nofollow">https://docs.python.org/3/extending/extending.html</a></li>
+</ul><hr><p>Thu Jan  9 16:17:05 2020</p><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
 <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
 <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
 <div id="gitalk-container"></div>

@@ -51,3 +51,5 @@ $ python setup.py build
 import hello
 print(hello.say_hello()) 
 ```
+## 四. 参考
++ https://docs.python.org/3/extending/extending.html
