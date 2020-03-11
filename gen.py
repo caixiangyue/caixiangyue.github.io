@@ -81,11 +81,22 @@ just for fun. mail:caixiangyue007@gmail.com
   })();
 </script>
 """
+        google_analytics = """<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-160306868-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-160306868-1');
+</script>
+"""
         posts = self._get_post_dir()
         for post in posts:
             html =  '<!DOCTYPE html>'
             html += '<html><head><meta charset="utf-8">'
             html += self._get_css()
+            html += google_analytics
             title = '<title>cxy</title>'
             if post['filename'] != 'index':
                 title = '<title>{}</title>'.format(post['title'])
