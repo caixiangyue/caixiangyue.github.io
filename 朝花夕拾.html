@@ -1,4 +1,13 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><link rel="stylesheet" type="text/css" href="./css/github_new.css"><title>朝花夕拾</title></head><body><h2>一. c宏</h2>
+<!DOCTYPE html><html><head><meta charset="utf-8"><link rel="stylesheet" type="text/css" href="./css/github_new.css"><!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-160306868-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-160306868-1');
+</script>
+<title>朝花夕拾</title></head><body><h2>一. c宏</h2>
 <ol>
 <li>
 <p><code>do{}while(0)</code> 宏的用处?</p>
@@ -32,6 +41,21 @@
 <p>操作栈空间是比堆速度快的，因为使用堆你需要先寻找到一块足够大的空间（<code>malloc</code>），而且使用的内存并不是连续的（如动态链表），需要在内存中跳来跳去，这些操作都会降低性能。<br>
 还有很多原因，如cpu对栈有直接支持（<code>push</code>, <code>pop</code>）；栈内存由操作系统管理，而堆内存由用户程序管理。</p>
 </li>
+<li>
+<p>指针</p>
+<blockquote>
+<p>In computer science, a pointer is a programming language object that stores a memory address. --wikipedia</p>
+</blockquote>
+<p>在计算机科学中，指针就是存储了一个内存地址的编程语言对象。</p>
+</li>
+<li>
+<p>引用</p>
+<p>以 java 为例:</p>
+<blockquote>
+<p>A reference is an address that indicates where an object's variables and methods are stored.</p>
+</blockquote>
+<p>引用是一个指向了对象的方法和变量存储位置的地址。</p>
+</li>
 </ol>
 <h2>三. linux命令</h2>
 <ol>
@@ -39,7 +63,7 @@
 <p>删除当前目录除某文件外的所有文件</p>
 <div class="highlight highlight-source-shell"><pre>ls <span class="pl-k">|</span> grep -v except_filename <span class="pl-k">|</span> xargs rm -rf</pre></div>
 </li>
-</ol><hr><p>Tue Dec 24 17:36:43 2019</p><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+</ol><hr><p>Fri Mar 27 10:40:50 2020</p><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
 <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
 <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
 <div id="gitalk-container"></div>
