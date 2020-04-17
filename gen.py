@@ -96,6 +96,7 @@ just for fun. mail:caixiangyue007@gmail.com
             html =  '<!DOCTYPE html>'
             html += '<html><head><meta charset="utf-8">'
             html += self._get_css()
+            html += '<link rel="shortcut icon" href="favicon.png" type="image/x-icon">'
             html += google_analytics
             title = '<title>cxy</title>'
             if post['filename'] != 'index':
