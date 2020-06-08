@@ -15,22 +15,31 @@
 <p>愿你生命中有够多的云翳，来造成一个美丽的黄昏。    —— 冰心</p>
 </blockquote>
 <ul>
-<li><a href="#user-content-20190327">2019-03-27</a></li>
-<li><a href="#user-content-20190414">2019-04-14</a></li>
-<li><a href="#user-content-20190421">2019-04-21</a></li>
+<li><a href="#user-content-20200327">2020-03-27</a></li>
+<li><a href="#user-content-20200414">2020-04-14</a></li>
+<li><a href="#user-content-20200421">2020-04-21</a></li>
+<li><a href="#user-content-20200608">2020-06-08</a></li>
 </ul>
-<h4>2019-03-27</h4>
-<span id="user-content-20190327">
+<h4>2020-03-27</h4>
+<span id="user-content-20200327">
 不想记录一些流水账。
 </span>
-<h4>2019-04-14</h4>
-<span id="user-content-20190414">
+<h4>2020-04-14</h4>
+<span id="user-content-20200414">
 有的时候觉得自己很酷，可以做一些以前只有大人才能做成的事情。
 </span>
-<h4>2019-04-21</h4>
-<span id="user-content-20190421">
+<h4>2020-04-21</h4>
+<span id="user-content-20200421">
 重新理解了什么是：“好读书，不求甚解”。
-</span><hr><p>Tue Apr 21 10:17:33 2020</p><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+</span>
+<h4>2020-06-08</h4>
+<p><span id="user-content-20200608"></span></p>
+<ol class="contains-task-list">
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox"> 刷一道leetcode</li>
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> 整理linux客户端打包脚本以及文档（工作） 4小时</li>
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> 修复了一个客户端崩溃的bug （工作） 0.5小时</li>
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox"> 看一小时书</li>
+</ol><hr><p>Mon Jun  8 16:37:07 2020</p><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
 <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
 <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
 <div id="gitalk-container"></div>
