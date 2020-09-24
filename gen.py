@@ -5,12 +5,12 @@ from rss import Rss
 class MarkdownConvert():
     def __init__(self, md):
         self.data = {
-            "text" : md,
-            "mode" : "gfm"
+            'text' : md,
+            'mode' : 'gfm'
         }
     def md2html(self):
         params = json.dumps(self.data).encode('utf8')
-        handle = urllib.request.urlopen("https://api.github.com/markdown", params)
+        handle = urllib.request.urlopen('https://api.github.com/markdown', params)
         return handle.read()
 
 class GenerateCXY():
@@ -40,7 +40,7 @@ class GenerateCXY():
         ret.sort(key=lambda item: item['create_time'], reverse=True)
         return ret
     def _get_css(self):
-        return '<link rel="stylesheet" type="text/css" href="{}">'.format('./css/github_new.css')
+        return '<link rel="stylesheet" type="text/css" href="./css/github_new.css">'
     def build_index_md(self):
         header = """## cxy's blog
 just for fun. mail:caixiangyue007@gmail.com    
@@ -52,7 +52,7 @@ just for fun. mail:caixiangyue007@gmail.com
         posts = self._get_post_dir()
         for post in posts:
             if post['filename'] != 'index':
-                header += '[{}]({})\n'.format(post['title'], post['html_file'])
+                header += f'[{post["title"]}]({post["html_file"]})'
         self._save_file(os.path.join(self.post_dir, 'index.md'), header)
     def _read_md(self, filepath):
         with open(filepath, 'r') as f:
@@ -100,17 +100,17 @@ just for fun. mail:caixiangyue007@gmail.com
             html += google_analytics
             title = '<title>cxy</title>'
             if post['filename'] != 'index':
-                title = '<title>{}</title>'.format(post['title'])
+                title = f'<title>{post["title"]}</title>'
                 if time.time() - post['create_time'] > 1800:
                     continue
             html += title
-            html += "</head><body>"
+            html += '</head><body>'
             html += MarkdownConvert(self._read_md(post['filepath'])).md2html().decode('utf8')
             if post['filename'] != 'index':
-                html += '<hr><p>{}</p>'.format(time.ctime(post['create_time']))
+                html += f'<hr><p>{time.ctime(post["create_time"])}</p>'
                 html += gitalk
-            html += "</body>"
-            html += "</html>"
+            html += '</body>'
+            html += '</html>'
             self._save_file(post['html_file'], html)
 
 

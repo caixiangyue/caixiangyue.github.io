@@ -11,8 +11,6 @@ class Rss():
         pattern = re.compile('<body>(.*?)</body>', re.DOTALL)
         with open(filename, 'r') as f:
             content = f.read()
-
-        #print(content)
         body = pattern.findall(content)
         return body[0]
     def gen_rss(self):
@@ -30,10 +28,10 @@ class Rss():
         for html in htmls:
             if html.endswith('html') and not html.startswith('index'):
                 self.buffer += '<item>\n'
-                self.buffer += '<title>{}</title>\n'.format(self._get_title(os.path.splitext(html)[0]))
-                link = 'https://cxy.fun/{}'.format(html)
-                self.buffer += '<link>{}</link>\n'.format(link)
-                self.buffer += '<description> <![CDATA[{}]]></description>\n'.format(self._get_html_body(html))
+                self.buffer += f'<title>{self._get_title(os.path.splitext(html)[0])}</title>\n'
+                link = f'https://cxy.fun/{html}'
+                self.buffer += f'<link>{link}</link>\n'
+                self.buffer += f'<description> <![CDATA[{self._get_html_body(html)}]]></description>\n'
                 self.buffer += '</item>\n'
         self.buffer += '</channel>\n'
         self.buffer += '</rss>'
