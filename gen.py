@@ -52,7 +52,7 @@ just for fun. mail:caixiangyue007@gmail.com
         posts = self._get_post_dir()
         for post in posts:
             if post['filename'] != 'index':
-                header += f'[{post["title"]}]({post["html_file"]})'
+                header += f'[{post["title"]}]({post["html_file"]})\n'
         self._save_file(os.path.join(self.post_dir, 'index.md'), header)
     def _read_md(self, filepath):
         with open(filepath, 'r') as f:
