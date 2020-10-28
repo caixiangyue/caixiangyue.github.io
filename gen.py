@@ -2,6 +2,7 @@ import urllib.request
 import json
 import os, time
 from rss import Rss
+
 class MarkdownConvert():
     def __init__(self, md):
         self.data = {
@@ -21,7 +22,7 @@ class GenerateCXY():
     # def _get_filename(self, path):
     #     base = os.path.basename(path)
     #     return os.path.splitext(base)[0]
-    def _get_title(self, filename : str):
+    def _get_title(self, filename):
         return filename.replace('-', ' ')
     def _get_post_dir(self):
         ret = []
