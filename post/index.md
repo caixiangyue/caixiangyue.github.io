@@ -5,6 +5,7 @@ just for fun. mail:caixiangyue007@gmail.com
 -----
         
 
+[投资记录 20201229](投资记录-20201229.html)
 [常用地址](常用地址.html)
 [似水年华](似水年华.html)
 [朝花夕拾](朝花夕拾.html)
