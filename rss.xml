@@ -9,7 +9,7 @@
 <description> cxy's blog </description>
 <item>
 <title>似水年华</title>
-<link>https://cxy.fun/似水年华.html</link>
+<link>https://caixiangyue.github.io/似水年华.html</link>
 <description> <![CDATA[<p>最近有个想法：把每一天发生的事记录下，一定会很有意思吧。<g-emoji class="g-emoji" alias="laughing" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f606.png">😆</g-emoji></p>
 <blockquote>
 <p>愿你生命中有够多的云翳，来造成一个美丽的黄昏。    —— 冰心</p>
@@ -100,7 +100,7 @@
 </item>
 <item>
 <title>常用地址</title>
-<link>https://cxy.fun/常用地址.html</link>
+<link>https://caixiangyue.github.io/常用地址.html</link>
 <description> <![CDATA[<h2>常用源</h2>
 <ol>
 <li><a href="https://pypi.tuna.tsinghua.edu.cn/simple" rel="nofollow">pip</a></li>
@@ -148,7 +148,7 @@
 </item>
 <item>
 <title>用C扩展Python</title>
-<link>https://cxy.fun/用C扩展Python.html</link>
+<link>https://caixiangyue.github.io/用C扩展Python.html</link>
 <description> <![CDATA[<blockquote>
 <p>用C语言写一个最简单的python扩展。</p>
 </blockquote>
@@ -222,44 +222,8 @@ setup(<span class="pl-v">name</span> <span class="pl-k">=</span> <span class="pl
 ]]></description>
 </item>
 <item>
-<title>投资记录 20201229</title>
-<link>https://cxy.fun/投资记录-20201229.html</link>
-<description> <![CDATA[<p>本月投资情况：</p>
-<h2>天宏基金：</h2>
-<p>投资总量：27565.01</p>
-<p><a target="_blank" rel="noopener noreferrer" href="../img/investment/20201229-01.jpg"><img src="../img/investment/20201229-01.jpg" alt="" style="max-width:100%;"></a></p>
-<h2>其他主要基金:</h2>
-<p><a target="_blank" rel="noopener noreferrer" href="../img/investment/20201229-02.jpg"><img src="../img/investment/20201229-02.jpg" alt="" style="max-width:100%;"></a></p>
-<p><a target="_blank" rel="noopener noreferrer" href="../img/investment/20201229-03.jpg"><img src="../img/investment/20201229-03.jpg" alt="" style="max-width:100%;"></a></p>
-<p><a target="_blank" rel="noopener noreferrer" href="../img/investment/20201229-04.jpg"><img src="../img/investment/20201229-04.jpg" alt="" style="max-width:100%;"></a></p>
-<h2>收益图</h2>
-<p><a target="_blank" rel="noopener noreferrer" href="../img/investment/20201229-05.jpg"><img src="../img/investment/20201229-05.jpg" alt="" style="max-width:100%;"></a></p><hr><p>Tue Dec 29 16:42:02 2020</p><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
-<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
-<script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
-<div id="gitalk-container"></div>
-<script>
-  const gitalk = new Gitalk({
-    clientID: 'a22a0da2e464b1b98761',
-    clientSecret: 'b7630b913b13bd9cd26f93794d25367387bd2840',
-    repo: 'caixiangyue.github.io',
-    owner: 'caixiangyue',
-    admin: ['caixiangyue'],
-    id: md5(location.pathname), // Ensure uniqueness and length less than 50
-    distractionFreeMode: false // Facebook-like distraction free mode
-  });
-  (function() {
-    if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
-      document.getElementById('gitalk-container').innerHTML = 'Gitalk comments not available by default when the website is previewed locally.';
-      return;
-    }
-    gitalk.render('gitalk-container');
-  })();
-</script>
-]]></description>
-</item>
-<item>
 <title>朝花夕拾</title>
-<link>https://cxy.fun/朝花夕拾.html</link>
+<link>https://caixiangyue.github.io/朝花夕拾.html</link>
 <description> <![CDATA[<h2>一. c宏</h2>
 <ol>
 <li>
@@ -347,7 +311,7 @@ setup(<span class="pl-v">name</span> <span class="pl-k">=</span> <span class="pl
 </item>
 <item>
 <title>hello world</title>
-<link>https://cxy.fun/hello-world.html</link>
+<link>https://caixiangyue.github.io/hello-world.html</link>
 <description> <![CDATA[<h1>Hello World</h1>
 <h2>1.test</h2>
 <blockquote>

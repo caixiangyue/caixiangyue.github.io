@@ -29,7 +29,7 @@ class Rss():
             if html.endswith('html') and not html.startswith('index'):
                 self.buffer += '<item>\n'
                 self.buffer += f'<title>{self._get_title(os.path.splitext(html)[0])}</title>\n'
-                link = f'https://cxy.fun/{html}'
+                link = f'https://caixiangyue.github.io/{html}'
                 self.buffer += f'<link>{link}</link>\n'
                 self.buffer += f'<description> <![CDATA[{self._get_html_body(html)}]]></description>\n'
                 self.buffer += '</item>\n'
