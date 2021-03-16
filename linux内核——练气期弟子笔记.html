@@ -1,0 +1,47 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><link rel="stylesheet" type="text/css" href="./css/github_new.css"><link rel="shortcut icon" href="favicon.png" type="image/x-icon"><!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-160306868-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-160306868-1');
+</script>
+<title>linux内核——练气期弟子笔记</title></head><body><h2>AT&amp;T 汇编</h2>
+<blockquote>
+<p>Linux祖师的祖师爷Unix使用的是AT&amp;T汇编，所以我们这些徒子徒孙也需要学习使用AT&amp;T汇编</p>
+</blockquote>
+<ol>
+<li>前缀<br>
+寄存器前加%，立即数前加$；十六进制前加0x</li>
+<li>操作数方向<br>
+第一个是源操作数，第二个是目的操作数</li>
+<li>内存单元操作数<br>
+内存单元操作数基寄存器用()括起来</li>
+<li>节(section)<br>
+section .data 包含已经初始化的数据<br>
+section .bss 包含未初始化数据<br>
+section .text 包含程序代码，只读</li>
+</ol><hr><p>Tue Mar 16 17:04:32 2021</p><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+<div id="gitalk-container"></div>
+<script>
+  const gitalk = new Gitalk({
+    clientID: 'a22a0da2e464b1b98761',
+    clientSecret: 'b7630b913b13bd9cd26f93794d25367387bd2840',
+    repo: 'caixiangyue.github.io',
+    owner: 'caixiangyue',
+    admin: ['caixiangyue'],
+    id: md5(location.pathname), // Ensure uniqueness and length less than 50
+    distractionFreeMode: false // Facebook-like distraction free mode
+  });
+  (function() {
+    if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+      document.getElementById('gitalk-container').innerHTML = 'Gitalk comments not available by default when the website is previewed locally.';
+      return;
+    }
+    gitalk.render('gitalk-container');
+  })();
+</script>
+</body></html>
