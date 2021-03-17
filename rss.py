@@ -37,3 +37,4 @@ class Rss():
         self.buffer += '</rss>'
         with open('rss.xml', 'w+') as f:
             f.write(self.buffer)
+            f.flush()

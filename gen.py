@@ -20,6 +20,7 @@ class GenerateCXY():
     def _save_file(self, filename, content):
         with open(filename, 'w') as f:
             f.write(content)
+            f.flush()
     # def _get_filename(self, path):
     #     base = os.path.basename(path)
     #     return os.path.splitext(base)[0]
