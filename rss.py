@@ -19,9 +19,9 @@ class Rss():
 <channel>
 <language>zh-cn</language>
 <copyright>cxy</copyright>
-<generator>cxy.fun</generator>
+<generator>caixiangyue.github.io</generator>
 <title>cxy</title>
-<link>https://cxy.fun</link>
+<link>https://caixiangyue.github.io</link>
 <description> cxy's blog </description>
 '''
         htmls = os.listdir(self.dir)

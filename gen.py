@@ -1,3 +1,4 @@
+import sys
 import urllib.request
 import json
 import os, time
@@ -58,28 +59,13 @@ just for fun. mail:caixiangyue007@gmail.com
     def _read_md(self, filepath):
         with open(filepath, 'r') as f:
             return f.read()
-    def build_html(self):
-        gitalk = """<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
-<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
-<script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
-<div id="gitalk-container"></div>
-<script>
-  const gitalk = new Gitalk({
-    clientID: 'a22a0da2e464b1b98761',
-    clientSecret: 'b7630b913b13bd9cd26f93794d25367387bd2840',
-    repo: 'caixiangyue.github.io',
-    owner: 'caixiangyue',
-    admin: ['caixiangyue'],
-    id: md5(location.pathname), // Ensure uniqueness and length less than 50
-    distractionFreeMode: false // Facebook-like distraction free mode
-  });
-  (function() {
-    if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
-      document.getElementById('gitalk-container').innerHTML = 'Gitalk comments not available by default when the website is previewed locally.';
-      return;
-    }
-    gitalk.render('gitalk-container');
-  })();
+    def build_html(self, build_all=False):
+        utteranc = """<script src="https://utteranc.es/client.js"
+        repo="caixiangyue/caixiangyue.github.io"
+        issue-term="pathname"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
 </script>
 """
         google_analytics = """<!-- Global site tag (gtag.js) - Google Analytics -->
@@ -88,7 +74,6 @@ just for fun. mail:caixiangyue007@gmail.com
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-
   gtag('config', 'UA-160306868-1');
 </script>
 """
@@ -102,23 +87,26 @@ just for fun. mail:caixiangyue007@gmail.com
             title = '<title>cxy</title>'
             if post['filename'] != 'index':
                 title = f'<title>{post["title"]}</title>'
-                if time.time() - post['create_time'] > 1800:
+                if not build_all and time.time() - post['create_time'] > 1800:
                     continue
             html += title
             html += '</head><body>'
             html += MarkdownConvert(self._read_md(post['filepath'])).md2html().decode('utf8')
             if post['filename'] != 'index':
                 html += f'<hr><p>{time.ctime(post["create_time"])}</p>'
-                html += gitalk
+                html += utteranc
             html += '</body>'
             html += '</html>'
             self._save_file(post['html_file'], html)
 
 
 if __name__ == "__main__":
+    if len(sys.argv) > 1:
+        if sys.argv[1] == 'all':
+            build_all = True
     g = GenerateCXY()
     g.build_index_md()
-    g.build_html()
+    g.build_html(build_all)
     r = Rss()
     r.gen_rss()
     
