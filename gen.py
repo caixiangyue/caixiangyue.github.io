@@ -102,6 +102,7 @@ just for fun. mail:caixiangyue007@gmail.com
 
 
 if __name__ == "__main__":
+    build_all = False
     if len(sys.argv) > 1:
         if sys.argv[1] == 'all':
             build_all = True

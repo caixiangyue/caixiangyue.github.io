@@ -10,3 +10,13 @@
 section .data 包含已经初始化的数据
 section .bss 包含未初始化数据
 section .text 包含程序代码，只读
+5. 注释
+除了有C风格的多行注释`/* */`
+还可以使用`#`单行注释
+6. 指令操作码的命名
+b,w,l 分别代表 byte, word, long
+7. 跳转指令
+`jmp NewLoc` 指令跳转到NewLoc表好处
+`jmp *%eax` 间接跳转，%eax的值是跳转的目标
+`jmp *(%eax)` 间接跳转，从%eax指明的地址处读取跳转的目标位置
+

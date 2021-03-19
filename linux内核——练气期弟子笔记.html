@@ -21,7 +21,16 @@
 section .data 包含已经初始化的数据<br>
 section .bss 包含未初始化数据<br>
 section .text 包含程序代码，只读</li>
-</ol><hr><p>Tue Mar 16 17:04:32 2021</p><script src="https://utteranc.es/client.js"
+<li>注释<br>
+除了有C风格的多行注释<code>/* */</code><br>
+还可以使用<code>#</code>单行注释</li>
+<li>指令操作码的命名<br>
+b,w,l 分别代表 byte, word, long</li>
+<li>跳转指令<br>
+<code>jmp NewLoc</code> 指令跳转到NewLoc表好处<br>
+<code>jmp *%eax</code> 间接跳转，%eax的值是跳转的目标<br>
+<code>jmp *(%eax)</code> 间接跳转，从%eax指明的地址处读取跳转的目标位置</li>
+</ol><hr><p>Fri Mar 19 10:07:55 2021</p><script src="https://utteranc.es/client.js"
         repo="caixiangyue/caixiangyue.github.io"
         issue-term="pathname"
         theme="github-light"
