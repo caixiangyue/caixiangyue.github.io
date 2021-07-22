@@ -29,6 +29,8 @@
 <li><a href="#user-content-20210129">2021-01-29</a></li>
 <li><a href="#user-content-20210208">2021-02-08</a></li>
 <li><a href="#user-content-20210720">2021-07-20</a></li>
+<li><a href="#user-content-20210721">2021-07-21</a></li>
+<li><a href="#user-content-20210722">2021-07-22</a></li>
 </ul>
 <h4>2020-03-27</h4>
 <span id="user-content-20200327">
@@ -115,7 +117,29 @@
 </ol>
 <p>InnoDB的数据是存储在磁盘上的，会把经常访问的数据（索引页，数据页，undo页，插入缓冲，自适应hash索引，锁信息，数据字典信息）放到一块内存区域（缓冲池）访问，缓冲池使用LRU算法管理。</p>
 <p>缓冲池默认页大小16KB</p>
-<p>show engine innodb status;</p></span></span><hr><p>Tue Jul 20 18:21:43 2021</p><script src="https://utteranc.es/client.js"
+<p>show engine innodb status;</p>
+<h4>2021-07-21</h4>
+<span id="user-content-20210721">
+</span>
+<p>今日完成：</p>
+<ol class="contains-task-list">
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> 提升rpc性能</li>
+<li>[] 学习MySQL</li>
+</ol>
+<h4>2021-07-22</h4>
+<span id="user-content-20210722">
+</span>
+<p>今日完成：</p>
+<ol class="contains-task-list">
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> 完成了公司任务</li>
+<li>[] 学习MySQL</li>
+<li>[] 学习红黑树</li>
+</ol>
+<p>AVL树的性质：</p>
+<ul>
+<li>可以是空树</li>
+<li>任何一个节点的左子树，右子树都是平衡二叉树，并且高度之差绝对值不超过1</li>
+</ul></span></span><hr><p>Thu Jul 22 17:45:37 2021</p><script src="https://utteranc.es/client.js"
         repo="caixiangyue/caixiangyue.github.io"
         issue-term="pathname"
         theme="github-light"
