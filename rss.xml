@@ -8,6 +8,188 @@
 <link>https://caixiangyue.github.io</link>
 <description> cxy's blog </description>
 <item>
+<title>朝花夕拾</title>
+<link>https://caixiangyue.github.io/朝花夕拾.html</link>
+<description> <![CDATA[<h2>一. c宏</h2>
+<ol>
+<li>
+<p><code>do{}while(0)</code> 宏的用处?</p>
+<p>避免调用者出现使用错误，保证程序执行的一致性。<br>
+例如：</p>
+<div class="highlight highlight-source-c"><pre>#<span class="pl-k">define</span> <span class="pl-en">FOO</span>() foo1();foo2();</pre></div>
+<p>调用代码：</p>
+<div class="highlight highlight-source-c"><pre><span class="pl-k">if</span> (a &gt; <span class="pl-c1">0</span>)
+    <span class="pl-en">FOO</span>();</pre></div>
+<p>会被扩展成:</p>
+<div class="highlight highlight-source-c"><pre><span class="pl-k">if</span> (a &gt; <span class="pl-c1">0</span>)
+    <span class="pl-en">foo1</span>();foo2();</pre></div>
+<p>这时就产生了一个问题，若是<code>a &lt;= 0</code>，<code>foo2()</code>仍然会被调用。<br>
+正确的写法：</p>
+<div class="highlight highlight-source-c"><pre>#<span class="pl-k">define</span> <span class="pl-en">FOO</span>() \
+        <span class="pl-k">do</span>{ \
+            <span class="pl-c1">foo1</span>(); \
+            <span class="pl-c1">foo2</span>(); \
+        }<span class="pl-k">while</span>(<span class="pl-c1">0</span>)</pre></div>
+</li>
+</ol>
+<h2>二. 计算机二三事</h2>
+<ol>
+<li>
+<p>栈和堆的区别</p>
+<ul>
+<li>栈的结构是先进后出，永远操作的是栈顶</li>
+<li>栈中的数据必须已知且大小固定（如c语言的数组）</li>
+<li>堆是缺乏组织的，当向堆中放入数据，操作系统会去寻找到一块足够大的空间，标记为已使用，并返回一个指向这块空间的指针</li>
+</ul>
+<p>操作栈空间是比堆速度快的，因为使用堆你需要先寻找到一块足够大的空间（<code>malloc</code>），而且使用的内存并不是连续的（如动态链表），需要在内存中跳来跳去，这些操作都会降低性能。<br>
+还有很多原因，如cpu对栈有直接支持（<code>push</code>, <code>pop</code>）；栈内存由操作系统管理，而堆内存由用户程序管理。</p>
+</li>
+<li>
+<p>指针</p>
+<blockquote>
+<p>In computer science, a pointer is a programming language object that stores a memory address. --wikipedia</p>
+</blockquote>
+<p>在计算机科学中，指针就是存储了一个内存地址的编程语言对象。</p>
+</li>
+<li>
+<p>引用</p>
+<p>以 java 为例:</p>
+<blockquote>
+<p>A reference is an address that indicates where an object's variables and methods are stored.</p>
+</blockquote>
+<p>引用是一个指向了对象的方法和变量存储位置的地址。</p>
+</li>
+</ol>
+<h2>三. linux命令</h2>
+<ol>
+<li>
+<p>删除当前目录除某文件外的所有文件</p>
+<div class="highlight highlight-source-shell"><pre>ls <span class="pl-k">|</span> grep -v except_filename <span class="pl-k">|</span> xargs rm -rf</pre></div>
+</li>
+<li>
+<p>更新所有的module</p>
+<pre><code>git submodule update --init --recursive --remote
+</code></pre>
+</li>
+</ol><hr><p>Thu Jul 23 17:46:40 2020</p><script src="https://utteranc.es/client.js"
+        repo="caixiangyue/caixiangyue.github.io"
+        issue-term="pathname"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+]]></description>
+</item>
+<item>
+<title>常用地址</title>
+<link>https://caixiangyue.github.io/常用地址.html</link>
+<description> <![CDATA[<h2>常用源</h2>
+<ol>
+<li><a href="https://pypi.tuna.tsinghua.edu.cn/simple" rel="nofollow">pip</a></li>
+<li><a href="https://goproxy.cn" rel="nofollow">GOPROXY</a></li>
+</ol>
+<h2>翻墙</h2>
+<ol>
+<li><a href="https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt" rel="nofollow">SwichyOmega</a></li>
+</ol>
+<h2>软件</h2>
+<ol>
+<li><a href="https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh" rel="nofollow">ohmyzsh</a></li>
+</ol>
+<h2>博客</h2>
+<ol>
+<li><a href="https://draveness.me/" rel="nofollow">面向信仰编程</a></li>
+<li><a href="https://coolshell.cn/" rel="nofollow">酷壳</a></li>
+<li><a href="https://www.yinwang.org/" rel="nofollow">当然我在扯淡</a></li>
+<li><a href="https://www.ixiqin.com/" rel="nofollow">西秦公子</a></li>
+<li><a href="https://blog.codingnow.com/" rel="nofollow">云风</a></li>
+<li><a href="http://blog.devtang.com/" rel="nofollow">唐巧的博客</a></li>
+</ol><hr><p>Tue Dec 29 15:22:05 2020</p><script src="https://utteranc.es/client.js"
+        repo="caixiangyue/caixiangyue.github.io"
+        issue-term="pathname"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+]]></description>
+</item>
+<item>
+<title>用C扩展Python</title>
+<link>https://caixiangyue.github.io/用C扩展Python.html</link>
+<description> <![CDATA[<blockquote>
+<p>用C语言写一个最简单的python扩展。</p>
+</blockquote>
+<h2>一. 上代码</h2>
+<ol>
+<li>hello.c</li>
+</ol>
+<div class="highlight highlight-source-c"><pre>#<span class="pl-k">include</span><span class="pl-s"><span class="pl-pds">&lt;</span>Python.h<span class="pl-pds">&gt;</span></span>
+
+<span class="pl-k">static</span> PyObject *<span class="pl-en">say_hello</span>(PyObject *self, PyObject *args) {
+    <span class="pl-k">return</span> <span class="pl-c1">Py_BuildValue</span>(<span class="pl-s"><span class="pl-pds">"</span>s<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>hello from c.<span class="pl-pds">"</span></span>);
+}
+
+<span class="pl-k">static</span> PyMethodDef methods[] = {
+    {<span class="pl-s"><span class="pl-pds">"</span>say_hello<span class="pl-pds">"</span></span>, say_hello, METH_VARARGS, <span class="pl-s"><span class="pl-pds">"</span>say hello.<span class="pl-pds">"</span></span>},
+    {<span class="pl-c1">NULL</span>, <span class="pl-c1">NULL</span>, <span class="pl-c1">0</span>, <span class="pl-c1">NULL</span>}
+};
+
+<span class="pl-k">static</span> <span class="pl-k">struct</span> PyModuleDef module_def =
+{
+    PyModuleDef_HEAD_INIT,
+    <span class="pl-s"><span class="pl-pds">"</span>hello<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>say hello<span class="pl-pds">"</span></span>,
+    -<span class="pl-c1">1</span>,
+    methods
+};
+
+PyMODINIT_FUNC <span class="pl-en">PyInit_hello</span>(<span class="pl-k">void</span>) {
+    <span class="pl-k">return</span> <span class="pl-c1">PyModule_Create</span>(&amp;module_def);
+}</pre></div>
+<ol start="2">
+<li>setup.py</li>
+</ol>
+<div class="highlight highlight-source-python"><pre><span class="pl-k">from</span> <span class="pl-s1">distutils</span>.<span class="pl-s1">core</span> <span class="pl-k">import</span> <span class="pl-s1">setup</span>, <span class="pl-v">Extension</span>
+
+<span class="pl-s1">module</span> <span class="pl-c1">=</span> <span class="pl-v">Extension</span>(<span class="pl-s">'hello'</span>, <span class="pl-s1">sources</span> <span class="pl-c1">=</span> [<span class="pl-s">'hello.c'</span>])
+
+<span class="pl-en">setup</span>(<span class="pl-s1">name</span> <span class="pl-c1">=</span> <span class="pl-s">'say hello'</span>, <span class="pl-s1">version</span> <span class="pl-c1">=</span> <span class="pl-s">'0.0.1'</span>, <span class="pl-s1">ext_modules</span> <span class="pl-c1">=</span> [<span class="pl-s1">module</span>])</pre></div>
+<h2>二. 编译</h2>
+<div class="highlight highlight-source-shell"><pre>$ python setup.py build</pre></div>
+<h2>三. 调用</h2>
+<p><strong>注</strong> 此时想要调用需要把<code>hello.so</code>共享库加到PYTHONPATH环境变量中。</p>
+<div class="highlight highlight-source-python"><pre><span class="pl-c">#!/usr/bin/env python3</span>
+<span class="pl-k">import</span> <span class="pl-s1">hello</span>
+<span class="pl-en">print</span>(<span class="pl-s1">hello</span>.<span class="pl-en">say_hello</span>()) </pre></div>
+<h2>四. 参考</h2>
+<ul>
+<li><a href="https://docs.python.org/3/extending/extending.html" rel="nofollow">https://docs.python.org/3/extending/extending.html</a></li>
+</ul><hr><p>Mon Feb 24 17:36:07 2020</p><script src="https://utteranc.es/client.js"
+        repo="caixiangyue/caixiangyue.github.io"
+        issue-term="pathname"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+]]></description>
+</item>
+<item>
+<title>hello world</title>
+<link>https://caixiangyue.github.io/hello-world.html</link>
+<description> <![CDATA[<h1>Hello World</h1>
+<h2>1.test</h2>
+<blockquote>
+<p>test</p>
+</blockquote><hr><p>Mon Feb 24 17:36:07 2020</p><script src="https://utteranc.es/client.js"
+        repo="caixiangyue/caixiangyue.github.io"
+        issue-term="pathname"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+]]></description>
+</item>
+<item>
 <title>似水年华</title>
 <link>https://caixiangyue.github.io/似水年华.html</link>
 <description> <![CDATA[<p>最近有个想法：把每一天发生的事记录下，一定会很有意思吧。<g-emoji class="g-emoji" alias="laughing" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f606.png">😆</g-emoji></p>
@@ -153,189 +335,12 @@
 </span>
 <blockquote>
 <p>业精于勤，荒于嬉；行成于思，毁于随。</p>
-</blockquote></span></span><hr><p>Mon Aug 30 14:44:40 2021</p><script src="https://utteranc.es/client.js"
-        repo="caixiangyue/caixiangyue.github.io"
-        issue-term="pathname"
-        theme="github-light"
-        crossorigin="anonymous"
-        async>
-</script>
-]]></description>
-</item>
-<item>
-<title>常用地址</title>
-<link>https://caixiangyue.github.io/常用地址.html</link>
-<description> <![CDATA[<h2>常用源</h2>
-<ol>
-<li><a href="https://pypi.tuna.tsinghua.edu.cn/simple" rel="nofollow">pip</a></li>
-<li><a href="https://goproxy.cn" rel="nofollow">GOPROXY</a></li>
-</ol>
-<h2>翻墙</h2>
-<ol>
-<li><a href="https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt" rel="nofollow">SwichyOmega</a></li>
-</ol>
-<h2>软件</h2>
-<ol>
-<li><a href="https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh" rel="nofollow">ohmyzsh</a></li>
-</ol>
-<h2>博客</h2>
-<ol>
-<li><a href="https://draveness.me/" rel="nofollow">面向信仰编程</a></li>
-<li><a href="https://coolshell.cn/" rel="nofollow">酷壳</a></li>
-<li><a href="https://www.yinwang.org/" rel="nofollow">当然我在扯淡</a></li>
-<li><a href="https://www.ixiqin.com/" rel="nofollow">西秦公子</a></li>
-<li><a href="https://blog.codingnow.com/" rel="nofollow">云风</a></li>
-<li><a href="http://blog.devtang.com/" rel="nofollow">唐巧的博客</a></li>
-</ol><hr><p>Tue Dec 29 15:22:05 2020</p><script src="https://utteranc.es/client.js"
-        repo="caixiangyue/caixiangyue.github.io"
-        issue-term="pathname"
-        theme="github-light"
-        crossorigin="anonymous"
-        async>
-</script>
-]]></description>
-</item>
-<item>
-<title>用C扩展Python</title>
-<link>https://caixiangyue.github.io/用C扩展Python.html</link>
-<description> <![CDATA[<blockquote>
-<p>用C语言写一个最简单的python扩展。</p>
 </blockquote>
-<h2>一. 上代码</h2>
-<ol>
-<li>hello.c</li>
-</ol>
-<div class="highlight highlight-source-c"><pre>#<span class="pl-k">include</span><span class="pl-s"><span class="pl-pds">&lt;</span>Python.h<span class="pl-pds">&gt;</span></span>
-
-<span class="pl-k">static</span> PyObject *<span class="pl-en">say_hello</span>(PyObject *self, PyObject *args) {
-    <span class="pl-k">return</span> <span class="pl-c1">Py_BuildValue</span>(<span class="pl-s"><span class="pl-pds">"</span>s<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>hello from c.<span class="pl-pds">"</span></span>);
-}
-
-<span class="pl-k">static</span> PyMethodDef methods[] = {
-    {<span class="pl-s"><span class="pl-pds">"</span>say_hello<span class="pl-pds">"</span></span>, say_hello, METH_VARARGS, <span class="pl-s"><span class="pl-pds">"</span>say hello.<span class="pl-pds">"</span></span>},
-    {<span class="pl-c1">NULL</span>, <span class="pl-c1">NULL</span>, <span class="pl-c1">0</span>, <span class="pl-c1">NULL</span>}
-};
-
-<span class="pl-k">static</span> <span class="pl-k">struct</span> PyModuleDef module_def =
-{
-    PyModuleDef_HEAD_INIT,
-    <span class="pl-s"><span class="pl-pds">"</span>hello<span class="pl-pds">"</span></span>,
-    <span class="pl-s"><span class="pl-pds">"</span>say hello<span class="pl-pds">"</span></span>,
-    -<span class="pl-c1">1</span>,
-    methods
-};
-
-PyMODINIT_FUNC <span class="pl-en">PyInit_hello</span>(<span class="pl-k">void</span>) {
-    <span class="pl-k">return</span> <span class="pl-c1">PyModule_Create</span>(&amp;module_def);
-}</pre></div>
-<ol start="2">
-<li>setup.py</li>
-</ol>
-<div class="highlight highlight-source-python"><pre><span class="pl-k">from</span> <span class="pl-s1">distutils</span>.<span class="pl-s1">core</span> <span class="pl-k">import</span> <span class="pl-s1">setup</span>, <span class="pl-v">Extension</span>
-
-<span class="pl-s1">module</span> <span class="pl-c1">=</span> <span class="pl-v">Extension</span>(<span class="pl-s">'hello'</span>, <span class="pl-s1">sources</span> <span class="pl-c1">=</span> [<span class="pl-s">'hello.c'</span>])
-
-<span class="pl-en">setup</span>(<span class="pl-s1">name</span> <span class="pl-c1">=</span> <span class="pl-s">'say hello'</span>, <span class="pl-s1">version</span> <span class="pl-c1">=</span> <span class="pl-s">'0.0.1'</span>, <span class="pl-s1">ext_modules</span> <span class="pl-c1">=</span> [<span class="pl-s1">module</span>])</pre></div>
-<h2>二. 编译</h2>
-<div class="highlight highlight-source-shell"><pre>$ python setup.py build</pre></div>
-<h2>三. 调用</h2>
-<p><strong>注</strong> 此时想要调用需要把<code>hello.so</code>共享库加到PYTHONPATH环境变量中。</p>
-<div class="highlight highlight-source-python"><pre><span class="pl-c">#!/usr/bin/env python3</span>
-<span class="pl-k">import</span> <span class="pl-s1">hello</span>
-<span class="pl-en">print</span>(<span class="pl-s1">hello</span>.<span class="pl-en">say_hello</span>()) </pre></div>
-<h2>四. 参考</h2>
-<ul>
-<li><a href="https://docs.python.org/3/extending/extending.html" rel="nofollow">https://docs.python.org/3/extending/extending.html</a></li>
-</ul><hr><p>Mon Feb 24 17:36:07 2020</p><script src="https://utteranc.es/client.js"
-        repo="caixiangyue/caixiangyue.github.io"
-        issue-term="pathname"
-        theme="github-light"
-        crossorigin="anonymous"
-        async>
-</script>
-]]></description>
-</item>
-<item>
-<title>朝花夕拾</title>
-<link>https://caixiangyue.github.io/朝花夕拾.html</link>
-<description> <![CDATA[<h2>一. c宏</h2>
-<ol>
-<li>
-<p><code>do{}while(0)</code> 宏的用处?</p>
-<p>避免调用者出现使用错误，保证程序执行的一致性。<br>
-例如：</p>
-<div class="highlight highlight-source-c"><pre>#<span class="pl-k">define</span> <span class="pl-en">FOO</span>() foo1();foo2();</pre></div>
-<p>调用代码：</p>
-<div class="highlight highlight-source-c"><pre><span class="pl-k">if</span> (a &gt; <span class="pl-c1">0</span>)
-    <span class="pl-en">FOO</span>();</pre></div>
-<p>会被扩展成:</p>
-<div class="highlight highlight-source-c"><pre><span class="pl-k">if</span> (a &gt; <span class="pl-c1">0</span>)
-    <span class="pl-en">foo1</span>();foo2();</pre></div>
-<p>这时就产生了一个问题，若是<code>a &lt;= 0</code>，<code>foo2()</code>仍然会被调用。<br>
-正确的写法：</p>
-<div class="highlight highlight-source-c"><pre>#<span class="pl-k">define</span> <span class="pl-en">FOO</span>() \
-        <span class="pl-k">do</span>{ \
-            <span class="pl-c1">foo1</span>(); \
-            <span class="pl-c1">foo2</span>(); \
-        }<span class="pl-k">while</span>(<span class="pl-c1">0</span>)</pre></div>
-</li>
-</ol>
-<h2>二. 计算机二三事</h2>
-<ol>
-<li>
-<p>栈和堆的区别</p>
-<ul>
-<li>栈的结构是先进后出，永远操作的是栈顶</li>
-<li>栈中的数据必须已知且大小固定（如c语言的数组）</li>
-<li>堆是缺乏组织的，当向堆中放入数据，操作系统会去寻找到一块足够大的空间，标记为已使用，并返回一个指向这块空间的指针</li>
-</ul>
-<p>操作栈空间是比堆速度快的，因为使用堆你需要先寻找到一块足够大的空间（<code>malloc</code>），而且使用的内存并不是连续的（如动态链表），需要在内存中跳来跳去，这些操作都会降低性能。<br>
-还有很多原因，如cpu对栈有直接支持（<code>push</code>, <code>pop</code>）；栈内存由操作系统管理，而堆内存由用户程序管理。</p>
-</li>
-<li>
-<p>指针</p>
-<blockquote>
-<p>In computer science, a pointer is a programming language object that stores a memory address. --wikipedia</p>
-</blockquote>
-<p>在计算机科学中，指针就是存储了一个内存地址的编程语言对象。</p>
-</li>
-<li>
-<p>引用</p>
-<p>以 java 为例:</p>
-<blockquote>
-<p>A reference is an address that indicates where an object's variables and methods are stored.</p>
-</blockquote>
-<p>引用是一个指向了对象的方法和变量存储位置的地址。</p>
-</li>
-</ol>
-<h2>三. linux命令</h2>
-<ol>
-<li>
-<p>删除当前目录除某文件外的所有文件</p>
-<div class="highlight highlight-source-shell"><pre>ls <span class="pl-k">|</span> grep -v except_filename <span class="pl-k">|</span> xargs rm -rf</pre></div>
-</li>
-<li>
-<p>更新所有的module</p>
-<pre><code>git submodule update --init --recursive --remote
-</code></pre>
-</li>
-</ol><hr><p>Thu Jul 23 17:46:40 2020</p><script src="https://utteranc.es/client.js"
-        repo="caixiangyue/caixiangyue.github.io"
-        issue-term="pathname"
-        theme="github-light"
-        crossorigin="anonymous"
-        async>
-</script>
-]]></description>
-</item>
-<item>
-<title>hello world</title>
-<link>https://caixiangyue.github.io/hello-world.html</link>
-<description> <![CDATA[<h1>Hello World</h1>
-<h2>1.test</h2>
-<blockquote>
-<p>test</p>
-</blockquote><hr><p>Mon Feb 24 17:36:07 2020</p><script src="https://utteranc.es/client.js"
+<h4>2021-09-25</h4>
+<span id="user-content-20210925">
+</span>
+<p>今天和宁儿尝试做了<code>炒蛏子</code>和<code>粉丝娃娃菜</code>，第一次做，味道还不错。</p>
+<p>一起看了部电影叫<code>完美世界</code>。感觉说教是没用的，你的一言一行就是最重要的教育。</p></span></span><hr><p>Sat Sep 25 23:21:21 2021</p><script src="https://utteranc.es/client.js"
         repo="caixiangyue/caixiangyue.github.io"
         issue-term="pathname"
         theme="github-light"
