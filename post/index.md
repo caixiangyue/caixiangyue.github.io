@@ -5,8 +5,8 @@ just for fun. mail:caixiangyue007@gmail.com
 -----
         
 
-[erlang学习](erlang学习.html)
 [tcp相关配置](tcp相关配置.html)
+[erlang学习](erlang学习.html)
 [mqtt协议学习](mqtt协议学习.html)
 [用C扩展Python](用C扩展Python.html)
 [朝花夕拾](朝花夕拾.html)
