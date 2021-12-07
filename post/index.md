@@ -5,6 +5,7 @@ just for fun. mail:caixiangyue007@gmail.com
 -----
         
 
+[kafka学习](kafka学习.html)
 [tcp相关配置](tcp相关配置.html)
 [erlang学习](erlang学习.html)
 [mqtt协议学习](mqtt协议学习.html)

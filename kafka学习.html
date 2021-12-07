@@ -1,0 +1,63 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><link rel="stylesheet" type="text/css" href="./css/github_new.css"><link rel="shortcut icon" href="favicon.png" type="image/x-icon"><!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-160306868-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-160306868-1');
+</script>
+<title>kafka学习</title></head><body><h4>环境搭建</h4>
+<p>docker-compose.yml</p>
+<div class="highlight highlight-source-yaml"><pre><span class="pl-ent">version</span>: <span class="pl-s"><span class="pl-pds">"</span>2<span class="pl-pds">"</span></span>
+
+<span class="pl-ent">services</span>:
+  <span class="pl-ent">zookeeper</span>:
+    <span class="pl-ent">image</span>: <span class="pl-s">docker.io/bitnami/zookeeper:3.7</span>
+    <span class="pl-ent">ports</span>:
+      - <span class="pl-s"><span class="pl-pds">"</span>2181:2181<span class="pl-pds">"</span></span>
+    <span class="pl-ent">volumes</span>:
+      - <span class="pl-s"><span class="pl-pds">"</span>zookeeper_data:/bitnami<span class="pl-pds">"</span></span>
+    <span class="pl-ent">environment</span>:
+      - <span class="pl-s">ALLOW_ANONYMOUS_LOGIN=yes</span>
+  <span class="pl-ent">kafka</span>:
+    <span class="pl-ent">image</span>: <span class="pl-s">docker.io/bitnami/kafka:3</span>
+    <span class="pl-ent">ports</span>:
+      - <span class="pl-s"><span class="pl-pds">"</span>9092:9092<span class="pl-pds">"</span></span>
+    <span class="pl-ent">volumes</span>:
+      - <span class="pl-s"><span class="pl-pds">"</span>kafka_data:/bitnami<span class="pl-pds">"</span></span>
+    <span class="pl-ent">environment</span>:
+      - <span class="pl-s">KAFKA_CFG_LISTENERS=PLAINTEXT://:9092</span>
+      - <span class="pl-s">KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://127.0.0.1:9092</span>
+      - <span class="pl-s">KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181</span>
+      - <span class="pl-s">ALLOW_PLAINTEXT_LISTENER=yes</span>
+      - <span class="pl-s">KAFKA_CREATE_TOPICS=mytopic</span>
+    <span class="pl-ent">depends_on</span>:
+      - <span class="pl-s">zookeeper</span>
+
+<span class="pl-ent">volumes</span>:
+  <span class="pl-ent">zookeeper_data</span>:
+    <span class="pl-ent">driver</span>: <span class="pl-s">local</span>
+  <span class="pl-ent">kafka_data</span>:
+    <span class="pl-ent">driver</span>: <span class="pl-s">local</span></pre></div>
+<p>启动</p>
+<div class="highlight highlight-source-shell"><pre>$ docker-compose up -d</pre></div>
+<p>消费者</p>
+<div class="highlight highlight-source-python"><pre><span class="pl-k">from</span> <span class="pl-s1">kafka</span> <span class="pl-k">import</span> <span class="pl-v">KafkaConsumer</span>
+
+<span class="pl-s1">consumer</span> <span class="pl-c1">=</span> <span class="pl-v">KafkaConsumer</span>(<span class="pl-s">'mytopic'</span>, <span class="pl-s1">bootstrap_servers</span><span class="pl-c1">=</span> [<span class="pl-s">'127.0.0.1:9092'</span>])
+<span class="pl-k">for</span> <span class="pl-s1">msg</span> <span class="pl-c1">in</span> <span class="pl-s1">consumer</span>:
+    <span class="pl-en">print</span>(<span class="pl-s1">msg</span>)</pre></div>
+<p>生产者</p>
+<div class="highlight highlight-source-python"><pre><span class="pl-k">from</span> <span class="pl-s1">kafka</span> <span class="pl-k">import</span> <span class="pl-v">KafkaProducer</span>
+
+<span class="pl-s1">producer</span> <span class="pl-c1">=</span> <span class="pl-v">KafkaProducer</span>(<span class="pl-s1">bootstrap_servers</span><span class="pl-c1">=</span>[<span class="pl-s">'127.0.0.1:9092'</span>])
+<span class="pl-s1">future</span> <span class="pl-c1">=</span> <span class="pl-s1">producer</span>.<span class="pl-en">send</span>(<span class="pl-s">'mytopic'</span> , <span class="pl-s1">key</span><span class="pl-c1">=</span> <span class="pl-s">b'test'</span>, <span class="pl-s1">value</span><span class="pl-c1">=</span> <span class="pl-s">b'test'</span>, <span class="pl-s1">partition</span><span class="pl-c1">=</span><span class="pl-c1">0</span>)
+<span class="pl-s1">result</span> <span class="pl-c1">=</span> <span class="pl-s1">future</span>.<span class="pl-en">get</span>(<span class="pl-s1">timeout</span><span class="pl-c1">=</span> <span class="pl-c1">10</span>)
+<span class="pl-en">print</span>(<span class="pl-s1">result</span>)</pre></div><hr><p>Tue Dec  7 12:40:57 2021</p><script src="https://utteranc.es/client.js"
+        repo="caixiangyue/caixiangyue.github.io"
+        issue-term="pathname"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+</body></html>
