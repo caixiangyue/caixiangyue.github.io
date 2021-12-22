@@ -1,5 +1,6 @@
 import os
 import re
+
 class Rss():
     def __init__(self):
         self.buffer = ''
