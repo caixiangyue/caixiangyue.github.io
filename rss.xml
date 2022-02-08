@@ -406,6 +406,23 @@ PyMODINIT_FUNC <span class="pl-en">PyInit_hello</span>(<span class="pl-k">void</
 ]]></description>
 </item>
 <item>
+<title>任务管理</title>
+<link>https://caixiangyue.github.io/任务管理.html</link>
+<description> <![CDATA[<h2>2022-02-08</h2>
+<ol class="contains-task-list">
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> rust学习</li>
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> threeq相关任务</li>
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox"> 熟悉上线流程</li>
+</ol><hr><p>Tue Feb  8 18:13:32 2022</p><script src="https://utteranc.es/client.js"
+        repo="caixiangyue/caixiangyue.github.io"
+        issue-term="pathname"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+]]></description>
+</item>
+<item>
 <title>朝花夕拾</title>
 <link>https://caixiangyue.github.io/朝花夕拾.html</link>
 <description> <![CDATA[<h2>一. c宏</h2>
