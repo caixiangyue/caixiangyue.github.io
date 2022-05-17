@@ -408,7 +408,13 @@ PyMODINIT_FUNC <span class="pl-en">PyInit_hello</span>(<span class="pl-k">void</
 <item>
 <title>任务管理</title>
 <link>https://caixiangyue.github.io/任务管理.html</link>
-<description> <![CDATA[<h3>2022-03-30</h3>
+<description> <![CDATA[<h3>2022-05-17</h3>
+<h4>discord相关</h4>
+<ol>
+<li>创建的群带有<code class="notranslate">channel</code>标识，屏蔽原本的所有事件，由<code class="notranslate">discord-server</code>传递新事件</li>
+<li>拉取会话列表，去掉<code class="notranslate">channel</code></li>
+</ol>
+<h3>2022-03-30</h3>
 <ol>
 <li>协助排查redis内存上升很快的问题</li>
 <li>协助排查mongo离线消息拉不到的问题</li>
@@ -437,7 +443,7 @@ PyMODINIT_FUNC <span class="pl-en">PyInit_hello</span>(<span class="pl-k">void</
 <li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> rust学习</li>
 <li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> threeq相关任务</li>
 <li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> 熟悉上线流程</li>
-</ol><hr><p>Sun Apr 24 16:17:07 2022</p><script src="https://utteranc.es/client.js"
+</ol><hr><p>Tue May 17 18:03:11 2022</p><script src="https://utteranc.es/client.js"
         repo="caixiangyue/caixiangyue.github.io"
         issue-term="pathname"
         theme="github-light"
