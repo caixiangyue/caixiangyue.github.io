@@ -1,0 +1,32 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><link rel="stylesheet" type="text/css" href="./css/github_new.css"><link rel="shortcut icon" href="favicon.png" type="image/x-icon"><!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-160306868-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-160306868-1');
+</script>
+<title>msync总结</title></head><body><ol>
+<li>集群调用函数</li>
+</ol>
+<div class="highlight highlight-source-erlang"><pre><span class="pl-en">rp</span>(<span class="pl-en">tool</span>:<span class="pl-en">rpc</span>({<span class="pl-c1">application</span>, <span class="pl-c1">get_env</span>, [<span class="pl-c1">message_store</span>, <span class="pl-c1">is_use_channel_sync</span>]}, <span class="pl-c1">'msync@ebs'</span>)).</pre></div>
+<ol start="2">
+<li>trace</li>
+</ol>
+<div class="highlight highlight-source-erlang"><pre>{<span class="pl-c1">ok</span>, <span class="pl-smi">Dev</span>} <span class="pl-k">=</span> <span class="pl-en">file</span>:<span class="pl-en">open</span>(<span class="pl-s"><span class="pl-pds">"</span>/tmp/trace<span class="pl-pds">"</span></span>,[<span class="pl-c1">write</span>]).
+<span class="pl-en">recon_trace</span>:<span class="pl-en">calls</span>({<span class="pl-c1">queue</span>, <span class="pl-c1">in</span>, <span class="pl-k">fun</span>(<span class="pl-c1">_</span>) -&gt; <span class="pl-en">return_trace</span>() <span class="pl-k">end</span>}, <span class="pl-c1">3</span>, [{<span class="pl-c1">io_server</span>, <span class="pl-smi">Dev</span>}]).
+
+<span class="pl-en">recon_trace</span>:<span class="pl-en">calls</span>({<span class="pl-c1">easemob_user_channel</span>, <span class="pl-c1">read</span>, <span class="pl-k">fun</span>(<span class="pl-c1">_</span>) -&gt; <span class="pl-en">return_trace</span>() <span class="pl-k">end</span>}, <span class="pl-c1">100</span>, [{<span class="pl-c1">return_to</span>, <span class="pl-c1">true</span>}, {<span class="pl-c1">scope</span>, <span class="pl-c1">local</span>}]).</pre></div>
+<ol start="3">
+<li>kafka</li>
+</ol>
+<div class="highlight highlight-source-shell"><pre>./kafka-consumer-groups.sh --bootstrap-server hsb-didi-guangzhou-mesos-master2:9092 --list
+
+./kafka-consumer-groups.sh --bootstrap-server hsb-didi-guangzhou-mesos-master2:9092 --describe --group msync-channel-outgoing</pre></div><hr><p>Thu Jun 30 17:26:06 2022</p><script src="https://utteranc.es/client.js"
+        repo="caixiangyue/caixiangyue.github.io"
+        issue-term="pathname"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+</body></html>

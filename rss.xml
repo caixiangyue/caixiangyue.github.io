@@ -8,6 +8,34 @@
 <link>https://caixiangyue.github.io</link>
 <description> cxy's blog </description>
 <item>
+<title>msync总结</title>
+<link>https://caixiangyue.github.io/msync总结.html</link>
+<description> <![CDATA[<ol>
+<li>集群调用函数</li>
+</ol>
+<div class="highlight highlight-source-erlang"><pre><span class="pl-en">rp</span>(<span class="pl-en">tool</span>:<span class="pl-en">rpc</span>({<span class="pl-c1">application</span>, <span class="pl-c1">get_env</span>, [<span class="pl-c1">message_store</span>, <span class="pl-c1">is_use_channel_sync</span>]}, <span class="pl-c1">'msync@ebs'</span>)).</pre></div>
+<ol start="2">
+<li>trace</li>
+</ol>
+<div class="highlight highlight-source-erlang"><pre>{<span class="pl-c1">ok</span>, <span class="pl-smi">Dev</span>} <span class="pl-k">=</span> <span class="pl-en">file</span>:<span class="pl-en">open</span>(<span class="pl-s"><span class="pl-pds">"</span>/tmp/trace<span class="pl-pds">"</span></span>,[<span class="pl-c1">write</span>]).
+<span class="pl-en">recon_trace</span>:<span class="pl-en">calls</span>({<span class="pl-c1">queue</span>, <span class="pl-c1">in</span>, <span class="pl-k">fun</span>(<span class="pl-c1">_</span>) -&gt; <span class="pl-en">return_trace</span>() <span class="pl-k">end</span>}, <span class="pl-c1">3</span>, [{<span class="pl-c1">io_server</span>, <span class="pl-smi">Dev</span>}]).
+
+<span class="pl-en">recon_trace</span>:<span class="pl-en">calls</span>({<span class="pl-c1">easemob_user_channel</span>, <span class="pl-c1">read</span>, <span class="pl-k">fun</span>(<span class="pl-c1">_</span>) -&gt; <span class="pl-en">return_trace</span>() <span class="pl-k">end</span>}, <span class="pl-c1">100</span>, [{<span class="pl-c1">return_to</span>, <span class="pl-c1">true</span>}, {<span class="pl-c1">scope</span>, <span class="pl-c1">local</span>}]).</pre></div>
+<ol start="3">
+<li>kafka</li>
+</ol>
+<div class="highlight highlight-source-shell"><pre>./kafka-consumer-groups.sh --bootstrap-server hsb-didi-guangzhou-mesos-master2:9092 --list
+
+./kafka-consumer-groups.sh --bootstrap-server hsb-didi-guangzhou-mesos-master2:9092 --describe --group msync-channel-outgoing</pre></div><hr><p>Thu Jun 30 17:26:06 2022</p><script src="https://utteranc.es/client.js"
+        repo="caixiangyue/caixiangyue.github.io"
+        issue-term="pathname"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+]]></description>
+</item>
+<item>
 <title>kafka学习</title>
 <link>https://caixiangyue.github.io/kafka学习.html</link>
 <description> <![CDATA[<h4>环境搭建</h4>
@@ -408,7 +436,11 @@ PyMODINIT_FUNC <span class="pl-en">PyInit_hello</span>(<span class="pl-k">void</
 <item>
 <title>任务管理</title>
 <link>https://caixiangyue.github.io/任务管理.html</link>
-<description> <![CDATA[<h3>2022-06-10</h3>
+<description> <![CDATA[<h3>2022-06-17</h3>
+<ol>
+<li>和SDK联调AES-GCM加密通过，并且支持了随机向量</li>
+</ol>
+<h3>2022-06-10</h3>
 <ol class="contains-task-list">
 <li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> 会话列表功能测试通过，压测1000人群，每秒一条，没有压力</li>
 <li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox"> 会话列表客户是否分页</li>
@@ -416,7 +448,7 @@ PyMODINIT_FUNC <span class="pl-en">PyInit_hello</span>(<span class="pl-k">void</
 </ol>
 <h3>2022-06-09</h3>
 <ol>
-<li>(1, 3)限流测试通过</li>
+<li>(1, 3，7)限流测试通过</li>
 </ol>
 <h3>2022-05-17</h3>
 <h4>discord相关</h4>
@@ -453,7 +485,7 @@ PyMODINIT_FUNC <span class="pl-en">PyInit_hello</span>(<span class="pl-k">void</
 <li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> rust学习</li>
 <li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> threeq相关任务</li>
 <li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> 熟悉上线流程</li>
-</ol><hr><p>Fri Jun 10 15:45:05 2022</p><script src="https://utteranc.es/client.js"
+</ol><hr><p>Thu Jun 30 17:16:29 2022</p><script src="https://utteranc.es/client.js"
         repo="caixiangyue/caixiangyue.github.io"
         issue-term="pathname"
         theme="github-light"
