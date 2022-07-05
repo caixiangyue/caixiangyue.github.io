@@ -1,6 +1,9 @@
 1. 集群调用函数
 ``` erlang
+执行命令
 rp(tool:rpc({application, get_env, [message_store, is_use_channel_sync]}, 'msync@ebs')).
+查日志
+tool:log_search_rpc("2022-07-05 15:18:27", 7200, "1028405512963623676", 20, "ejabberd@ebs").
 ```
 2. trace
 ```erlang

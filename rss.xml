@@ -13,7 +13,10 @@
 <description> <![CDATA[<ol>
 <li>集群调用函数</li>
 </ol>
-<div class="highlight highlight-source-erlang"><pre><span class="pl-en">rp</span>(<span class="pl-en">tool</span>:<span class="pl-en">rpc</span>({<span class="pl-c1">application</span>, <span class="pl-c1">get_env</span>, [<span class="pl-c1">message_store</span>, <span class="pl-c1">is_use_channel_sync</span>]}, <span class="pl-c1">'msync@ebs'</span>)).</pre></div>
+<div class="highlight highlight-source-erlang"><pre>执行命令
+<span class="pl-en">rp</span>(<span class="pl-en">tool</span>:<span class="pl-en">rpc</span>({<span class="pl-c1">application</span>, <span class="pl-c1">get_env</span>, [<span class="pl-c1">message_store</span>, <span class="pl-c1">is_use_channel_sync</span>]}, <span class="pl-c1">'msync@ebs'</span>)).
+查日志
+<span class="pl-en">tool</span>:<span class="pl-en">log_search_rpc</span>(<span class="pl-s"><span class="pl-pds">"</span>2022-07-05 15:18:27<span class="pl-pds">"</span></span>, <span class="pl-c1">7200</span>, <span class="pl-s"><span class="pl-pds">"</span>1028405512963623676<span class="pl-pds">"</span></span>, <span class="pl-c1">20</span>, <span class="pl-s"><span class="pl-pds">"</span>ejabberd@ebs<span class="pl-pds">"</span></span>).</pre></div>
 <ol start="2">
 <li>trace</li>
 </ol>
@@ -26,7 +29,7 @@
 </ol>
 <div class="highlight highlight-source-shell"><pre>./kafka-consumer-groups.sh --bootstrap-server hsb-didi-guangzhou-mesos-master2:9092 --list
 
-./kafka-consumer-groups.sh --bootstrap-server hsb-didi-guangzhou-mesos-master2:9092 --describe --group msync-channel-outgoing</pre></div><hr><p>Thu Jun 30 17:26:06 2022</p><script src="https://utteranc.es/client.js"
+./kafka-consumer-groups.sh --bootstrap-server hsb-didi-guangzhou-mesos-master2:9092 --describe --group msync-channel-outgoing</pre></div><hr><p>Tue Jul  5 19:22:38 2022</p><script src="https://utteranc.es/client.js"
         repo="caixiangyue/caixiangyue.github.io"
         issue-term="pathname"
         theme="github-light"
