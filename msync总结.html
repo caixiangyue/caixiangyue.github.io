@@ -12,7 +12,11 @@
 <div class="highlight highlight-source-erlang"><pre>执行命令
 <span class="pl-en">rp</span>(<span class="pl-en">tool</span>:<span class="pl-en">rpc</span>({<span class="pl-c1">application</span>, <span class="pl-c1">get_env</span>, [<span class="pl-c1">message_store</span>, <span class="pl-c1">is_use_channel_sync</span>]}, <span class="pl-c1">'msync@ebs'</span>)).
 查日志
-<span class="pl-en">tool</span>:<span class="pl-en">log_search_rpc</span>(<span class="pl-s"><span class="pl-pds">"</span>2022-07-05 15:18:27<span class="pl-pds">"</span></span>, <span class="pl-c1">7200</span>, <span class="pl-s"><span class="pl-pds">"</span>1028405512963623676<span class="pl-pds">"</span></span>, <span class="pl-c1">20</span>, <span class="pl-s"><span class="pl-pds">"</span>ejabberd@ebs<span class="pl-pds">"</span></span>).</pre></div>
+<span class="pl-en">tool</span>:<span class="pl-en">log_search_rpc</span>(<span class="pl-s"><span class="pl-pds">"</span>2022-07-05 15:18:27<span class="pl-pds">"</span></span>, <span class="pl-c1">7200</span>, <span class="pl-s"><span class="pl-pds">"</span>1028405512963623676<span class="pl-pds">"</span></span>, <span class="pl-c1">20</span>, <span class="pl-s"><span class="pl-pds">"</span>ejabberd@ebs<span class="pl-pds">"</span></span>).
+
+查聊天室
+[<span class="pl-smi">MucPid</span>] <span class="pl-k">=</span> <span class="pl-en">easemob_muc_router</span>:<span class="pl-en">get_router</span>(&lt;&lt;<span class="pl-s"><span class="pl-pds">"</span>easemob-demo#easeim_185068033212417<span class="pl-pds">"</span></span>&gt;&gt;).
+<span class="pl-en">rp</span>(<span class="pl-en">tool</span>:<span class="pl-en">get_state</span>(<span class="pl-s"><span class="pl-pds">"</span>&lt;55333.5711.7675&gt;<span class="pl-pds">"</span></span>)).</pre></div>
 <ol start="2">
 <li>trace</li>
 </ol>
@@ -25,7 +29,14 @@
 </ol>
 <div class="highlight highlight-source-shell"><pre>./kafka-consumer-groups.sh --bootstrap-server hsb-didi-guangzhou-mesos-master2:9092 --list
 
-./kafka-consumer-groups.sh --bootstrap-server hsb-didi-guangzhou-mesos-master2:9092 --describe --group msync-channel-outgoing</pre></div><hr><p>Tue Jul  5 19:22:38 2022</p><script src="https://utteranc.es/client.js"
+./kafka-consumer-groups.sh --bootstrap-server hsb-didi-guangzhou-mesos-master2:9092 --describe --group msync-channel-outgoing</pre></div>
+<h3>channel 相关命令</h3>
+<p>get all user channel: <strong>zrevrangebyscore</strong><br>
+get all channel cursors: <strong>hgetall</strong><br>
+get channel index: <strong>lrange</strong></p>
+<p>write user channel: <strong>zadd, zcard, zremrangebyrank, expire</strong><br>
+write channel index: <strong>lpush, llen, ltrim, expire</strong><br>
+write channel cursor: <strong>hset, hlen, hdel, expire</strong></p><hr><p>Mon Jul 11 10:09:12 2022</p><script src="https://utteranc.es/client.js"
         repo="caixiangyue/caixiangyue.github.io"
         issue-term="pathname"
         theme="github-light"
