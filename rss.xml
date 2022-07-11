@@ -40,7 +40,8 @@ get all channel cursors: <strong>hgetall</strong><br>
 get channel index: <strong>lrange</strong></p>
 <p>write user channel: <strong>zadd, zcard, zremrangebyrank, expire</strong><br>
 write channel index: <strong>lpush, llen, ltrim, expire</strong><br>
-write channel cursor: <strong>hset, hlen, hdel, expire</strong></p><hr><p>Mon Jul 11 10:09:12 2022</p><script src="https://utteranc.es/client.js"
+write channel cursor: <strong>hset, hlen, hdel, expire</strong></p>
+<p>delete user channel: <strong>zrem</strong></p><hr><p>Mon Jul 11 10:13:20 2022</p><script src="https://utteranc.es/client.js"
         repo="caixiangyue/caixiangyue.github.io"
         issue-term="pathname"
         theme="github-light"

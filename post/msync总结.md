@@ -33,3 +33,4 @@ write user channel: **zadd, zcard, zremrangebyrank, expire**
 write channel index: **lpush, llen, ltrim, expire**
 write channel cursor: **hset, hlen, hdel, expire**
 
+delete user channel: **zrem**
