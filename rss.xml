@@ -87,6 +87,7 @@ Created topic t1
 <p>愿你生命中有够多的云翳，来造成一个美丽的黄昏。    —— 冰心</p>
 </blockquote>
 <ul>
+<li><a href="#user-content-20220808">2022-08-08</a></li>
 <li><a href="#user-content-20220207">2022-02-07</a></li>
 <li><a href="#user-content-20220111">2022-01-11</a></li>
 <li><a href="#user-content-20220110">2022-01-10</a></li>
@@ -106,6 +107,13 @@ Created topic t1
 <li><a href="#user-content-20200414">2020-04-14</a></li>
 <li><a href="#user-content-20200327">2020-03-27</a></li>
 </ul>
+<h4>2022-08-08</h4>
+<span id="user-content-20220808">
+</span>
+大雨滂沱
+<video id="user-content-video" controls="">
+      <source id="user-content-mp4" type="video/mp4">
+
 <h4>2022-02-07</h4>
 <span id="user-content-20220207">
 </span>
@@ -134,7 +142,7 @@ Created topic t1
 <h4>2021-12-22</h4>
 <span id="user-content-20211222">
 </span>
-<p>昨天是冬至，晚上和zn一起吃了两斤思念的<code>虾仁三鲜水饺</code>，真的是每个饺子都至少有一个大虾仁（吃了好几个都有三个虾仁）！</p>
+<p>昨天是冬至，晚上和zn一起吃了两斤思念的<code class="notranslate">虾仁三鲜水饺</code>，真的是每个饺子都至少有一个大虾仁（吃了好几个都有三个虾仁）！</p>
 <p>今天北京天气晴朗<g-emoji class="g-emoji" alias="sun_with_face" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f31e.png">🌞</g-emoji>，万里无云。</p>
 <p>在这个美丽的上午，想一想今天要做的事情：</p>
 <ol class="contains-task-list">
@@ -151,8 +159,8 @@ Created topic t1
 <h4>2021-09-25</h4>
 <span id="user-content-20210925">
 </span>
-<p>今天和zn尝试做了<code>炒蛏子</code>和<code>粉丝娃娃菜</code>，第一次做，味道还不错。</p>
-<p>一起看了部电影叫<code>完美世界</code>。感觉说教是没用的，你的一言一行就是最重要的教育。</p>
+<p>今天和zn尝试做了<code class="notranslate">炒蛏子</code>和<code class="notranslate">粉丝娃娃菜</code>，第一次做，味道还不错。</p>
+<p>一起看了部电影叫<code class="notranslate">完美世界</code>。感觉说教是没用的，你的一言一行就是最重要的教育。</p>
 <h4>2021-08-30</h4>
 <span id="user-content-20210830">
 </span>
@@ -199,8 +207,8 @@ Created topic t1
 <h4>2020-11-03</h4>
 <span id="user-content-20201103">
 </span>
-<p>今天简单玩了玩 <code>github profile</code> 和 <code>github action</code>。感觉还是挺有意思的。<br>
-尤其是 <code>github action</code> 有一个 <code>workflow</code> 的概念，并且基于他做了一个 <code>workflow</code> 市场的感觉，上传自己的 <code>workflow</code>，其他人可以使用自己需要的<code>workflow</code>，极大地提升了生产力，很棒！</p>
+<p>今天简单玩了玩 <code class="notranslate">github profile</code> 和 <code class="notranslate">github action</code>。感觉还是挺有意思的。<br>
+尤其是 <code class="notranslate">github action</code> 有一个 <code class="notranslate">workflow</code> 的概念，并且基于他做了一个 <code class="notranslate">workflow</code> 市场的感觉，上传自己的 <code class="notranslate">workflow</code>，其他人可以使用自己需要的<code class="notranslate">workflow</code>，极大地提升了生产力，很棒！</p>
 <h4>2020-09-16</h4>
 <span id="user-content-20200916">
 工作第三年了，三年时光稍纵即逝。
@@ -229,7 +237,7 @@ Created topic t1
 <h4>2020-03-27</h4>
 <span id="user-content-20200327">
 不想记录一些流水账。
-</span></span></span><hr><p>Mon Feb  7 10:57:33 2022</p><script src="https://utteranc.es/client.js"
+</span></span></span></video><hr><p>Mon Aug  8 11:47:32 2022</p><script src="https://utteranc.es/client.js"
         repo="caixiangyue/caixiangyue.github.io"
         issue-term="pathname"
         theme="github-light"
@@ -451,7 +459,29 @@ PyMODINIT_FUNC <span class="pl-en">PyInit_hello</span>(<span class="pl-k">void</
 <item>
 <title>任务管理</title>
 <link>https://caixiangyue.github.io/任务管理.html</link>
-<description> <![CDATA[<h3>2022-06-17</h3>
+<description> <![CDATA[<h3>2022-08-08</h3>
+<ol>
+<li>单聊：
+<ul>
+<li>sdk发消息，查看发送方接收方的会话列表是否正确</li>
+<li>rest发消息，查看发送方接收方的会话列表是否正确</li>
+</ul>
+</li>
+<li>群聊：
+<ul>
+<li>sdk发消息，查看发送方接收方的会话列表是否正确</li>
+<li>rest发消息，查看发送方接收方的会话列表是否正确</li>
+</ul>
+</li>
+</ol>
+<h3>2022-08-02</h3>
+<ol>
+<li>漫游相关整理成文档</li>
+<li>迁移数据</li>
+<li>增加消费进程崩溃监控</li>
+<li>限流脚本</li>
+</ol>
+<h3>2022-06-17</h3>
 <ol>
 <li>和SDK联调AES-GCM加密通过，并且支持了随机向量</li>
 </ol>
@@ -500,7 +530,7 @@ PyMODINIT_FUNC <span class="pl-en">PyInit_hello</span>(<span class="pl-k">void</
 <li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> rust学习</li>
 <li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> threeq相关任务</li>
 <li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> 熟悉上线流程</li>
-</ol><hr><p>Mon Jul 11 09:52:16 2022</p><script src="https://utteranc.es/client.js"
+</ol><hr><p>Mon Aug  8 11:18:29 2022</p><script src="https://utteranc.es/client.js"
         repo="caixiangyue/caixiangyue.github.io"
         issue-term="pathname"
         theme="github-light"
