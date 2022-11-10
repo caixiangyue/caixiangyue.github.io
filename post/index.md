@@ -5,10 +5,12 @@ just for fun. mail:caixiangyue007@gmail.com
 -----
         
 
-[似水年华](似水年华.html)
-[任务管理](任务管理.html)
-[erlang学习](erlang学习.html)
+[投资记录](投资记录.html)
 [msync总结](msync总结.html)
+[上线问题](上线问题.html)
+[任务管理](任务管理.html)
+[似水年华](似水年华.html)
+[erlang学习](erlang学习.html)
 [朝花夕拾](朝花夕拾.html)
 [kafka学习](kafka学习.html)
 [tcp相关配置](tcp相关配置.html)

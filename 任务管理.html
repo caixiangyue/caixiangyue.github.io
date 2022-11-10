@@ -8,10 +8,21 @@
 </script>
 <title>任务管理</title></head><body><h3>漫游</h3>
 <ol class="contains-task-list">
-<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> 开启双读，漫游加TTL，上线北京</li>
-<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> 整理出不再使用的Appkey，清理相关漫游，删除了大概50%（需要等待阿里云切换云盘，现在的统计有问题）</li>
-<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox"> 查看新的<code class="notranslate">tendis</code>30天之后使用量是否符合预期</li>
-<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox"> 补ttl</li>
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> 开启双读，漫游加TTL</li>
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> 整理出不再使用的Appkey，清理相关漫游，删除了大概50%</li>
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> 查看新的<code class="notranslate">tendis</code>30天之后使用量是否符合预期</li>
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> 补ttl</li>
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox">   把漫游迁移到新的存储</li>
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox"> <strong>漫游切换到java，提供相关配置</strong></li>
+</ol>
+<h3>切换漫游</h3>
+<ol>
+<li>开启双读 (is_roam_double_read, true)</li>
+<li>整理出不再使用的Appkey，清理相关漫游</li>
+<li>通过脚本给老的存储添加ttl (expire_roam.erl)</li>
+<li>过一个月之后，查看新的存储使用量是否符合预期（使用量是否比较平稳）</li>
+<li>把漫游迁移到新的存储</li>
+<li>关闭双读 (is_roam_double_read, false)</li>
 </ol>
 <h3>2022-08-08</h3>
 <ol>
@@ -84,7 +95,7 @@
 <li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> rust学习</li>
 <li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> threeq相关任务</li>
 <li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> 熟悉上线流程</li>
-</ol><hr><p>Tue Sep  6 15:32:28 2022</p><script src="https://utteranc.es/client.js"
+</ol><hr><p>Fri Sep 16 10:50:05 2022</p><script src="https://utteranc.es/client.js"
         repo="caixiangyue/caixiangyue.github.io"
         issue-term="pathname"
         theme="github-light"

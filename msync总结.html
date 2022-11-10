@@ -30,6 +30,8 @@
 <div class="highlight highlight-source-shell"><pre>./kafka-consumer-groups.sh --bootstrap-server hsb-didi-guangzhou-mesos-master2:9092 --list
 
 ./kafka-consumer-groups.sh --bootstrap-server hsb-didi-guangzhou-mesos-master2:9092 --describe --group msync-channel-outgoing</pre></div>
+<pre class="notranslate"><code class="notranslate">rm /Users/one/easemob/msync/apps/msync/src/msync.appup.src
+</code></pre>
 <h3>channel 相关命令</h3>
 <p>get all user channel: <strong>zrevrangebyscore</strong><br>
 get all channel cursors: <strong>hgetall</strong><br>
@@ -37,7 +39,9 @@ get channel index: <strong>lrange</strong></p>
 <p>write user channel: <strong>zadd, zcard, zremrangebyrank, expire</strong><br>
 write channel index: <strong>lpush, llen, ltrim, expire</strong><br>
 write channel cursor: <strong>hset, hlen, hdel, expire</strong></p>
-<p>delete user channel: <strong>zrem</strong></p><hr><p>Mon Jul 11 10:13:20 2022</p><script src="https://utteranc.es/client.js"
+<p>delete user channel: <strong>zrem</strong></p>
+<h2>会话列表</h2>
+<p><a target="_blank" rel="noopener noreferrer" href="../img/20221013/1.png"><img src="../img/20221013/1.png" alt="" style="max-width: 100%;"></a></p><hr><p>Thu Oct 13 14:54:07 2022</p><script src="https://utteranc.es/client.js"
         repo="caixiangyue/caixiangyue.github.io"
         issue-term="pathname"
         theme="github-light"

@@ -34,6 +34,8 @@
 <div class="highlight highlight-source-shell"><pre>./kafka-consumer-groups.sh --bootstrap-server hsb-didi-guangzhou-mesos-master2:9092 --list
 
 ./kafka-consumer-groups.sh --bootstrap-server hsb-didi-guangzhou-mesos-master2:9092 --describe --group msync-channel-outgoing</pre></div>
+<pre class="notranslate"><code class="notranslate">rm /Users/one/easemob/msync/apps/msync/src/msync.appup.src
+</code></pre>
 <h3>channel 相关命令</h3>
 <p>get all user channel: <strong>zrevrangebyscore</strong><br>
 get all channel cursors: <strong>hgetall</strong><br>
@@ -41,7 +43,9 @@ get channel index: <strong>lrange</strong></p>
 <p>write user channel: <strong>zadd, zcard, zremrangebyrank, expire</strong><br>
 write channel index: <strong>lpush, llen, ltrim, expire</strong><br>
 write channel cursor: <strong>hset, hlen, hdel, expire</strong></p>
-<p>delete user channel: <strong>zrem</strong></p><hr><p>Mon Jul 11 10:13:20 2022</p><script src="https://utteranc.es/client.js"
+<p>delete user channel: <strong>zrem</strong></p>
+<h2>会话列表</h2>
+<p><a target="_blank" rel="noopener noreferrer" href="../img/20221013/1.png"><img src="../img/20221013/1.png" alt="" style="max-width: 100%;"></a></p><hr><p>Thu Oct 13 14:54:07 2022</p><script src="https://utteranc.es/client.js"
         repo="caixiangyue/caixiangyue.github.io"
         issue-term="pathname"
         theme="github-light"
@@ -463,10 +467,21 @@ PyMODINIT_FUNC <span class="pl-en">PyInit_hello</span>(<span class="pl-k">void</
 <link>https://caixiangyue.github.io/任务管理.html</link>
 <description> <![CDATA[<h3>漫游</h3>
 <ol class="contains-task-list">
-<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> 开启双读，漫游加TTL，上线北京</li>
-<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> 整理出不再使用的Appkey，清理相关漫游，删除了大概50%（需要等待阿里云切换云盘，现在的统计有问题）</li>
-<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox"> 查看新的<code class="notranslate">tendis</code>30天之后使用量是否符合预期</li>
-<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox"> 补ttl</li>
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> 开启双读，漫游加TTL</li>
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> 整理出不再使用的Appkey，清理相关漫游，删除了大概50%</li>
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> 查看新的<code class="notranslate">tendis</code>30天之后使用量是否符合预期</li>
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> 补ttl</li>
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox">   把漫游迁移到新的存储</li>
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox"> <strong>漫游切换到java，提供相关配置</strong></li>
+</ol>
+<h3>切换漫游</h3>
+<ol>
+<li>开启双读 (is_roam_double_read, true)</li>
+<li>整理出不再使用的Appkey，清理相关漫游</li>
+<li>通过脚本给老的存储添加ttl (expire_roam.erl)</li>
+<li>过一个月之后，查看新的存储使用量是否符合预期（使用量是否比较平稳）</li>
+<li>把漫游迁移到新的存储</li>
+<li>关闭双读 (is_roam_double_read, false)</li>
 </ol>
 <h3>2022-08-08</h3>
 <ol>
@@ -539,7 +554,63 @@ PyMODINIT_FUNC <span class="pl-en">PyInit_hello</span>(<span class="pl-k">void</
 <li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> rust学习</li>
 <li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> threeq相关任务</li>
 <li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> 熟悉上线流程</li>
-</ol><hr><p>Tue Sep  6 15:32:28 2022</p><script src="https://utteranc.es/client.js"
+</ol><hr><p>Fri Sep 16 10:50:05 2022</p><script src="https://utteranc.es/client.js"
+        repo="caixiangyue/caixiangyue.github.io"
+        issue-term="pathname"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+]]></description>
+</item>
+<item>
+<title>投资记录</title>
+<link>https://caixiangyue.github.io/投资记录.html</link>
+<description> <![CDATA[<h3>2022-11-10</h3>
+<table role="table">
+<thead>
+<tr>
+<th>股票</th>
+<th>单价</th>
+<th>数量</th>
+<th>总额</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>长江电力</td>
+<td>19.92</td>
+<td>100</td>
+<td>1997</td>
+</tr>
+</tbody>
+</table>
+<table role="table">
+<thead>
+<tr>
+<th>基金</th>
+<th>总额</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>证券保险</td>
+<td>300</td>
+</tr>
+<tr>
+<td>深红利</td>
+<td>100</td>
+</tr>
+<tr>
+<td>中概互联</td>
+<td>200</td>
+</tr>
+<tr>
+<td>纳斯达克</td>
+<td>400</td>
+</tr>
+</tbody>
+</table><hr><p>Thu Nov 10 11:03:42 2022</p><script src="https://utteranc.es/client.js"
         repo="caixiangyue/caixiangyue.github.io"
         issue-term="pathname"
         theme="github-light"
