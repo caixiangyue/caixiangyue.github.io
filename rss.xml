@@ -610,7 +610,47 @@ PyMODINIT_FUNC <span class="pl-en">PyInit_hello</span>(<span class="pl-k">void</
 <td>400</td>
 </tr>
 </tbody>
-</table><hr><p>Thu Nov 10 11:03:42 2022</p><script src="https://utteranc.es/client.js"
+</table>
+<h3>2022-12-09</h3>
+<table role="table">
+<thead>
+<tr>
+<th>基金</th>
+<th>总额</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>华夏纳斯达克100ETF C</td>
+<td>400</td>
+</tr>
+<tr>
+<td>博时标普500ETF C</td>
+<td>100</td>
+</tr>
+<tr>
+<td>易方达中证海外中国互联50ETF</td>
+<td>100</td>
+</tr>
+<tr>
+<td>华宝标普美国品质消费 C</td>
+<td>300</td>
+</tr>
+<tr>
+<td>广发全球医疗保健指数 C</td>
+<td>100</td>
+</tr>
+<tr>
+<td>交银施罗德创业板50 C</td>
+<td>500</td>
+</tr>
+<tr>
+<td>富国中证消费50ETF C</td>
+<td>200</td>
+</tr>
+</tbody>
+</table>
+<p><strong>共计 1700元</strong></p><hr><p>Fri Dec  9 11:57:23 2022</p><script src="https://utteranc.es/client.js"
         repo="caixiangyue/caixiangyue.github.io"
         issue-term="pathname"
         theme="github-light"
