@@ -566,7 +566,27 @@ PyMODINIT_FUNC <span class="pl-en">PyInit_hello</span>(<span class="pl-k">void</
 <item>
 <title>投资记录</title>
 <link>https://caixiangyue.github.io/投资记录.html</link>
-<description> <![CDATA[<h3>2022-11-10</h3>
+<description> <![CDATA[<h3>2023-01-10</h3>
+<table role="table">
+<thead>
+<tr>
+<th>基金</th>
+<th>总额</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>天宏中证电子ETF C</td>
+<td>800</td>
+</tr>
+<tr>
+<td>华宝标普美国品质消费 C</td>
+<td>1000</td>
+</tr>
+</tbody>
+</table>
+<p><strong>共计 1800元</strong></p>
+<h3>2022-11-10</h3>
 <table role="table">
 <thead>
 <tr>
@@ -650,7 +670,7 @@ PyMODINIT_FUNC <span class="pl-en">PyInit_hello</span>(<span class="pl-k">void</
 </tr>
 </tbody>
 </table>
-<p><strong>共计 1800元</strong></p><hr><p>Fri Dec  9 12:30:38 2022</p><script src="https://utteranc.es/client.js"
+<p><strong>共计 1800元</strong></p><hr><p>Tue Jan 10 11:39:45 2023</p><script src="https://utteranc.es/client.js"
         repo="caixiangyue/caixiangyue.github.io"
         issue-term="pathname"
         theme="github-light"
