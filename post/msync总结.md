@@ -9,6 +9,12 @@ tool:log_search_rpc("2022-07-05 15:18:27", 7200, "1028405512963623676", 20, "eja
 [MucPid] = easemob_muc_router:get_router(<<"easemob-demo#easeim_185068033212417">>).
 rp(tool:get_state("<55333.5711.7675>")).
 ```
+
+```
+config:load_env("/data/apps/opt/msync/releases/23.3.1.0/sys.config").
+easemob_traffic_control_sup:stop(),easemob_traffic_control_sup:start().
+```
+
 2. trace
 ```erlang
 {ok, Dev} = file:open("/tmp/trace",[write]).
