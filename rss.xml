@@ -91,6 +91,7 @@ Created topic t1
 <p>愿你生命中有够多的云翳，来造成一个美丽的黄昏。    —— 冰心</p>
 </blockquote>
 <ul>
+<li><a href="#user-content-20230608">2023-06-08</a></li>
 <li><a href="#user-content-20230530">2023-05-30</a></li>
 <li><a href="#user-content-20230526">2023-05-26</a></li>
 <li><a href="#user-content-20230522">2023-05-22</a></li>
@@ -115,6 +116,10 @@ Created topic t1
 <li><a href="#user-content-20200414">2020-04-14</a></li>
 <li><a href="#user-content-20200327">2020-03-27</a></li>
 </ul>
+<h4>2023-06-08</h4>
+<span id="user-content-20230608">
+</span>
+<p>最近又看了一遍古龙先生的《多情剑客无情剑》</p>
 <h4>2023-05-30</h4>
 <span id="user-content-20230530">
 </span>
@@ -180,7 +185,7 @@ Created topic t1
 <span id="user-content-20211222">
 </span>
 <p>昨天是冬至，晚上和zn一起吃了两斤思念的<code class="notranslate">虾仁三鲜水饺</code>，真的是每个饺子都至少有一个大虾仁（吃了好几个都有三个虾仁）！</p>
-<p>今天北京天气晴朗<g-emoji class="g-emoji" alias="sun_with_face" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f31e.png">🌞</g-emoji>，万里无云。</p>
+<p>今天北京天气晴朗🌞，万里无云。</p>
 <p>在这个美丽的上午，想一想今天要做的事情：</p>
 <ol class="contains-task-list">
 <li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> 看一下Redis深度历险</li>
@@ -256,7 +261,7 @@ Created topic t1
 </p>
 <h4>2020-07-14</h4>
 <span id="user-content-20200714">
-为了成为更厉害的人而努力！<g-emoji class="g-emoji" alias="muscle" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4aa.png">💪</g-emoji>
+为了成为更厉害的人而努力！💪
 </span>
 <h4>2020-07-01</h4>
 <span id="user-content-20200701">
@@ -274,7 +279,7 @@ Created topic t1
 <h4>2020-03-27</h4>
 <span id="user-content-20200327">
 不想记录一些流水账。
-</span></span></span><hr><p>Tue May 30 16:29:36 2023</p><script src="https://utteranc.es/client.js"
+</span></span></span><hr><p>Tue Jul  4 15:01:51 2023</p><script src="https://utteranc.es/client.js"
         repo="caixiangyue/caixiangyue.github.io"
         issue-term="pathname"
         theme="github-light"
@@ -586,146 +591,6 @@ PyMODINIT_FUNC <span class="pl-en">PyInit_hello</span>(<span class="pl-k">void</
 <li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> threeq相关任务</li>
 <li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> 熟悉上线流程</li>
 </ol><hr><p>Fri Sep 16 10:50:05 2022</p><script src="https://utteranc.es/client.js"
-        repo="caixiangyue/caixiangyue.github.io"
-        issue-term="pathname"
-        theme="github-light"
-        crossorigin="anonymous"
-        async>
-</script>
-]]></description>
-</item>
-<item>
-<title>投资记录</title>
-<link>https://caixiangyue.github.io/投资记录.html</link>
-<description> <![CDATA[<h3>2023-02-10</h3>
-<table role="table">
-<thead>
-<tr>
-<th>股票/基金</th>
-<th>金额</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>中国石化500股</td>
-<td>2250</td>
-</tr>
-<tr>
-<td>工商银行1000股 C</td>
-<td>4300</td>
-</tr>
-<tr>
-<td>沪港深500ETF 200股</td>
-<td>待成交</td>
-</tr>
-</tbody>
-</table>
-<p>清仓美国消费</p>
-<h3>2023-01-10</h3>
-<table role="table">
-<thead>
-<tr>
-<th>基金</th>
-<th>总额</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>天宏中证电子ETF C</td>
-<td>800</td>
-</tr>
-<tr>
-<td>华宝标普美国品质消费 C</td>
-<td>1000</td>
-</tr>
-</tbody>
-</table>
-<p><strong>共计 1800元</strong></p>
-<h3>2022-11-10</h3>
-<table role="table">
-<thead>
-<tr>
-<th>股票</th>
-<th>单价</th>
-<th>数量</th>
-<th>总额</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>长江电力</td>
-<td>19.92</td>
-<td>100</td>
-<td>1997</td>
-</tr>
-</tbody>
-</table>
-<table role="table">
-<thead>
-<tr>
-<th>基金</th>
-<th>总额</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>证券保险</td>
-<td>300</td>
-</tr>
-<tr>
-<td>深红利</td>
-<td>100</td>
-</tr>
-<tr>
-<td>中概互联</td>
-<td>200</td>
-</tr>
-<tr>
-<td>纳斯达克</td>
-<td>400</td>
-</tr>
-</tbody>
-</table>
-<h3>2022-12-09</h3>
-<table role="table">
-<thead>
-<tr>
-<th>基金</th>
-<th>总额</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>华夏纳斯达克100ETF C</td>
-<td>400</td>
-</tr>
-<tr>
-<td>博时标普500ETF C</td>
-<td>100</td>
-</tr>
-<tr>
-<td>易方达中证海外中国互联50ETF</td>
-<td>100</td>
-</tr>
-<tr>
-<td>华宝标普美国品质消费 C</td>
-<td>300</td>
-</tr>
-<tr>
-<td>广发全球医疗保健指数 C</td>
-<td>100</td>
-</tr>
-<tr>
-<td>交银施罗德创业板50 C</td>
-<td>500</td>
-</tr>
-<tr>
-<td>中欧医疗创新股票 C</td>
-<td>300</td>
-</tr>
-</tbody>
-</table>
-<p><strong>共计 1800元</strong></p><hr><p>Fri Feb 10 13:45:13 2023</p><script src="https://utteranc.es/client.js"
         repo="caixiangyue/caixiangyue.github.io"
         issue-term="pathname"
         theme="github-light"
