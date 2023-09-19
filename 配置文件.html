@@ -1,0 +1,44 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><link rel="stylesheet" type="text/css" href="./css/github_new.css"><link rel="shortcut icon" href="favicon.png" type="image/x-icon"><!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-160306868-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-160306868-1');
+</script>
+<title>配置文件</title></head><body><h1>配置文件</h1>
+<h2>validators</h2>
+<p>在<code class="notranslate">schema</code>文件中可以为<code class="notranslate">mapping</code>编写<code class="notranslate">validator</code>函数，去执行一些更高级的校验。</p>
+<p>例如：</p>
+<div class="highlight highlight-source-erlang"><pre class="notranslate">{<span class="pl-c1">mapping</span>, <span class="pl-s"><span class="pl-pds">"</span>platform_len_limit<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>msync.platform_len_limit<span class="pl-pds">"</span></span>, [
+  {<span class="pl-c1">default</span>, <span class="pl-c1">10</span>},
+  {<span class="pl-c1">datatype</span>, <span class="pl-c1">integer</span>},
+  {<span class="pl-c1">validators</span>, [<span class="pl-s"><span class="pl-pds">"</span>&gt;=0<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>&lt;=50<span class="pl-pds">"</span></span>]}
+]}.
+
+{<span class="pl-c1">validator</span>, <span class="pl-s"><span class="pl-pds">"</span>&gt;=0<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>must be at least 0<span class="pl-pds">"</span></span>,
+ <span class="pl-k">fun</span>(<span class="pl-smi">V</span>) -&gt;
+    <span class="pl-smi">V</span> <span class="pl-k">&gt;=</span> <span class="pl-c1">0</span>
+ <span class="pl-k">end</span>}.
+{<span class="pl-c1">validator</span>, <span class="pl-s"><span class="pl-pds">"</span>&lt;=50<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>50 and larger are not supported<span class="pl-pds">"</span></span>,
+ <span class="pl-k">fun</span>(<span class="pl-smi">V</span>) -&gt;
+    <span class="pl-smi">V</span> <span class="pl-k">=&lt;</span> <span class="pl-c1">50</span>
+ <span class="pl-k">end</span>}.</pre></div>
+<p>如果把<code class="notranslate">platform_len_limit</code>的值设置为<code class="notranslate">-1</code>，生成配置文件会收到如下报错：<br>
+<a target="_blank" rel="noopener noreferrer" href="../img/20230919/1.png"><img src="../img/20230919/1.png" alt="" style="max-width: 100%;"></a></p>
+<h2>单元测试</h2>
+<div class="highlight highlight-source-erlang"><pre class="notranslate">    <span class="pl-smi">Config</span> <span class="pl-k">=</span> <span class="pl-en">cuttlefish_unit</span>:<span class="pl-en">generate_templated_config</span>(
+                <span class="pl-s"><span class="pl-pds">"</span>../../lib/msync/priv/msync.schema<span class="pl-pds">"</span></span>, [], []),
+    <span class="pl-c1">ok</span> <span class="pl-k">=</span> <span class="pl-en">cuttlefish_unit</span>:<span class="pl-en">assert_error_message</span>(<span class="pl-smi">Config</span>, <span class="pl-s"><span class="pl-pds">"</span>platform_len_limit invalid, must be at least 0<span class="pl-pds">"</span></span>),
+</pre></div>
+<div class="highlight highlight-source-erlang"><pre class="notranslate">    <span class="pl-smi">LocalConfig</span> <span class="pl-k">=</span> [{[<span class="pl-s"><span class="pl-pds">"</span>platform_len_limit<span class="pl-pds">"</span></span>], <span class="pl-c1">10</span>}],
+    <span class="pl-smi">Config</span> <span class="pl-k">=</span> <span class="pl-en">cuttlefish_unit</span>:<span class="pl-en">generate_templated_config</span>(
+        <span class="pl-s"><span class="pl-pds">"</span>../../lib/msync/priv/msync.schema<span class="pl-pds">"</span></span>, <span class="pl-smi">LocalConfig</span>, []),
+    <span class="pl-c1">ok</span> <span class="pl-k">=</span> <span class="pl-en">cuttlefish_unit</span>:<span class="pl-en">assert_config</span>(<span class="pl-smi">Config</span>,   <span class="pl-s"><span class="pl-pds">"</span>msync.platform_len_limit<span class="pl-pds">"</span></span>, <span class="pl-c1">10</span>),</pre></div><hr><p>Tue Sep 19 15:21:24 2023</p><script src="https://utteranc.es/client.js"
+        repo="caixiangyue/caixiangyue.github.io"
+        issue-term="pathname"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+</body></html>

@@ -5,6 +5,7 @@ just for fun. mail:caixiangyue007@gmail.com
 -----
         
 
+[配置文件](配置文件.html)
 [似水年华](似水年华.html)
 [任务管理](任务管理.html)
 [msync总结](msync总结.html)
