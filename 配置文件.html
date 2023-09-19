@@ -27,14 +27,21 @@
 <p>如果把<code class="notranslate">platform_len_limit</code>的值设置为<code class="notranslate">-1</code>，生成配置文件会收到如下报错：<br>
 <a target="_blank" rel="noopener noreferrer" href="../img/20230919/1.png"><img src="../img/20230919/1.png" alt="" style="max-width: 100%;"></a></p>
 <h2>单元测试</h2>
-<div class="highlight highlight-source-erlang"><pre class="notranslate">    <span class="pl-smi">Config</span> <span class="pl-k">=</span> <span class="pl-en">cuttlefish_unit</span>:<span class="pl-en">generate_templated_config</span>(
-                <span class="pl-s"><span class="pl-pds">"</span>../../lib/msync/priv/msync.schema<span class="pl-pds">"</span></span>, [], []),
-    <span class="pl-c1">ok</span> <span class="pl-k">=</span> <span class="pl-en">cuttlefish_unit</span>:<span class="pl-en">assert_error_message</span>(<span class="pl-smi">Config</span>, <span class="pl-s"><span class="pl-pds">"</span>platform_len_limit invalid, must be at least 0<span class="pl-pds">"</span></span>),
+<div class="highlight highlight-source-erlang"><pre class="notranslate">   <span class="pl-c"><span class="pl-c">%</span>% 仅通过schema文件生成配置</span>
+   <span class="pl-smi">Config</span> <span class="pl-k">=</span> <span class="pl-en">cuttlefish_unit</span>:<span class="pl-en">generate_templated_config</span>(
+               <span class="pl-s"><span class="pl-pds">"</span>../../lib/msync/priv/msync.schema<span class="pl-pds">"</span></span>, [], []),
+   <span class="pl-c"><span class="pl-c">%</span>% assert validator 设置的错误信息</span>
+   <span class="pl-c1">ok</span> <span class="pl-k">=</span> <span class="pl-en">cuttlefish_unit</span>:<span class="pl-en">assert_error_message</span>(<span class="pl-smi">Config</span>, <span class="pl-s"><span class="pl-pds">"</span>platform_len_limit invalid, must be at least 0<span class="pl-pds">"</span></span>).
 </pre></div>
-<div class="highlight highlight-source-erlang"><pre class="notranslate">    <span class="pl-smi">LocalConfig</span> <span class="pl-k">=</span> [{[<span class="pl-s"><span class="pl-pds">"</span>platform_len_limit<span class="pl-pds">"</span></span>], <span class="pl-c1">10</span>}],
-    <span class="pl-smi">Config</span> <span class="pl-k">=</span> <span class="pl-en">cuttlefish_unit</span>:<span class="pl-en">generate_templated_config</span>(
-        <span class="pl-s"><span class="pl-pds">"</span>../../lib/msync/priv/msync.schema<span class="pl-pds">"</span></span>, <span class="pl-smi">LocalConfig</span>, []),
-    <span class="pl-c1">ok</span> <span class="pl-k">=</span> <span class="pl-en">cuttlefish_unit</span>:<span class="pl-en">assert_config</span>(<span class="pl-smi">Config</span>,   <span class="pl-s"><span class="pl-pds">"</span>msync.platform_len_limit<span class="pl-pds">"</span></span>, <span class="pl-c1">10</span>),</pre></div><hr><p>Tue Sep 19 15:21:24 2023</p><script src="https://utteranc.es/client.js"
+<div class="highlight highlight-source-erlang"><pre class="notranslate">   <span class="pl-c"><span class="pl-c">%</span>% 通过 config 和 schema 共同生成配置</span>
+   <span class="pl-smi">LocalConfig</span> <span class="pl-k">=</span> [{[<span class="pl-s"><span class="pl-pds">"</span>platform_len_limit<span class="pl-pds">"</span></span>], <span class="pl-c1">10</span>}],
+   <span class="pl-smi">Config</span> <span class="pl-k">=</span> <span class="pl-en">cuttlefish_unit</span>:<span class="pl-en">generate_templated_config</span>(
+      <span class="pl-s"><span class="pl-pds">"</span>../../lib/msync/priv/msync.schema<span class="pl-pds">"</span></span>, <span class="pl-smi">LocalConfig</span>, []),
+   <span class="pl-c"><span class="pl-c">%</span>% assert 生成的配置是否符合预期</span>
+   <span class="pl-c1">ok</span> <span class="pl-k">=</span> <span class="pl-en">cuttlefish_unit</span>:<span class="pl-en">assert_config</span>(<span class="pl-smi">Config</span>,   <span class="pl-s"><span class="pl-pds">"</span>msync.platform_len_limit<span class="pl-pds">"</span></span>, <span class="pl-c1">10</span>),
+   <span class="pl-c"><span class="pl-c">%</span>% assert 是否没有生成此配置</span>
+   <span class="pl-c1">ok</span> <span class="pl-k">=</span> <span class="pl-en">cuttlefish_unit</span>:<span class="pl-en">assert_not_configured</span>(<span class="pl-smi">Config</span>, <span class="pl-s"><span class="pl-pds">"</span>msync.roam_server<span class="pl-pds">"</span></span>).
+</pre></div><hr><p>Tue Sep 19 15:32:51 2023</p><script src="https://utteranc.es/client.js"
         repo="caixiangyue/caixiangyue.github.io"
         issue-term="pathname"
         theme="github-light"
