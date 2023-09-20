@@ -41,6 +41,27 @@
  <span class="pl-k">end</span>}.</pre></div>
 <p>如果在<code class="notranslate">conf</code>文件中没有配置，会打印如下报错：<br>
 <a target="_blank" rel="noopener noreferrer" href="../img/20230919/2.png"><img src="../img/20230919/2.png" alt="" style="max-width: 100%;"></a></p>
+<p>例子3:</p>
+<p>检查一组配置是否都有配置</p>
+<div class="highlight highlight-source-erlang"><pre class="notranslate"><span class="pl-c"><span class="pl-c">%</span>% easemob queues</span>
+{<span class="pl-c1">mapping</span>, <span class="pl-s"><span class="pl-pds">"</span>easemob_queues<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>msync.easemob_queues<span class="pl-pds">"</span></span>, [
+  {<span class="pl-c1">default</span>, <span class="pl-s"><span class="pl-pds">"</span>queue_channel,queue_group_channel,queue_offline,queue_presence_session,queue_reaction,queue_ets<span class="pl-pds">"</span></span>},
+  {<span class="pl-c1">datatype</span>, <span class="pl-c1">string</span>}
+]}.
+
+{ <span class="pl-c1">translation</span>,
+  <span class="pl-s"><span class="pl-pds">"</span>msync.easemob_queues<span class="pl-pds">"</span></span>,
+    <span class="pl-k">fun</span>(<span class="pl-smi">Conf</span>) -&gt;
+        <span class="pl-smi">AllQueues</span> <span class="pl-k">=</span> <span class="pl-en">cuttlefish</span>:<span class="pl-en">conf_get</span>(<span class="pl-s"><span class="pl-pds">"</span>easemob_queues<span class="pl-pds">"</span></span>, <span class="pl-smi">Conf</span>),
+        <span class="pl-smi">Queues</span> <span class="pl-k">=</span> <span class="pl-en">string</span>:<span class="pl-en">tokens</span>(<span class="pl-smi">AllQueues</span>, <span class="pl-s"><span class="pl-pds">"</span>,<span class="pl-pds">"</span></span>),
+        <span class="pl-en">lists</span>:<span class="pl-en">foreach</span>(<span class="pl-k">fun</span>(<span class="pl-smi">Queue</span>) -&gt; 
+            <span class="pl-en">cuttlefish</span>:<span class="pl-en">conf_get</span>(<span class="pl-smi">Queue</span> <span class="pl-k">++</span> <span class="pl-s"><span class="pl-pds">"</span>.pool_size<span class="pl-pds">"</span></span>, <span class="pl-smi">Conf</span>)
+        <span class="pl-k">end</span>, <span class="pl-smi">Queues</span>),
+        [<span class="pl-en">erlang</span>:<span class="pl-en">list_to_atom</span>(<span class="pl-smi">Queue</span>) || <span class="pl-smi">Queue</span> <span class="pl-k">&lt;-</span> <span class="pl-en">string</span>:<span class="pl-en">tokens</span>(<span class="pl-smi">AllQueues</span>, <span class="pl-s"><span class="pl-pds">"</span>,<span class="pl-pds">"</span></span>)]
+    <span class="pl-k">end</span>
+}.</pre></div>
+<p>如果<code class="notranslate">easemob_queues</code> 依赖的 <code class="notranslate">pool_size</code> 没有配置，会打印如下报错：<br>
+<a target="_blank" rel="noopener noreferrer" href="../img/20230919/3.png"><img src="../img/20230919/3.png" alt="" style="max-width: 100%;"></a></p>
 <h2>单元测试</h2>
 <div class="highlight highlight-source-erlang"><pre class="notranslate">   <span class="pl-c"><span class="pl-c">%</span>% 仅通过schema文件生成配置</span>
    <span class="pl-smi">Config</span> <span class="pl-k">=</span> <span class="pl-en">cuttlefish_unit</span>:<span class="pl-en">generate_templated_config</span>(
@@ -56,7 +77,7 @@
    <span class="pl-c1">ok</span> <span class="pl-k">=</span> <span class="pl-en">cuttlefish_unit</span>:<span class="pl-en">assert_config</span>(<span class="pl-smi">Config</span>,   <span class="pl-s"><span class="pl-pds">"</span>msync.platform_len_limit<span class="pl-pds">"</span></span>, <span class="pl-c1">10</span>),
    <span class="pl-c"><span class="pl-c">%</span>% assert 是否没有生成此配置</span>
    <span class="pl-c1">ok</span> <span class="pl-k">=</span> <span class="pl-en">cuttlefish_unit</span>:<span class="pl-en">assert_not_configured</span>(<span class="pl-smi">Config</span>, <span class="pl-s"><span class="pl-pds">"</span>msync.roam_server<span class="pl-pds">"</span></span>).
-</pre></div><hr><p>Tue Sep 19 15:46:22 2023</p><script src="https://utteranc.es/client.js"
+</pre></div><hr><p>Wed Sep 20 15:24:20 2023</p><script src="https://utteranc.es/client.js"
         repo="caixiangyue/caixiangyue.github.io"
         issue-term="pathname"
         theme="github-light"
