@@ -387,6 +387,12 @@ Created topic t1
 }.</pre></div>
 <p>如果<code class="notranslate">easemob_queues</code> 依赖的 <code class="notranslate">pool_size</code> 没有配置，会打印如下报错：<br>
 <a target="_blank" rel="noopener noreferrer" href="../img/20230919/3.png"><img src="../img/20230919/3.png" alt="" style="max-width: 100%;"></a></p>
+<h3>一些注意事项</h3>
+<ul>
+<li><code class="notranslate">validator</code>函数仅有一个参数</li>
+<li><code class="notranslate">validator</code>函数在一个schema文件定义后，在所有schema文件都可以使用</li>
+<li>不要在多个<code class="notranslate">schema</code>文件中重复定义配置</li>
+</ul>
 <h2>单元测试</h2>
 <div class="highlight highlight-source-erlang"><pre class="notranslate">   <span class="pl-c"><span class="pl-c">%</span>% 仅通过schema文件生成配置</span>
    <span class="pl-smi">Config</span> <span class="pl-k">=</span> <span class="pl-en">cuttlefish_unit</span>:<span class="pl-en">generate_templated_config</span>(
@@ -402,7 +408,7 @@ Created topic t1
    <span class="pl-c1">ok</span> <span class="pl-k">=</span> <span class="pl-en">cuttlefish_unit</span>:<span class="pl-en">assert_config</span>(<span class="pl-smi">Config</span>,   <span class="pl-s"><span class="pl-pds">"</span>msync.platform_len_limit<span class="pl-pds">"</span></span>, <span class="pl-c1">10</span>),
    <span class="pl-c"><span class="pl-c">%</span>% assert 是否没有生成此配置</span>
    <span class="pl-c1">ok</span> <span class="pl-k">=</span> <span class="pl-en">cuttlefish_unit</span>:<span class="pl-en">assert_not_configured</span>(<span class="pl-smi">Config</span>, <span class="pl-s"><span class="pl-pds">"</span>msync.roam_server<span class="pl-pds">"</span></span>).
-</pre></div><hr><p>Wed Sep 20 15:24:20 2023</p><script src="https://utteranc.es/client.js"
+</pre></div><hr><p>Wed Sep 20 17:21:29 2023</p><script src="https://utteranc.es/client.js"
         repo="caixiangyue/caixiangyue.github.io"
         issue-term="pathname"
         theme="github-light"
