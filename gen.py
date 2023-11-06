@@ -78,6 +78,9 @@ just for fun. mail:caixiangyue007@gmail.com
   gtag('config', 'UA-160306868-1');
 </script>
 """
+        google_ad = """<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5809313774160994"
+     crossorigin="anonymous"></script>
+     """
         posts = self._get_post_dir()
         for post in posts:
             html =  '<!DOCTYPE html>'
@@ -85,6 +88,7 @@ just for fun. mail:caixiangyue007@gmail.com
             html += self._get_css()
             html += '<link rel="shortcut icon" href="favicon.png" type="image/x-icon">'
             html += google_analytics
+            html += google_ad
             title = '<title>cxy</title>'
             if post['filename'] != 'index':
                 title = f'<title>{post["title"]}</title>'
@@ -99,6 +103,7 @@ just for fun. mail:caixiangyue007@gmail.com
             html += '</body>'
             html += '</html>'
             self._save_file(post['html_file'], html)
+            time.sleep(1)
 
 
 if __name__ == "__main__":

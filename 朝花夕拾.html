@@ -6,26 +6,28 @@
   gtag('js', new Date());
   gtag('config', 'UA-160306868-1');
 </script>
-<title>朝花夕拾</title></head><body><h2>一. c宏</h2>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5809313774160994"
+     crossorigin="anonymous"></script>
+     <title>朝花夕拾</title></head><body><h2>一. c宏</h2>
 <ol>
 <li>
-<p><code>do{}while(0)</code> 宏的用处?</p>
+<p><code class="notranslate">do{}while(0)</code> 宏的用处?</p>
 <p>避免调用者出现使用错误，保证程序执行的一致性。<br>
 例如：</p>
-<div class="highlight highlight-source-c"><pre>#<span class="pl-k">define</span> <span class="pl-en">FOO</span>() foo1();foo2();</pre></div>
+<div class="highlight highlight-source-c"><pre class="notranslate"><span class="pl-k">#define</span> <span class="pl-en">FOO</span>() foo1();foo2();</pre></div>
 <p>调用代码：</p>
-<div class="highlight highlight-source-c"><pre><span class="pl-k">if</span> (a &gt; <span class="pl-c1">0</span>)
+<div class="highlight highlight-source-c"><pre class="notranslate"><span class="pl-k">if</span> (<span class="pl-s1">a</span> <span class="pl-c1">&gt;</span> <span class="pl-c1">0</span>)
     <span class="pl-en">FOO</span>();</pre></div>
 <p>会被扩展成:</p>
-<div class="highlight highlight-source-c"><pre><span class="pl-k">if</span> (a &gt; <span class="pl-c1">0</span>)
-    <span class="pl-en">foo1</span>();foo2();</pre></div>
-<p>这时就产生了一个问题，若是<code>a &lt;= 0</code>，<code>foo2()</code>仍然会被调用。<br>
+<div class="highlight highlight-source-c"><pre class="notranslate"><span class="pl-k">if</span> (<span class="pl-s1">a</span> <span class="pl-c1">&gt;</span> <span class="pl-c1">0</span>)
+    <span class="pl-en">foo1</span>();<span class="pl-en">foo2</span>();</pre></div>
+<p>这时就产生了一个问题，若是<code class="notranslate">a &lt;= 0</code>，<code class="notranslate">foo2()</code>仍然会被调用。<br>
 正确的写法：</p>
-<div class="highlight highlight-source-c"><pre>#<span class="pl-k">define</span> <span class="pl-en">FOO</span>() \
-        <span class="pl-k">do</span>{ \
-            <span class="pl-c1">foo1</span>(); \
-            <span class="pl-c1">foo2</span>(); \
-        }<span class="pl-k">while</span>(<span class="pl-c1">0</span>)</pre></div>
+<div class="highlight highlight-source-c"><pre class="notranslate"><span class="pl-k">#define</span> <span class="pl-en">FOO</span>() \
+        do{ \
+            foo1(); \
+            foo2(); \
+        }while(0)</pre></div>
 </li>
 </ol>
 <h2>二. 计算机二三事</h2>
@@ -37,8 +39,8 @@
 <li>栈中的数据必须已知且大小固定（如c语言的数组）</li>
 <li>堆是缺乏组织的，当向堆中放入数据，操作系统会去寻找到一块足够大的空间，标记为已使用，并返回一个指向这块空间的指针</li>
 </ul>
-<p>操作栈空间是比堆速度快的，因为使用堆你需要先寻找到一块足够大的空间（<code>malloc</code>），而且使用的内存并不是连续的（如动态链表），需要在内存中跳来跳去，这些操作都会降低性能。<br>
-还有很多原因，如cpu对栈有直接支持（<code>push</code>, <code>pop</code>）；栈内存由操作系统管理，而堆内存由用户程序管理。</p>
+<p>操作栈空间是比堆速度快的，因为使用堆你需要先寻找到一块足够大的空间（<code class="notranslate">malloc</code>），而且使用的内存并不是连续的（如动态链表），需要在内存中跳来跳去，这些操作都会降低性能。<br>
+还有很多原因，如cpu对栈有直接支持（<code class="notranslate">push</code>, <code class="notranslate">pop</code>）；栈内存由操作系统管理，而堆内存由用户程序管理。</p>
 </li>
 <li>
 <p>指针</p>
@@ -60,11 +62,11 @@
 <ol>
 <li>
 <p>删除当前目录除某文件外的所有文件</p>
-<div class="highlight highlight-source-shell"><pre>ls <span class="pl-k">|</span> grep -v except_filename <span class="pl-k">|</span> xargs rm -rf</pre></div>
+<div class="highlight highlight-source-shell"><pre class="notranslate">ls <span class="pl-k">|</span> grep -v except_filename <span class="pl-k">|</span> xargs rm -rf</pre></div>
 </li>
 <li>
 <p>更新所有的module</p>
-<pre><code>git submodule update --init --recursive --remote
+<pre class="notranslate"><code class="notranslate">git submodule update --init --recursive --remote
 </code></pre>
 </li>
 </ol>

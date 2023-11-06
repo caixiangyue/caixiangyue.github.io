@@ -13,7 +13,7 @@
 <description> <![CDATA[<ol>
 <li>集群调用函数</li>
 </ol>
-<div class="highlight highlight-source-erlang"><pre>执行命令
+<div class="highlight highlight-source-erlang"><pre class="notranslate">执行命令
 <span class="pl-en">rp</span>(<span class="pl-en">tool</span>:<span class="pl-en">rpc</span>({<span class="pl-c1">application</span>, <span class="pl-c1">get_env</span>, [<span class="pl-c1">message_store</span>, <span class="pl-c1">is_use_channel_sync</span>]}, <span class="pl-c1">'msync@ebs'</span>)).
 查日志
 <span class="pl-en">tool</span>:<span class="pl-en">log_search_rpc</span>(<span class="pl-s"><span class="pl-pds">"</span>2022-07-05 15:18:27<span class="pl-pds">"</span></span>, <span class="pl-c1">7200</span>, <span class="pl-s"><span class="pl-pds">"</span>1028405512963623676<span class="pl-pds">"</span></span>, <span class="pl-c1">20</span>, <span class="pl-s"><span class="pl-pds">"</span>ejabberd@ebs<span class="pl-pds">"</span></span>).
@@ -21,31 +21,45 @@
 查聊天室
 [<span class="pl-smi">MucPid</span>] <span class="pl-k">=</span> <span class="pl-en">easemob_muc_router</span>:<span class="pl-en">get_router</span>(&lt;&lt;<span class="pl-s"><span class="pl-pds">"</span>easemob-demo#easeim_185068033212417<span class="pl-pds">"</span></span>&gt;&gt;).
 <span class="pl-en">rp</span>(<span class="pl-en">tool</span>:<span class="pl-en">get_state</span>(<span class="pl-s"><span class="pl-pds">"</span>&lt;55333.5711.7675&gt;<span class="pl-pds">"</span></span>)).</pre></div>
+<pre class="notranslate"><code class="notranslate">config:load_env("/data/apps/opt/msync/releases/23.3.1.0/sys.config").
+easemob_traffic_control_sup:stop(),easemob_traffic_control_sup:start().
+</code></pre>
 <ol start="2">
 <li>trace</li>
 </ol>
-<div class="highlight highlight-source-erlang"><pre>{<span class="pl-c1">ok</span>, <span class="pl-smi">Dev</span>} <span class="pl-k">=</span> <span class="pl-en">file</span>:<span class="pl-en">open</span>(<span class="pl-s"><span class="pl-pds">"</span>/tmp/trace<span class="pl-pds">"</span></span>,[<span class="pl-c1">write</span>]).
+<div class="highlight highlight-source-erlang"><pre class="notranslate">{<span class="pl-c1">ok</span>, <span class="pl-smi">Dev</span>} <span class="pl-k">=</span> <span class="pl-en">file</span>:<span class="pl-en">open</span>(<span class="pl-s"><span class="pl-pds">"</span>/tmp/trace<span class="pl-pds">"</span></span>,[<span class="pl-c1">write</span>]).
 <span class="pl-en">recon_trace</span>:<span class="pl-en">calls</span>({<span class="pl-c1">queue</span>, <span class="pl-c1">in</span>, <span class="pl-k">fun</span>(<span class="pl-c1">_</span>) -&gt; <span class="pl-en">return_trace</span>() <span class="pl-k">end</span>}, <span class="pl-c1">3</span>, [{<span class="pl-c1">io_server</span>, <span class="pl-smi">Dev</span>}]).
 
 <span class="pl-en">recon_trace</span>:<span class="pl-en">calls</span>({<span class="pl-c1">easemob_user_channel</span>, <span class="pl-c1">read</span>, <span class="pl-k">fun</span>(<span class="pl-c1">_</span>) -&gt; <span class="pl-en">return_trace</span>() <span class="pl-k">end</span>}, <span class="pl-c1">100</span>, [{<span class="pl-c1">return_to</span>, <span class="pl-c1">true</span>}, {<span class="pl-c1">scope</span>, <span class="pl-c1">local</span>}]).</pre></div>
 <ol start="3">
 <li>kafka</li>
 </ol>
-<div class="highlight highlight-source-shell"><pre>./kafka-consumer-groups.sh --bootstrap-server hsb-didi-guangzhou-mesos-master2:9092 --list
+<div class="highlight highlight-source-shell"><pre class="notranslate">./kafka-consumer-groups.sh --bootstrap-server hsb-didi-guangzhou-mesos-master2:9092 --list
 
 ./kafka-consumer-groups.sh --bootstrap-server hsb-didi-guangzhou-mesos-master2:9092 --describe --group msync-channel-outgoing</pre></div>
 <pre class="notranslate"><code class="notranslate">rm /Users/one/easemob/msync/apps/msync/src/msync.appup.src
 </code></pre>
-<h3>channel 相关命令</h3>
-<p>get all user channel: <strong>zrevrangebyscore</strong><br>
-get all channel cursors: <strong>hgetall</strong><br>
-get channel index: <strong>lrange</strong></p>
-<p>write user channel: <strong>zadd, zcard, zremrangebyrank, expire</strong><br>
-write channel index: <strong>lpush, llen, ltrim, expire</strong><br>
-write channel cursor: <strong>hset, hlen, hdel, expire</strong></p>
-<p>delete user channel: <strong>zrem</strong></p>
-<h2>会话列表</h2>
-<p><a target="_blank" rel="noopener noreferrer" href="../img/20221013/1.png"><img src="../img/20221013/1.png" alt="" style="max-width: 100%;"></a></p><hr><p>Thu Oct 13 14:54:07 2022</p><script src="https://utteranc.es/client.js"
+<ol start="4">
+<li>msync kafka</li>
+</ol>
+<p>msync_log, easemob_log， easemob_log_worker: kafka的生产者</p>
+<ul>
+<li>用户发送的消息，支持的消息类型有上行，下行，离线，ack</li>
+<li>用户的状态</li>
+<li>好友操作</li>
+<li>用户禁言操作</li>
+<li>敏感词</li>
+<li>...</li>
+</ul>
+<p>easemob_rest_event: 消费redis/kafka，发送多人聊天事件消息 (发现聊天室/群组kafka消费处于空转状态)<br>
+msync_easemob_sendmsg: 消费redis/kafka发消息</p>
+<p>easemob_kafka: 读写kafka的核心模块</p>
+<p>相关配置</p>
+<ul>
+<li>kafka_client_module brod | ekaf</li>
+<li>queue_log_module kafka | redis</li>
+<li>kafka_log_async true | false</li>
+</ul><hr><p>Fri Nov  3 15:15:03 2023</p><script src="https://utteranc.es/client.js"
         repo="caixiangyue/caixiangyue.github.io"
         issue-term="pathname"
         theme="github-light"
@@ -58,22 +72,22 @@ write channel cursor: <strong>hset, hlen, hdel, expire</strong></p>
 <title>kafka学习</title>
 <link>https://caixiangyue.github.io/kafka学习.html</link>
 <description> <![CDATA[<h4>环境搭建</h4>
-<p>启动<code>zookeeper</code></p>
-<pre><code>$ bin/zookeeper-server-start.sh config/zookeeper.properties
+<p>启动<code class="notranslate">zookeeper</code></p>
+<pre class="notranslate"><code class="notranslate">$ bin/zookeeper-server-start.sh config/zookeeper.properties
 </code></pre>
-<p>启动<code>kafka</code></p>
-<pre><code>$ bin/kafka-server-start.sh config/server.properties
+<p>启动<code class="notranslate">kafka</code></p>
+<pre class="notranslate"><code class="notranslate">$ bin/kafka-server-start.sh config/server.properties
 </code></pre>
 <p>创建topic</p>
-<pre><code>$ bin/kafka-topics.sh --create --topic t1 --bootstrap-server localhost:12346 --partitions 1 --replication-factor 1
+<pre class="notranslate"><code class="notranslate">$ bin/kafka-topics.sh --create --topic t1 --bootstrap-server localhost:12346 --partitions 1 --replication-factor 1
 
 Created topic t1
 </code></pre>
 <p>生产消息</p>
-<pre><code>$ bin/kafka-console-producer.sh --topic t1 --bootstrap-server localhost:12346
+<pre class="notranslate"><code class="notranslate">$ bin/kafka-console-producer.sh --topic t1 --bootstrap-server localhost:12346
 </code></pre>
 <p>消费消息</p>
-<pre><code>$ bin/kafka-console-consumer.sh --topic t1 --from-beginning --bootstrap-server localhost:12346
+<pre class="notranslate"><code class="notranslate">$ bin/kafka-console-consumer.sh --topic t1 --from-beginning --bootstrap-server localhost:12346
 </code></pre><hr><p>Tue Dec  7 16:32:28 2021</p><script src="https://utteranc.es/client.js"
         repo="caixiangyue/caixiangyue.github.io"
         issue-term="pathname"
@@ -325,7 +339,7 @@ Created topic t1
 <li><a href="https://www.ixiqin.com/" rel="nofollow">西秦公子</a></li>
 <li><a href="https://blog.codingnow.com/" rel="nofollow">云风</a></li>
 <li><a href="http://blog.devtang.com/" rel="nofollow">唐巧的博客</a></li>
-</ol><hr><p>Tue Dec 29 15:22:05 2020</p><script src="https://utteranc.es/client.js"
+</ol><hr><p>Tue Nov 23 15:44:51 2021</p><script src="https://utteranc.es/client.js"
         repo="caixiangyue/caixiangyue.github.io"
         issue-term="pathname"
         theme="github-light"
@@ -427,14 +441,14 @@ Created topic t1
 <title>erlang学习</title>
 <link>https://caixiangyue.github.io/erlang学习.html</link>
 <description> <![CDATA[<h4>hello world.</h4>
-<p>创建一个源文件<code>hello.erl</code></p>
-<div class="highlight highlight-source-erlang"><pre>-<span class="pl-k">module</span>(<span class="pl-en">hello</span>).
+<p>创建一个源文件<code class="notranslate">hello.erl</code></p>
+<div class="highlight highlight-source-erlang"><pre class="notranslate">-<span class="pl-k">module</span>(<span class="pl-en">hello</span>).
 -<span class="pl-k">export</span>([<span class="pl-en">hello</span>/<span class="pl-c1">0</span>]).
 
 <span class="pl-en">hello</span>()<span class="pl-k">-&gt;</span>
     <span class="pl-en">io</span>:<span class="pl-en">format</span>(<span class="pl-s"><span class="pl-pds">"</span>hello world.<span class="pl-c1">~n</span><span class="pl-pds">"</span></span>).</pre></div>
 <p>编译运行</p>
-<div class="highlight highlight-source-erlang"><pre><span class="pl-ii">$ </span><span class="pl-c1">erl</span>
+<div class="highlight highlight-source-erlang"><pre class="notranslate"><span class="pl-ii">$ </span><span class="pl-c1">erl</span>
 <span class="pl-smi">Erlang</span><span class="pl-k">/</span><span class="pl-smi">OTP</span> <span class="pl-c1">24</span> [<span class="pl-c1">erts</span><span class="pl-k">-</span><span class="pl-c1">12.1</span>.<span class="pl-c1">5</span>] [<span class="pl-c1">source</span>] [<span class="pl-c1">64</span><span class="pl-k">-</span><span class="pl-c1">bit</span>] [<span class="pl-c1">smp</span>:<span class="pl-c1">8</span>:<span class="pl-c1">8</span>] [<span class="pl-c1">ds</span>:<span class="pl-c1">8</span>:<span class="pl-c1">8</span>:<span class="pl-c1">10</span>] [<span class="pl-c1">async</span><span class="pl-k">-</span><span class="pl-c1">threads</span>:<span class="pl-c1">1</span>] [<span class="pl-c1">jit</span>] [<span class="pl-c1">dtrace</span>]
 
 <span class="pl-smi">Eshell</span> <span class="pl-smi">V12</span>.<span class="pl-c1">1.5</span>  (<span class="pl-c1">abort</span> <span class="pl-c1">with</span> ^<span class="pl-smi">G</span>)
@@ -444,7 +458,7 @@ Created topic t1
 <span class="pl-c1">hello</span> <span class="pl-c1">world</span>.
 <span class="pl-c1">ok</span></pre></div>
 <h4>元组</h4>
-<div class="highlight highlight-source-erlang"><pre><span class="pl-c1">1</span><span class="pl-k">&gt;</span> <span class="pl-smi">Point</span> <span class="pl-k">=</span> {<span class="pl-c1">4</span>, <span class="pl-c1">5</span>}.
+<div class="highlight highlight-source-erlang"><pre class="notranslate"><span class="pl-c1">1</span><span class="pl-k">&gt;</span> <span class="pl-smi">Point</span> <span class="pl-k">=</span> {<span class="pl-c1">4</span>, <span class="pl-c1">5</span>}.
 {<span class="pl-c1">4</span>,<span class="pl-c1">5</span>}
 <span class="pl-c1">2</span><span class="pl-k">&gt;</span> {<span class="pl-smi">X</span>, <span class="pl-smi">Y</span>} <span class="pl-k">=</span> <span class="pl-smi">Point</span>.
 {<span class="pl-c1">4</span>,<span class="pl-c1">5</span>}
@@ -456,7 +470,7 @@ Created topic t1
 {<span class="pl-c1">point</span>,{<span class="pl-c1">4</span>,<span class="pl-c1">5</span>}}</pre></div>
 <h4>列表</h4>
 <p>基本操作</p>
-<div class="highlight highlight-source-erlang"><pre><span class="pl-k">&gt;</span> <span class="pl-smi">L</span> <span class="pl-k">=</span> [<span class="pl-c1">1</span>, <span class="pl-c1">2</span>, <span class="pl-c1">3</span>].
+<div class="highlight highlight-source-erlang"><pre class="notranslate"><span class="pl-k">&gt;</span> <span class="pl-smi">L</span> <span class="pl-k">=</span> [<span class="pl-c1">1</span>, <span class="pl-c1">2</span>, <span class="pl-c1">3</span>].
 [<span class="pl-c1">1</span>,<span class="pl-c1">2</span>,<span class="pl-c1">3</span>]
 <span class="pl-c1">2</span><span class="pl-k">&gt;</span> [<span class="pl-smi">H</span>|<span class="pl-smi">T</span>] <span class="pl-k">=</span> <span class="pl-smi">L</span>.
 [<span class="pl-c1">1</span>,<span class="pl-c1">2</span>,<span class="pl-c1">3</span>]
@@ -469,9 +483,9 @@ Created topic t1
 <span class="pl-c1">6</span><span class="pl-k">&gt;</span> <span class="pl-smi">N</span><span class="pl-k">--</span>[<span class="pl-c1">1</span>].
 [<span class="pl-c1">2</span>,<span class="pl-c1">3</span>]</pre></div>
 <p>列表推导</p>
-<div class="highlight highlight-source-erlang"><pre><span class="pl-c1">10</span><span class="pl-k">&gt;</span> <span class="pl-smi">N</span>.
+<div class="highlight highlight-source-erlang"><pre class="notranslate"><span class="pl-c1">10</span><span class="pl-k">&gt;</span> <span class="pl-smi">N</span>.
 [<span class="pl-c1">1</span>,<span class="pl-c1">2</span>,<span class="pl-c1">3</span>]
-<span class="pl-c1">11</span><span class="pl-k">&gt;</span> [ <span class="pl-c1">2</span><span class="pl-k">*</span><span class="pl-smi">X</span> || <span class="pl-smi">X</span> <span class="pl-k">&lt;-</span> <span class="pl-smi">N</span> ]. 
+<span class="pl-c1">11</span><span class="pl-k">&gt;</span> [ <span class="pl-c1">2</span><span class="pl-k">*</span><span class="pl-smi">X</span> || <span class="pl-smi">X</span> <span class="pl-k">&lt;-</span> <span class="pl-smi">N</span> ].
 [<span class="pl-c1">2</span>,<span class="pl-c1">4</span>,<span class="pl-c1">6</span>]
 
 <span class="pl-c1">15</span><span class="pl-k">&gt;</span> <span class="pl-smi">W</span> <span class="pl-k">=</span> [<span class="pl-c1">1</span>, <span class="pl-c1">a</span>, <span class="pl-c1">b</span>, <span class="pl-c1">2</span>, <span class="pl-c1">3</span>].
@@ -479,17 +493,17 @@ Created topic t1
 <span class="pl-c1">16</span><span class="pl-k">&gt;</span> [ <span class="pl-c1">2</span><span class="pl-k">*</span><span class="pl-smi">X</span> || <span class="pl-smi">X</span> <span class="pl-k">&lt;-</span> <span class="pl-smi">W</span>, <span class="pl-en">integer</span>(<span class="pl-smi">X</span>) ].
 [<span class="pl-c1">2</span>,<span class="pl-c1">4</span>,<span class="pl-c1">6</span>]</pre></div>
 <h4>位语法</h4>
-<div class="highlight highlight-source-erlang"><pre><span class="pl-c1">11</span><span class="pl-k">&gt;</span> <span class="pl-smi">Color</span> <span class="pl-k">=</span> <span class="pl-c1">16#FF00AA</span>.    
+<div class="highlight highlight-source-erlang"><pre class="notranslate"><span class="pl-c1">11</span><span class="pl-k">&gt;</span> <span class="pl-smi">Color</span> <span class="pl-k">=</span> <span class="pl-c1">16#FF00AA</span>.
 <span class="pl-c1">16711850</span>
-<span class="pl-c1">12</span><span class="pl-k">&gt;</span> <span class="pl-smi">Pixel</span> <span class="pl-k">=</span> &lt;&lt;<span class="pl-smi">Color</span>:<span class="pl-c1">24</span>&gt;&gt;. 
+<span class="pl-c1">12</span><span class="pl-k">&gt;</span> <span class="pl-smi">Pixel</span> <span class="pl-k">=</span> &lt;&lt;<span class="pl-smi">Color</span>:<span class="pl-c1">24</span>&gt;&gt;.
 &lt;&lt;<span class="pl-c1">255</span>,<span class="pl-c1">0</span>,<span class="pl-c1">170</span>&gt;&gt;
 <span class="pl-c1">13</span><span class="pl-k">&gt;</span> &lt;&lt;<span class="pl-smi">R</span>:<span class="pl-c1">8</span>, <span class="pl-smi">Rest</span>/<span class="pl-k">binary</span>&gt;&gt; <span class="pl-k">=</span> <span class="pl-smi">Pixel</span>.
 &lt;&lt;<span class="pl-c1">255</span>,<span class="pl-c1">0</span>,<span class="pl-c1">170</span>&gt;&gt;
 <span class="pl-c1">14</span><span class="pl-k">&gt;</span> <span class="pl-smi">R</span>.
 <span class="pl-c1">255</span></pre></div>
 <h4>函数</h4>
-<p>创建<code>same.erl</code></p>
-<div class="highlight highlight-source-erlang"><pre>-<span class="pl-k">module</span>(<span class="pl-en">same</span>).
+<p>创建<code class="notranslate">same.erl</code></p>
+<div class="highlight highlight-source-erlang"><pre class="notranslate">-<span class="pl-k">module</span>(<span class="pl-en">same</span>).
 -<span class="pl-k">compile</span>(<span class="pl-c1">export_all</span>).
 
 <span class="pl-en">same</span>(<span class="pl-smi">X</span>, <span class="pl-smi">X</span>)<span class="pl-k">-&gt;</span>
@@ -497,7 +511,7 @@ Created topic t1
 <span class="pl-en">same</span>(<span class="pl-c1">_</span>,<span class="pl-c1">_</span>)<span class="pl-k">-&gt;</span>
     <span class="pl-c1">false</span>.</pre></div>
 <p>运行</p>
-<div class="highlight highlight-source-erlang"><pre><span class="pl-c1">1</span><span class="pl-k">&gt;</span> <span class="pl-en">c</span>(<span class="pl-c1">same</span>).
+<div class="highlight highlight-source-erlang"><pre class="notranslate"><span class="pl-c1">1</span><span class="pl-k">&gt;</span> <span class="pl-en">c</span>(<span class="pl-c1">same</span>).
 <span class="pl-c1">same</span>.<span class="pl-c1">erl</span>:<span class="pl-c1">2</span>:<span class="pl-c1">2</span>: <span class="pl-smi">Warning</span>: <span class="pl-c1">export_all</span> <span class="pl-c1">flag</span> <span class="pl-c1">enabled</span> <span class="pl-k">-</span> <span class="pl-c1">all</span> <span class="pl-c1">functions</span> <span class="pl-c1">will</span> <span class="pl-c1">be</span> <span class="pl-c1">exported</span>
 <span class="pl-c"><span class="pl-c">%</span>    2| -compile(export_all).</span>
 <span class="pl-c"><span class="pl-c">%</span>     |  ^</span>
@@ -506,7 +520,7 @@ Created topic t1
 <span class="pl-c1">2</span><span class="pl-k">&gt;</span> <span class="pl-en">same</span>:<span class="pl-en">same</span>(<span class="pl-c1">1</span>,<span class="pl-c1">1</span>).
 <span class="pl-c1">true</span>
 <span class="pl-c1">3</span><span class="pl-k">&gt;</span> <span class="pl-en">same</span>:<span class="pl-en">same</span>(<span class="pl-c1">1</span>,<span class="pl-c1">2</span>).
-<span class="pl-c1">false</span></pre></div><hr><p>Thu Dec  9 17:08:39 2021</p><script src="https://utteranc.es/client.js"
+<span class="pl-c1">false</span></pre></div><hr><p>Tue Aug 23 14:48:22 2022</p><script src="https://utteranc.es/client.js"
         repo="caixiangyue/caixiangyue.github.io"
         issue-term="pathname"
         theme="github-light"
@@ -531,7 +545,7 @@ Created topic t1
 <p>tcp_max_syn_backlog， somaxconn， backlog这三个参数的最小值就是半连接队列的最大长度</p>
 <p>somaxconn和backlog的最小值就是全连接队列的最大长度</p>
 <h4>临时修改内核参数命令</h4>
-<div class="highlight highlight-source-shell"><pre>sudo sysctl -w net.core.somaxconn=4096</pre></div><hr><p>Mon Dec  6 10:39:41 2021</p><script src="https://utteranc.es/client.js"
+<div class="highlight highlight-source-shell"><pre class="notranslate">sudo sysctl -w net.core.somaxconn=4096</pre></div><hr><p>Mon Dec  6 10:39:41 2021</p><script src="https://utteranc.es/client.js"
         repo="caixiangyue/caixiangyue.github.io"
         issue-term="pathname"
         theme="github-light"
@@ -550,48 +564,48 @@ Created topic t1
 <ol>
 <li>hello.c</li>
 </ol>
-<div class="highlight highlight-source-c"><pre>#<span class="pl-k">include</span><span class="pl-s"><span class="pl-pds">&lt;</span>Python.h<span class="pl-pds">&gt;</span></span>
+<div class="highlight highlight-source-c"><pre class="notranslate"><span class="pl-k">#include</span><span class="pl-s">&lt;Python.h&gt;</span>
 
-<span class="pl-k">static</span> PyObject *<span class="pl-en">say_hello</span>(PyObject *self, PyObject *args) {
-    <span class="pl-k">return</span> <span class="pl-c1">Py_BuildValue</span>(<span class="pl-s"><span class="pl-pds">"</span>s<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>hello from c.<span class="pl-pds">"</span></span>);
+<span class="pl-k">static</span> <span class="pl-smi">PyObject</span> <span class="pl-c1">*</span><span class="pl-en">say_hello</span>(<span class="pl-smi">PyObject</span> <span class="pl-c1">*</span><span class="pl-s1">self</span>, <span class="pl-smi">PyObject</span> <span class="pl-c1">*</span><span class="pl-s1">args</span>) {
+    <span class="pl-k">return</span> <span class="pl-en">Py_BuildValue</span>(<span class="pl-s">"s"</span>, <span class="pl-s">"hello from c."</span>);
 }
 
-<span class="pl-k">static</span> PyMethodDef methods[] = {
-    {<span class="pl-s"><span class="pl-pds">"</span>say_hello<span class="pl-pds">"</span></span>, say_hello, METH_VARARGS, <span class="pl-s"><span class="pl-pds">"</span>say hello.<span class="pl-pds">"</span></span>},
+<span class="pl-k">static</span> <span class="pl-smi">PyMethodDef</span> <span class="pl-s1">methods</span>[] <span class="pl-c1">=</span> {
+    {<span class="pl-s">"say_hello"</span>, <span class="pl-s1">say_hello</span>, <span class="pl-c1">METH_VARARGS</span>, <span class="pl-s">"say hello."</span>},
     {<span class="pl-c1">NULL</span>, <span class="pl-c1">NULL</span>, <span class="pl-c1">0</span>, <span class="pl-c1">NULL</span>}
 };
 
-<span class="pl-k">static</span> <span class="pl-k">struct</span> PyModuleDef module_def =
+<span class="pl-k">static</span> <span class="pl-k">struct</span> <span class="pl-smi">PyModuleDef</span> <span class="pl-s1">module_def</span> <span class="pl-c1">=</span>
 {
-    PyModuleDef_HEAD_INIT,
-    <span class="pl-s"><span class="pl-pds">"</span>hello<span class="pl-pds">"</span></span>,
-    <span class="pl-s"><span class="pl-pds">"</span>say hello<span class="pl-pds">"</span></span>,
-    -<span class="pl-c1">1</span>,
-    methods
+    <span class="pl-s1">PyModuleDef_HEAD_INIT</span>,
+    <span class="pl-s">"hello"</span>,
+    <span class="pl-s">"say hello"</span>,
+    <span class="pl-c1">-1</span>,
+    <span class="pl-s1">methods</span>
 };
 
-PyMODINIT_FUNC <span class="pl-en">PyInit_hello</span>(<span class="pl-k">void</span>) {
-    <span class="pl-k">return</span> <span class="pl-c1">PyModule_Create</span>(&amp;module_def);
+<span class="pl-smi">PyMODINIT_FUNC</span> <span class="pl-en">PyInit_hello</span>(<span class="pl-smi">void</span>) {
+    <span class="pl-k">return</span> <span class="pl-en">PyModule_Create</span>(<span class="pl-c1">&amp;</span><span class="pl-s1">module_def</span>);
 }</pre></div>
 <ol start="2">
 <li>setup.py</li>
 </ol>
-<div class="highlight highlight-source-python"><pre><span class="pl-k">from</span> <span class="pl-s1">distutils</span>.<span class="pl-s1">core</span> <span class="pl-k">import</span> <span class="pl-s1">setup</span>, <span class="pl-v">Extension</span>
+<div class="highlight highlight-source-python"><pre class="notranslate"><span class="pl-k">from</span> <span class="pl-s1">distutils</span>.<span class="pl-s1">core</span> <span class="pl-k">import</span> <span class="pl-s1">setup</span>, <span class="pl-v">Extension</span>
 
 <span class="pl-s1">module</span> <span class="pl-c1">=</span> <span class="pl-v">Extension</span>(<span class="pl-s">'hello'</span>, <span class="pl-s1">sources</span> <span class="pl-c1">=</span> [<span class="pl-s">'hello.c'</span>])
 
 <span class="pl-en">setup</span>(<span class="pl-s1">name</span> <span class="pl-c1">=</span> <span class="pl-s">'say hello'</span>, <span class="pl-s1">version</span> <span class="pl-c1">=</span> <span class="pl-s">'0.0.1'</span>, <span class="pl-s1">ext_modules</span> <span class="pl-c1">=</span> [<span class="pl-s1">module</span>])</pre></div>
 <h2>二. 编译</h2>
-<div class="highlight highlight-source-shell"><pre>$ python setup.py build</pre></div>
+<div class="highlight highlight-source-shell"><pre class="notranslate">$ python setup.py build</pre></div>
 <h2>三. 调用</h2>
-<p><strong>注</strong> 此时想要调用需要把<code>hello.so</code>共享库加到PYTHONPATH环境变量中。</p>
-<div class="highlight highlight-source-python"><pre><span class="pl-c">#!/usr/bin/env python3</span>
+<p><strong>注</strong> 此时想要调用需要把<code class="notranslate">hello.so</code>共享库加到PYTHONPATH环境变量中。</p>
+<div class="highlight highlight-source-python"><pre class="notranslate"><span class="pl-c">#!/usr/bin/env python3</span>
 <span class="pl-k">import</span> <span class="pl-s1">hello</span>
 <span class="pl-en">print</span>(<span class="pl-s1">hello</span>.<span class="pl-en">say_hello</span>()) </pre></div>
 <h2>四. 参考</h2>
 <ul>
 <li><a href="https://docs.python.org/3/extending/extending.html" rel="nofollow">https://docs.python.org/3/extending/extending.html</a></li>
-</ul><hr><p>Mon Feb 24 17:36:07 2020</p><script src="https://utteranc.es/client.js"
+</ul><hr><p>Tue Nov 23 15:44:51 2021</p><script src="https://utteranc.es/client.js"
         repo="caixiangyue/caixiangyue.github.io"
         issue-term="pathname"
         theme="github-light"
@@ -603,7 +617,167 @@ PyMODINIT_FUNC <span class="pl-en">PyInit_hello</span>(<span class="pl-k">void</
 <item>
 <title>任务管理</title>
 <link>https://caixiangyue.github.io/任务管理.html</link>
-<description> <![CDATA[<h3>漫游</h3>
+<description> <![CDATA[<h3>2023-05-05</h3>
+<ol>
+<li>好友，redis key，v2标识，调新接口，发送通知</li>
+</ol>
+<h3>2023-04-17</h3>
+<ol class="contains-task-list">
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox"> 会话列表独立app</li>
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox"> 线上跑测试 channel-test-0419</li>
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox"> 推送消息覆盖</li>
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> 定向消息联调</li>
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox"> <a href="http://j1.private.easemob.com/browse/HIM-10241" rel="nofollow">http://j1.private.easemob.com/browse/HIM-10241</a> 好友</li>
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> <a href="http://j1.private.easemob.com/browse/HIM-10268" rel="nofollow">http://j1.private.easemob.com/browse/HIM-10268</a></li>
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> cmd消息不计数 <a href="http://j1.private.easemob.com/browse/HIM-10308" rel="nofollow">http://j1.private.easemob.com/browse/HIM-10308</a></li>
+</ol>
+<h3>2023-04-10</h3>
+<ol class="contains-task-list">
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox"> 会话列表独立app</li>
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox"> 线上跑测试</li>
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox"> 推送消息覆盖</li>
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox"> 定向消息</li>
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> 排查聊天室多次发送presence的问题</li>
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> 会话列表服务上线</li>
+</ol>
+<h3>2023-04-03</h3>
+<ol class="contains-task-list">
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> presence 限流配置 --</li>
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox"> 会话列表独立app</li>
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox"> 线上跑测试</li>
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> 定向消息输出HLD --</li>
+</ol>
+<h3>2023-3-29</h3>
+<ol start="2" class="contains-task-list">
+<li class="task-list-item">
+<p><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> 刷 is_rest_msg_write_to_channel 配置 --</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> 会话列表上线 --</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> 会话列表循环拉取消息，已上线 --</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> 统计会话列表下行消息各种类型比例 --</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> 协助排查MSync-23.3.1.0上线问题</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> use_async_recall 配置 --　</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> easemob_rest_event:stop()</p>
+</li>
+<li>
+<p>5000人群</p>
+</li>
+</ol>
+<h3>下行消息数据来自最近30天（只含有开启会话列表功能）</h3>
+<table role="table">
+<thead>
+<tr>
+<th>下行消息类型</th>
+<th>平均速率（条/秒）</th>
+<th>峰值速率（条/秒）</th>
+<th>占比</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>群组文本消息</td>
+<td>741</td>
+<td>2570</td>
+<td>36.75%</td>
+</tr>
+<tr>
+<td>单聊自定义消息</td>
+<td>780</td>
+<td>1830</td>
+<td>38.69%</td>
+</tr>
+<tr>
+<td>群组自定义消息</td>
+<td>238</td>
+<td>984</td>
+<td>11.8%</td>
+</tr>
+<tr>
+<td>单聊文本消息</td>
+<td>180</td>
+<td>1350</td>
+<td>8.92%</td>
+</tr>
+<tr>
+<td>群聊图片消息</td>
+<td>36.3</td>
+<td>239</td>
+<td>1.8%</td>
+</tr>
+<tr>
+<td>群聊语音消息</td>
+<td>15.3</td>
+<td>77.1</td>
+<td>0.75%</td>
+</tr>
+<tr>
+<td>单聊撤回消息</td>
+<td>7.83</td>
+<td>74.8</td>
+<td>0.38%</td>
+</tr>
+<tr>
+<td>群聊视频消息</td>
+<td>7.6</td>
+<td>71.6</td>
+<td>0.37%</td>
+</tr>
+<tr>
+<td>单聊视频消息</td>
+<td>4.02</td>
+<td>67.5</td>
+<td>0.19%</td>
+</tr>
+<tr>
+<td>单聊图片消息</td>
+<td>3.77</td>
+<td>40.8</td>
+<td>0.18%</td>
+</tr>
+<tr>
+<td>单聊语音消息</td>
+<td>2.93</td>
+<td>43.2</td>
+<td>0.14%</td>
+</tr>
+<tr>
+<td>群聊文件消息</td>
+<td>0.08</td>
+<td>4.94</td>
+<td>0%</td>
+</tr>
+<tr>
+<td>单聊地理位置消息</td>
+<td>0.006</td>
+<td>0.2</td>
+<td>0%</td>
+</tr>
+<tr>
+<td>单聊文件消息</td>
+<td>0.004</td>
+<td>0.16</td>
+<td>0%</td>
+</tr>
+<tr>
+<td>群聊地理位置消息</td>
+<td>0.005</td>
+<td>0.42</td>
+<td>0%</td>
+</tr>
+</tbody>
+</table>
+<h3>漫游</h3>
 <ol class="contains-task-list">
 <li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> 开启双读，漫游加TTL</li>
 <li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> 整理出不再使用的Appkey，清理相关漫游，删除了大概50%</li>
@@ -692,7 +866,57 @@ PyMODINIT_FUNC <span class="pl-en">PyInit_hello</span>(<span class="pl-k">void</
 <li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> rust学习</li>
 <li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> threeq相关任务</li>
 <li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> 熟悉上线流程</li>
-</ol><hr><p>Fri Sep 16 10:50:05 2022</p><script src="https://utteranc.es/client.js"
+</ol>
+<p>{"channel_infos":[{"channel_id":"1173220421107443#<a href="mailto:yuoao_yupao625e3dg36dgsh@easemob.com">yuoao_yupao625e3dg36dgsh@easemob.com</a>","unread_num":0,"meta":{"from":"1173220421107443#<a href="mailto:yuoao_admin@easemob.com">yuoao_admin@easemob.com</a>","to":"1173220421107443#<a href="mailto:yuoao_yp-53143859@easemob.com">yuoao_yp-53143859@easemob.com</a>","id":"1127872097536706152","timestamp":1680167986463,"payload":"{"bodies":[{"customEvent":"99","customExts":[{"terminalInfo":"[{\"buttonInfo\":{\"desc\":\"通过后在前台展示\",\"jumpType\":1,\"title\":\"修改我的好活\",\"url\":\"edit_mywork\"},\"minVersion\":\"0.0.0\",\"terminal\":\"ios\"},{\"buttonInfo\":{\"desc\":\"通过后在前台展示\",\"jumpType\":1,\"title\":\"修改我的好活\",\"url\":\"/work/MyReleaseFindWorkerActivity\"},\"minVersion\":\"0.0.0\",\"terminal\":\"android\"},{\"buttonInfo\":{\"desc\":\"通过后在前台展示\",\"jumpType\":1,\"title\":\"修改我的好活\",\"url\":\"/subpackage/recruit/published/index\"},\"minVersion\":\"0.0.0\",\"terminal\":\"wx_mini\"},{\"buttonInfo\":{\"desc\":\"通过后在前台展示\",\"jumpType\":1,\"title\":\"修改我的好活\",\"url\":\"/subpackage/recruit/published/index\"},\"minVersion\":\"0.0.0\",\"terminal\":\"baidu_mini\"},{\"minVersion\":\"0.0.0\",\"terminal\":\"bd_mini\"},{\"minVersion\":\"0.0.0\",\"terminal\":\"h5\"},{\"minVersion\":\"0.0.0\",\"terminal\":\"wx_h5\"}]"},{"content":"您发布的信息审核失败，请按照要求及时修改！"},{"title":"活源信息"},{"type":"2"},{"subType":"2"},{"subTitle":"成都武侯区测试信息，请勿审核通过测试测试测试测试测试测试测试测试测试测试测试测试测试测试测"},{"ext":"{\"job_area_id\":322,\"job_work_type\":\"84\",\"job_id\":124555190,\"job_uuid\":\"1680162693666178\",\"job_suffix\":\"chengdu_wuliuhuoyunsiji_zhfl\",\"resume_id\":27436184,\"resume_uuid\":\"1679550212746097\",\"target_uuid\":\"\",\"formal_integral\":0,\"temp_integral\":0}"}],"type":"custom","v2:customExts":{"content":"您发布的信息审核失败，请按照要求及时修改！","ext":"{\"job_area_id\":322,\"job_work_type\":\"84\",\"job_id\":124555190,\"job_uuid\":\"1680162693666178\",\"job_suffix\":\"chengdu_wuliuhuoyunsiji_zhfl\",\"resume_id\":27436184,\"resume_uuid\":\"1679550212746097\",\"target_uuid\":\"\",\"formal_integral\":0,\"temp_integral\":0}","subTitle":"成都武侯区测试信息，请勿审核通过测试测试测试测试测试测试测试测试测试测试测试测试测试测试测","subType":"2","terminalInfo":"[{\"buttonInfo\":{\"desc\":\"通过后在前台展示\",\"jumpType\":1,\"title\":\"修改我的好活\",\"url\":\"edit_mywork\"},\"minVersion\":\"0.0.0\",\"terminal\":\"ios\"},{\"buttonInfo\":{\"desc\":\"通过后在前台展示\",\"jumpType\":1,\"title\":\"修改我的好活\",\"url\":\"/work/MyReleaseFindWorkerActivity\"},\"minVersion\":\"0.0.0\",\"terminal\":\"android\"},{\"buttonInfo\":{\"desc\":\"通过后在前台展示\",\"jumpType\":1,\"title\":\"修改我的好活\",\"url\":\"/subpackage/recruit/published/index\"},\"minVersion\":\"0.0.0\",\"terminal\":\"wx_mini\"},{\"buttonInfo\":{\"desc\":\"通过后在前台展示\",\"jumpType\":1,\"title\":\"修改我的好活\",\"url\":\"/subpackage/recruit/published/index\"},\"minVersion\":\"0.0.0\",\"terminal\":\"baidu_mini\"},{\"minVersion\":\"0.0.0\",\"terminal\":\"bd_mini\"},{\"minVersion\":\"0.0.0\",\"terminal\":\"h5\"},{\"minVersion\":\"0.0.0\",\"terminal\":\"wx_h5\"}]","title":"活源信息","type":"2"}}],"ext":{},"from":"yupao625e3dg36dgsh","meta":{},"to":"yp-53143859","type":"chat"}"}},{"channel_id":"1173220421107443#<a href="mailto:yuoao_210521768919043@conference.easemob.com">yuoao_210521768919043@conference.easemob.com</a>","unread_num":0,"meta":{"from":"1173220421107443#<a href="mailto:yuoao_admin@easemob.com">yuoao_admin@easemob.com</a>","to":"1173220421107443#<a href="mailto:yuoao_210521768919043@conference.easemob.com">yuoao_210521768919043@conference.easemob.com</a>","id":"1127870457991665264","timestamp":1680167604707,"payload":"{"bodies":[{"customEvent":"390.1","customExts":[{"to":"{\"content\":[{\"text\":\"找活工人与你建立安全号连接，请注意接听130<strong>号码来电\",\"size\":14,\"color\":\"#A5A5A5\",\"bold\":0}],\"touchId\":\"\"}"},{"from":"{\"content\":[{\"text\":\"与李先生建立安全号连接，请使用130</strong>号码拨打电话\",\"size\":14,\"color\":\"#A5A5A5\",\"bold\":0}],\"touchId\":\"\"}"}],"type":"custom","v2:customExts":{"from":"{\"content\":[{\"text\":\"与李先生建立安全号连接，请使用130<strong>号码拨打电话\",\"size\":14,\"color\":\"#A5A5A5\",\"bold\":0}],\"touchId\":\"\"}","to":"{\"content\":[{\"text\":\"找活工人与你建立安全号连接，请注意接听130</strong>号码来电\",\"size\":14,\"color\":\"#A5A5A5\",\"bold\":0}],\"touchId\":\"\"}"}}],"ext":{"em_apns_ext":{"em_alert_body":"找活工人与你建立安全号连接，请注意接听130<strong>号码来电","em_alert_title":"鱼泡网","em_push_content":"找活工人与你建立安全号连接，请注意接听130</strong>号码来电","em_push_name":"鱼泡网"},"sendFromAdmin":"sendFromAdmin"},"from":"yp-53143859","meta":{},"to":"210521768919043","type":"groupchat"}"}},{"channel_id":"1173220421107443#<a href="mailto:yuoao_210329602686978@conference.easemob.com">yuoao_210329602686978@conference.easemob.com</a>","unread_num":0,"meta":{"from":"1173220421107443#<a href="mailto:yuoao_admin@easemob.com">yuoao_admin@easemob.com</a>","to":"1173220421107443#<a href="mailto:yuoao_210329602686978@conference.easemob.com">yuoao_210329602686978@conference.easemob.com</a>","id":"1127462396672083564","timestamp":1680072595611,"payload":"{"bodies":[{"customEvent":"390.1","customExts":[{"to":"{\"content\":[{\"text\":\"安全号通话结束，未接通\",\"size\":14,\"color\":\"#A5A5A5\",\"bold\":0}],\"touchId\":\"\"}"},{"from":"{\"content\":[{\"text\":\"安全号通话结束，未接通\",\"size\":14,\"color\":\"#A5A5A5\",\"bold\":0}],\"touchId\":\"\"}"}],"type":"custom","v2:customExts":{"from":"{\"content\":[{\"text\":\"安全号通话结束，未接通\",\"size\":14,\"color\":\"#A5A5A5\",\"bold\":0}],\"touchId\":\"\"}","to":"{\"content\":[{\"text\":\"安全号通话结束，未接通\",\"size\":14,\"color\":\"#A5A5A5\",\"bold\":0}],\"touchId\":\"\"}"}}],"ext":{"em_apns_ext":{"em_alert_body":"安全号通话结束，未接通","em_alert_title":"鱼泡网","em_push_content":"安全号通话结束，未接通","em_push_name":"鱼泡网"},"em_push_filter":{"ignore_device_id":["dc898807-3989-3fa5-7fdc-61310ec2018b"]},"sendFromAdmin":"sendFromAdmin"},"from":"yp-52789420","meta":{},"to":"210329602686978","type":"groupchat"}"}},{"channel_id":"1173220421107443#<a href="mailto:yuoao_210337694547971@conference.easemob.com">yuoao_210337694547971@conference.easemob.com</a>","unread_num":1,"meta":{"from":"1173220421107443#<a href="mailto:yuoao_admin@easemob.com">yuoao_admin@easemob.com</a>","to":"1173220421107443#<a href="mailto:yuoao_210337694547971@conference.easemob.com">yuoao_210337694547971@conference.easemob.com</a>","id":"1127116525103220336","timestamp":1679992066013,"payload":"{"bodies":[{"customEvent":"3","customExts":[{"user_name":"汪女士"},{"tags":"幕墙/门窗/干挂/塞缝/打胶"},{"resume_id":"27436184"},{"auth":"-1"}],"type":"custom","v2:customExts":{"auth":"-1","resume_id":"27436184","tags":"幕墙/门窗/干挂/塞缝/打胶","user_name":"汪女士"}}],"ext":{"em_apns_ext":{"em_alert_body":"[找活名片]","em_alert_title":"鱼泡网","em_push_content":"[找活名片]","em_push_name":"鱼泡网"},"sendFromAdmin":"sendFromAdmin"},"from":"yp-53143859","meta":{},"to":"210337694547971","type":"groupchat"}"}},{"channel_id":"1173220421107443#<a href="mailto:yuoao_210336809549827@conference.easemob.com">yuoao_210336809549827@conference.easemob.com</a>","unread_num":0,"meta":{"from":"1173220421107443#<a href="mailto:yuoao_admin@easemob.com">yuoao_admin@easemob.com</a>","to":"1173220421107443#<a href="mailto:yuoao_210336809549827@conference.easemob.com">yuoao_210336809549827@conference.easemob.com</a>","id":"1127113215843501676","timestamp":1679991295543,"payload":"{"bodies":[{"customEvent":"390.1","customExts":[{"to":"{\"content\":[{\"text\":\"安全号通话结束，未接通\",\"size\":14,\"color\":\"#A5A5A5\",\"bold\":0}],\"touchId\":\"\"}"},{"from":"{\"content\":[{\"text\":\"安全号通话结束，未接通\",\"size\":14,\"color\":\"#A5A5A5\",\"bold\":0}],\"touchId\":\"\"}"}],"type":"custom","v2:customExts":{"from":"{\"content\":[{\"text\":\"安全号通话结束，未接通\",\"size\":14,\"color\":\"#A5A5A5\",\"bold\":0}],\"touchId\":\"\"}","to":"{\"content\":[{\"text\":\"安全号通话结束，未接通\",\"size\":14,\"color\":\"#A5A5A5\",\"bold\":0}],\"touchId\":\"\"}"}}],"ext":{"em_apns_ext":{"em_alert_body":"安全号通话结束，未接通","em_alert_title":"鱼泡网","em_push_content":"安全号通话结束，未接通","em_push_name":"鱼泡网"},"em_push_filter":{"ignore_device_id":["6b2e52cb-6a36-4195-9121-365191705a78"]},"sendFromAdmin":"sendFromAdmin"},"from":"yp-41468720","meta":{},"to":"210336809549827","type":"groupchat"}"}},{"channel_id":"1173220421107443#<a href="mailto:yuoao_210330785480708@conference.easemob.com">yuoao_210330785480708@conference.easemob.com</a>","unread_num":0,"meta":{"from":"1173220421107443#<a href="mailto:yuoao_admin@easemob.com">yuoao_admin@easemob.com</a>","to":"1173220421107443#<a href="mailto:yuoao_210330785480708@conference.easemob.com">yuoao_210330785480708@conference.easemob.com</a>","id":"1127089354817144432","timestamp":1679985739955,"payload":"{"bodies":[{"customEvent":"390.1","customExts":[{"to":"{\"content\":[{\"text\":\"安全号通话结束，未接通\",\"size\":14,\"color\":\"#A5A5A5\",\"bold\":0}],\"touchId\":\"\"}"},{"from":"{\"content\":[{\"text\":\"安全号通话结束，未接通\",\"size\":14,\"color\":\"#A5A5A5\",\"bold\":0}],\"touchId\":\"\"}"}],"type":"custom","v2:customExts":{"from":"{\"content\":[{\"text\":\"安全号通话结束，未接通\",\"size\":14,\"color\":\"#A5A5A5\",\"bold\":0}],\"touchId\":\"\"}","to":"{\"content\":[{\"text\":\"安全号通话结束，未接通\",\"size\":14,\"color\":\"#A5A5A5\",\"bold\":0}],\"touchId\":\"\"}"}}],"ext":{"em_apns_ext":{"em_alert_body":"安全号通话结束，未接通","em_alert_title":"鱼泡网","em_push_content":"安全号通话结束，未接通","em_push_name":"鱼泡网"},"sendFromAdmin":"sendFromAdmin"},"from":"yp-53143859","meta":{},"to":"210330785480708","type":"groupchat"}"}},{"channel_id":"1173220421107443#<a href="mailto:yuoao_209317626183696@conference.easemob.com">yuoao_209317626183696@conference.easemob.com</a>","unread_num":0,"meta":{"from":"1173220421107443#<a href="mailto:yuoao_yp-23539883@easemob.com">yuoao_yp-23539883@easemob.com</a>/android_b07a7eda-1631-4132-8acd-7b993655d9f4","to":"1173220421107443#<a href="mailto:yuoao_209317626183696@conference.easemob.com">yuoao_209317626183696@conference.easemob.com</a>","id":"1127023961918408152","timestamp":1679970514478,"payload":"{"bodies":[{"msg":"平台没有注意消息  可以直接拨打电话沟通","type":"txt"}],"ext":{"em_apns_ext":{"em_push_channel_id":"yupao_im","em_push_content":"陈丽帮:平台没有注意消息  可以直接拨打电话沟通","em_push_title":"鱼泡网"}},"from":"yp-23539883","meta":{},"to":"209317626183696","type":"groupchat"}"}},{"channel_id":"1173220421107443#<a href="mailto:yuoao_210225195974658@conference.easemob.com">yuoao_210225195974658@conference.easemob.com</a>","unread_num":0,"meta":{"from":"1173220421107443#<a href="mailto:yuoao_yp-53143859@easemob.com">yuoao_yp-53143859@easemob.com</a>/webim_random_1679884715974","to":"1173220421107443#<a href="mailto:yuoao_210225195974658@conference.easemob.com">yuoao_210225195974658@conference.easemob.com</a>","id":"1126655705776924256","timestamp":1679884773156,"payload":"{"bodies":[{"msg":"我对这个好活很感兴趣，请问还在找人吗？","type":"txt"}],"ext":{"em_apns_ext":{"em_push_content":"先生:我对这个好活很感兴趣，请问还在找人吗？","em_push_title":"鱼泡网"}},"from":"yp-53143859","meta":{},"to":"210225195974658","type":"groupchat"}"}},{"channel_id":"1173220421107443#<a href="mailto:yuoao_210056070103041@conference.easemob.com">yuoao_210056070103041@conference.easemob.com</a>","unread_num":0,"meta":{"from":"1173220421107443#<a href="mailto:yuoao_admin@easemob.com">yuoao_admin@easemob.com</a>","to":"1173220421107443#<a href="mailto:yuoao_210056070103041@conference.easemob.com">yuoao_210056070103041@conference.easemob.com</a>","id":"1125963867956975212","timestamp":1679723692158,"payload":"{"bodies":[{"msg":"老板您好，我刚刚查看过您的招工信息，但是电话没有打通，如果您还在找人可以直接给我打电话","type":"txt"}],"ext":{"em_apns_ext":{"em_alert_body":"老板您好，我刚刚查看过您的招工信息，但是电话没有打通，如果您还在找人可以直接给我打电话","em_alert_title":"鱼泡网","em_push_content":"老板您好，我刚刚查看过您的招工息，但是电话没有打通，如果您还在找人可以直接给我打电话","em_push_name":"鱼泡网"},"sendFromAdmin":"sendFromAdmin"},"from":"yp-53143859","meta":{},"to":"210056070103041","type":"groupchat"}"}},{"channel_id":"1173220421107443#<a href="mailto:yuoao_yupao625fce7bbce28@easemob.com">yuoao_yupao625fce7bbce28@easemob.com</a>","unread_num":0,"meta":{"from":"1173220421107443#<a href="mailto:yuoao_admin@easemob.com">yuoao_admin@easemob.com</a>","to":"1173220421107443#<a href="mailto:yuoao_yp-53143859@easemob.com">yuoao_yp-53143859@easemob.com</a>","id":"1125602331321173616","timestamp":1679639515321,"payload":"{"bodies":[{"customEvent":"10","customExts":[{"user_name":"先生"},{"type_show":"2"},{"notice":"你好，成都正急需外卖骑手、临时工"},{"msg_ext_json":"{\"log_id\":\"123744436531438593,bigdataJobPush\",\"type\":\"bigdataJobPush\"}"},{"localtion":"{\"address\":\"四川成都五大花园美食街(沙堰西一街店)\",\"latitude\":\"104.001387\",\"longitude\":\"30.656635\"}"},{"job_id":"123744436"},{"header_img":"/ios/230206/6003912051584376.png"},{"free_type":"0"},{"detail":"成都市武侯区招外卖骑手，临时工"},{"boss_user_id":"51584376"}],"type":"custom","v2:customExts":{"boss_user_id":"51584376","detail":"成都市武侯区招外卖骑手，临时工","free_type":"0","header_img":"/ios/230206/6003912051584376.png","job_id":"123744436","localtion":"{\"address\":\"四川成都五大花园美食街(沙堰西一街店)\",\"latitude\":\"104.001387\",\"longitude\":\"30.656635\"}","msg_ext_json":"{\"log_id\":\"123744436531438593,bigdataJobPush\",\"type\":\"bigdataJobPush\"}","notice":"你好，成都正急需外卖骑手、临时工","type_show":"2","user_name":"先生"}}],"ext":{"em_android_push_ext":{"huawei_channel_id":"SUBSCRIPTION","oppo_channel_id":"yupao_subscribe","xiaomi_channel_id":"103527"},"em_apns_ext":{"em_alert_body":"你好，成都正急需外卖骑手、临时工","em_alert_title":"鱼泡网","em_push_content":"你好，成都正急需外卖骑手、临时工","em_push_name":"鱼泡网","job_id":"123744436","msg_ext_json":"{\"log_id\":\"123744436531438593,bigdataJobPush\",\"type\":\"bigdataJobPush\"}"}},"from":"yupao625fce7bbce28","meta":{},"to":"yp-53143859","type":"chat"}"}},{"channel_id":"1173220421107443#<a href="mailto:yuoao_209244690382850@conference.easemob.com">yuoao_209244690382850@conference.easemob.com</a>","unread_num":1,"meta":{"from":"1173220421107443#<a href="mailto:yuoao_yp-53143859@easemob.com">yuoao_yp-53143859@easemob.com</a>/webim_random_1679035874805","to":"1173220421107443#<a href="mailto:yuoao_209244690382850@conference.easemob.com">yuoao_209244690382850@conference.easemob.com</a>","id":"1122639546656233056","timestamp":1678949688246,"payload":"{"bodies":[{"msg":"您好！请问还在找活吗？","type":"txt"}],"ext":{"em_apns_ext":{"em_push_content":"先生:您好！请问还在找活吗？","em_push_title":"鱼泡网"}},"from":"yp-53143859","meta":{},"to":"209244690382850","type":"groupchat"}"}},{"channel_id":"1173220421107443#<a href="mailto:yuoao_209244649488385@conference.easemob.com">yuoao_209244649488385@conference.easemob.com</a>","unread_num":0,"meta":{"from":"1173220421107443#<a href="mailto:yuoao_yp-53143859@easemob.com">yuoao_yp-53143859@easemob.com</a>/webim_random_1679035874805","to":"1173220421107443#<a href="mailto:yuoao_209244649488385@conference.easemob.com">yuoao_209244649488385@conference.easemob.com</a>","id":"1122639388388361824","timestamp":1678949651399,"payload":"{"bodies":[{"msg":"您好！请问还在找活吗？","type":"txt"}],"ext":{"em_apns_ext":{"em_push_content":"先生:您好！请问还在找活吗？","em_push_title":"鱼泡网"}},"from":"yp-53143859","meta":{},"to":"209244649488385","type":"groupchat"}"}},{"channel_id":"1173220421107443#<a href="mailto:yuoao_209076628815877@conference.easemob.com">yuoao_209076628815877@conference.easemob.com</a>","unread_num":0,"meta":{"from":"1173220421107443#<a href="mailto:yuoao_yp-53143859@easemob.com">yuoao_yp-53143859@easemob.com</a>/webim_random_1678789400720","to":"1173220421107443#<a href="mailto:yuoao_209076628815877@conference.easemob.com">yuoao_209076628815877@conference.easemob.com</a>","id":"1121951167870408292","timestamp":1678789412577,"payload":"{"bodies":[{"msg":"我对这个好活很感兴趣，请问还在找人吗？","type":"txt"}],"ext":{"em_apns_ext":{"em_push_content":"先生:我这个好活很感兴趣，请问还在找人吗？","em_push_title":"鱼泡网"}},"from":"yp-53143859","meta":{},"to":"209076628815877","type":"groupchat"}"}}]}</p>
+<p>[&lt;&lt;"1173220421107443#<a href="mailto:yuoao_207891918290948@conference.easemob.com">yuoao_207891918290948@conference.easemob.com</a>"&gt;&gt;,<br>
+&lt;&lt;"1117098670068598380"&gt;&gt;,<br>
+&lt;&lt;"1173220421107443#<a href="mailto:yuoao_yupao625e3dg36dgsh@easemob.com">yuoao_yupao625e3dg36dgsh@easemob.com</a>"&gt;&gt;,<br>
+&lt;&lt;"1127872097536706152"&gt;&gt;,<br>
+&lt;&lt;"1173220421107443#<a href="mailto:yuoao_207979217485825@conference.easemob.com">yuoao_207979217485825@conference.easemob.com</a>"&gt;&gt;,<br>
+&lt;&lt;"1117456225085163112"&gt;&gt;,<br>
+&lt;&lt;"1173220421107443#<a href="mailto:yuoao_209076628815877@conference.easemob.com">yuoao_209076628815877@conference.easemob.com</a>"&gt;&gt;,<br>
+&lt;&lt;"1121951167870408292"&gt;&gt;,<br>
+&lt;&lt;"1173220421107443#<a href="mailto:yuoao_209244649488385@conference.easemob.com">yuoao_209244649488385@conference.easemob.com</a>"&gt;&gt;,<br>
+&lt;&lt;"1122639388388361824"&gt;&gt;,<br>
+&lt;&lt;"1173220421107443#<a href="mailto:yuoao_209244690382850@conference.easemob.com">yuoao_209244690382850@conference.easemob.com</a>"&gt;&gt;,<br>
+&lt;&lt;"1122639546656233056"&gt;&gt;,<br>
+&lt;&lt;"1173220421107443#<a href="mailto:yuoao_209317483577350@conference.easemob.com">yuoao_209317483577350@conference.easemob.com</a>"&gt;&gt;,<br>
+&lt;&lt;"1122937733606549096"&gt;&gt;,<br>
+&lt;&lt;"1173220421107443#<a href="mailto:yuoao_209317626183696@conference.easemob.com">yuoao_209317626183696@conference.easemob.com</a>"&gt;&gt;,<br>
+&lt;&lt;"1127023961918408152"&gt;&gt;,<br>
+&lt;&lt;"1173220421107443#<a href="mailto:yuoao_209693989470209@conference.easemob.com">yuoao_209693989470209@conference.easemob.com</a>"&gt;&gt;,<br>
+&lt;&lt;"1124481401450661480"&gt;&gt;,<br>
+&lt;&lt;"1173220421107443#<a href="mailto:yuoao_209694376394759@conference.easemob.com">yuoao_209694376394759@conference.easemob.com</a>"&gt;&gt;,<br>
+&lt;&lt;"1124481631025890920"&gt;&gt;,<br>
+&lt;&lt;"1173220421107443#<a href="mailto:yuoao_yupao625fce7bbce28@easemob.com">yuoao_yupao625fce7bbce28@easemob.com</a>"&gt;&gt;,<br>
+&lt;&lt;"1125602331321173616"&gt;&gt;,<br>
+&lt;&lt;"1173220421107443#<a href="mailto:yuoao_210056070103041@conference.easemob.com">yuoao_210056070103041@conference.easemob.com</a>"&gt;&gt;,<br>
+&lt;&lt;"1125963867956975212"&gt;&gt;,<br>
+&lt;&lt;"1173220421107443#<a href="mailto:yuoao_210225195974658@conference.easemob.com">yuoao_210225195974658@conference.easemob.com</a>"&gt;&gt;,<br>
+&lt;&lt;"1126655705776924256"&gt;&gt;,<br>
+&lt;&lt;"1173220421107443#<a href="mailto:yuoao_210329602686978@conference.easemob.com">yuoao_210329602686978@conference.easemob.com</a>"&gt;&gt;,<br>
+&lt;&lt;"1127462396672083564"&gt;&gt;,<br>
+&lt;&lt;"1173220421107443#<a href="mailto:yuoao_210330785480708@conference.easemob.com">yuoao_210330785480708@conference.easemob.com</a>"&gt;&gt;,<br>
+&lt;&lt;"1127089354817144432"&gt;&gt;,<br>
+&lt;&lt;"1173220421107443#<a href="mailto:yuoao_210336809549827@conference.easemob.com">yuoao_210336809549827@conference.easemob.com</a>"&gt;&gt;,<br>
+&lt;&lt;"1127113215843501676"&gt;&gt;,<br>
+&lt;&lt;"1173220421107443#<a href="mailto:yuoao_210337694547971@conference.easemob.com">yuoao_210337694547971@conference.easemob.com</a>"&gt;&gt;,<br>
+&lt;&lt;"1127116525103220336"&gt;&gt;,<br>
+&lt;&lt;"1173220421107443#<a href="mailto:yuoao_210521768919043@conference.easemob.com">yuoao_210521768919043@conference.easemob.com</a>"&gt;&gt;,<br>
+&lt;&lt;"1127870457991665264"&gt;&gt;]</p>
+<p>{"channel_infos":[{"channel_id":"1173220421107443#<a href="mailto:yuoao_yupao625e3dg36dgsh@easemob.com">yuoao_yupao625e3dg36dgsh@easemob.com</a>","unread_num":0,"meta":{"from":"1173220421107443#<a href="mailto:yuoao_admin@easemob.com">yuoao_admin@easemob.com</a>","to":"1173220421107443#<a href="mailto:yuoao_yp-53143859@easemob.com">yuoao_yp-53143859@easemob.com</a>","id":"1127872097536706152","timestamp":1680167986463,"payload":"{"bodies":[{"customEvent":"99","customExts":[{"terminalInfo":"[{\"buttonInfo\":{\"desc\":\"通过后在前台展示\",\"jumpType\":1,\"title\":\"修改我的好活\",\"url\":\"edit_mywork\"},\"minVersion\":\"0.0.0\",\"terminal\":\"ios\"},{\"buttonInfo\":{\"desc\":\"通过后在前台展示\",\"jumpType\":1,\"title\":\"修改我的好活\",\"url\":\"/work/MyReleaseFindWorkerActivity\"},\"minVersion\":\"0.0.0\",\"terminal\":\"android\"},{\"buttonInfo\":{\"desc\":\"通过后在前台展示\",\"jumpType\":1,\"title\":\"修改我的好活\",\"url\":\"/subpackage/recruit/published/index\"},\"minVersion\":\"0.0.0\",\"terminal\":\"wx_mini\"},{\"buttonInfo\":{\"desc\":\"通过后在前台展示\",\"jumpType\":1,\"title\":\"修改我的好活\",\"url\":\"/subpackage/recruit/published/index\"},\"minVersion\":\"0.0.0\",\"terminal\":\"baidu_mini\"},{\"minVersion\":\"0.0.0\",\"terminal\":\"bd_mini\"},{\"minVersion\":\"0.0.0\",\"terminal\":\"h5\"},{\"minVersion\":\"0.0.0\",\"terminal\":\"wx_h5\"}]"},{"content":"您发布的信息审核失败，请按照要求及时修改！"},{"title":"活源信息"},{"type":"2"},{"subType":"2"},{"subTitle":"成都武侯区测试信息，请勿审核通过测试测试测试测试测试测试测试测试测试测试测试测试测试测试测"},{"ext":"{\"job_area_id\":322,\"job_work_type\":\"84\",\"job_id\":124555190,\"job_uuid\":\"1680162693666178\",\"job_suffix\":\"chengdu_wuliuhuoyunsiji_zhfl\",\"resume_id\":27436184,\"resume_uuid\":\"1679550212746097\",\"target_uuid\":\"\",\"formal_integral\":0,\"temp_integral\":0}"}],"type":"custom","v2:customExts":{"content":"您发布的信息审核失败，请按照要求及时修改！","ext":"{\"job_area_id\":322,\"job_work_type\":\"84\",\"job_id\":124555190,\"job_uuid\":\"1680162693666178\",\"job_suffix\":\"chengdu_wuliuhuoyunsiji_zhfl\",\"resume_id\":27436184,\"resume_uuid\":\"1679550212746097\",\"target_uuid\":\"\",\"formal_integral\":0,\"temp_integral\":0}","subTitle":"成都武侯区测试信息，请勿审核通过测试测试测试测试测试测试测试测试测试测试测试测试测试测试测","subType":"2","terminalInfo":"[{\"buttonInfo\":{\"desc\":\"通过后在前台展示\",\"jumpType\":1,\"title\":\"修改我的好活\",\"url\":\"edit_mywork\"},\"minVersion\":\"0.0.0\",\"terminal\":\"ios\"},{\"buttonInfo\":{\"desc\":\"通过后在前台展示\",\"jumpType\":1,\"title\":\"修改我的好活\",\"url\":\"/work/MyReleaseFindWorkerActivity\"},\"minVersion\":\"0.0.0\",\"terminal\":\"android\"},{\"buttonInfo\":{\"desc\":\"通过后在前台展示\",\"jumpType\":1,\"title\":\"修改我的好活\",\"url\":\"/subpackage/recruit/published/index\"},\"minVersion\":\"0.0.0\",\"terminal\":\"wx_mini\"},{\"buttonInfo\":{\"desc\":\"通过后在前台展示\",\"jumpType\":1,\"title\":\"修改我的好活\",\"url\":\"/subpackage/recruit/published/index\"},\"minVersion\":\"0.0.0\",\"terminal\":\"baidu_mini\"},{\"minVersion\":\"0.0.0\",\"terminal\":\"bd_mini\"},{\"minVersion\":\"0.0.0\",\"terminal\":\"h5\"},{\"minVersion\":\"0.0.0\",\"terminal\":\"wx_h5\"}]","title":"活源信息","type":"2"}}],"ext":{},"from":"yupao625e3dg36dgsh","meta":{},"to":"yp-53143859","type":"chat"}"}},{"channel_id":"1173220421107443#<a href="mailto:yuoao_210521768919043@conference.easemob.com">yuoao_210521768919043@conference.easemob.com</a>","unread_num":0,"meta":{"from":"1173220421107443#<a href="mailto:yuoao_admin@easemob.com">yuoao_admin@easemob.com</a>","to":"1173220421107443#<a href="mailto:yuoao_210521768919043@conference.easemob.com">yuoao_210521768919043@conference.easemob.com</a>","id":"1127870457991665264","timestamp":1680167604707,"payload":"{"bodies":[{"customEvent":"390.1","customExts":[{"to":"{\"content\":[{\"text\":\"找活工人与你建立安全号连接，请注意接听130<strong>号码来电\",\"size\":14,\"color\":\"#A5A5A5\",\"bold\":0}],\"touchId\":\"\"}"},{"from":"{\"content\":[{\"text\":\"与李先生建立安全号连接，请使用130</strong>号码拨打电话\",\"size\":14,\"color\":\"#A5A5A5\",\"bold\":0}],\"touchId\":\"\"}"}],"type":"custom","v2:customExts":{"from":"{\"content\":[{\"text\":\"与李先生建立安全号连接，请使用130<strong>号码拨打电话\",\"size\":14,\"color\":\"#A5A5A5\",\"bold\":0}],\"touchId\":\"\"}","to":"{\"content\":[{\"text\":\"找活工人与你建立安全号连接，请注意接听130</strong>号码来电\",\"size\":14,\"color\":\"#A5A5A5\",\"bold\":0}],\"touchId\":\"\"}"}}],"ext":{"em_apns_ext":{"em_alert_body":"找活工人与你建立安全号连接，请注意接听130<strong>号码来电","em_alert_title":"鱼泡网","em_push_content":"找活工人与你建立安全号连接，请注意接听130</strong>号码来电","em_push_name":"鱼泡网"},"sendFromAdmin":"sendFromAdmin"},"from":"yp-53143859","meta":{},"to":"210521768919043","type":"groupchat"}"}},{"channel_id":"1173220421107443#<a href="mailto:yuoao_210329602686978@conference.easemob.com">yuoao_210329602686978@conference.easemob.com</a>","unread_num":0,"meta":{"from":"1173220421107443#<a href="mailto:yuoao_admin@easemob.com">yuoao_admin@easemob.com</a>","to":"1173220421107443#<a href="mailto:yuoao_210329602686978@conference.easemob.com">yuoao_210329602686978@conference.easemob.com</a>","id":"1127462396672083564","timestamp":1680072595611,"payload":"{"bodies":[{"customEvent":"390.1","customExts":[{"to":"{\"content\":[{\"text\":\"安全号通话结束，未接通\",\"size\":14,\"color\":\"#A5A5A5\",\"bold\":0}],\"touchId\":\"\"}"},{"from":"{\"content\":[{\"text\":\"安全号通话结束，未接通\",\"size\":14,\"color\":\"#A5A5A5\",\"bold\":0}],\"touchId\":\"\"}"}],"type":"custom","v2:customExts":{"from":"{\"content\":[{\"text\":\"安全号通话结束，未接通\",\"size\":14,\"color\":\"#A5A5A5\",\"bold\":0}],\"touchId\":\"\"}","to":"{\"content\":[{\"text\":\"安全号通话结束，未接通\",\"size\":14,\"color\":\"#A5A5A5\",\"bold\":0}],\"touchId\":\"\"}"}}],"ext":{"em_apns_ext":{"em_alert_body":"安全号通话结束，未接通","em_alert_title":"鱼泡网","em_push_content":"安全号通话结束，未接通","em_push_name":"鱼泡网"},"em_push_filter":{"ignore_device_id":["dc898807-3989-3fa5-7fdc-61310ec2018b"]},"sendFromAdmin":"sendFromAdmin"},"from":"yp-52789420","meta":{},"to":"210329602686978","type":"groupchat"}"}},{"channel_id":"1173220421107443#<a href="mailto:yuoao_210337694547971@conference.easemob.com">yuoao_210337694547971@conference.easemob.com</a>","unread_num":0,"meta":{"from":"1173220421107443#<a href="mailto:yuoao_admin@easemob.com">yuoao_admin@easemob.com</a>","to":"1173220421107443#<a href="mailto:yuoao_210337694547971@conference.easemob.com">yuoao_210337694547971@conference.easemob.com</a>","id":"1127116525103220336","timestamp":1679992066013,"payload":"{"bodies":[{"customEvent":"3","customExts":[{"user_name":"汪女士"},{"tags":"幕墙/门窗/干挂/塞缝/打胶"},{"resume_id":"27436184"},{"auth":"-1"}],"type":"custom","v2:customExts":{"auth":"-1","resume_id":"27436184","tags":"幕墙/门窗/干挂/塞缝/打胶","user_name":"汪女士"}}],"ext":{"em_apns_ext":{"em_alert_body":"[找活名片]","em_alert_title":"鱼泡网","em_push_content":"[找活名片]","em_push_name":"鱼泡网"},"sendFromAdmin":"sendFromAdmin"},"from":"yp-53143859","meta":{},"to":"210337694547971","type":"groupchat"}"}},{"channel_id":"1173220421107443#<a href="mailto:yuoao_210336809549827@conference.easemob.com">yuoao_210336809549827@conference.easemob.com</a>","unread_num":0,"meta":{"from":"1173220421107443#<a href="mailto:yuoao_admin@easemob.com">yuoao_admin@easemob.com</a>","to":"1173220421107443#<a href="mailto:yuoao_210336809549827@conference.easemob.com">yuoao_210336809549827@conference.easemob.com</a>","id":"1127113215843501676","timestamp":1679991295543,"payload":"{"bodies":[{"customEvent":"390.1","customExts":[{"to":"{\"content\":[{\"text\":\"安全号通话结束，未接通\",\"size\":14,\"color\":\"#A5A5A5\",\"bold\":0}],\"touchId\":\"\"}"},{"from":"{\"content\":[{\"text\":\"安全号通话结束，未接通\",\"size\":14,\"color\":\"#A5A5A5\",\"bold\":0}],\"touchId\":\"\"}"}],"type":"custom","v2:customExts":{"from":"{\"content\":[{\"text\":\"安全号通话结束，未接通\",\"size\":14,\"color\":\"#A5A5A5\",\"bold\":0}],\"touchId\":\"\"}","to":"{\"content\":[{\"text\":\"安全号通话结束，未接通\",\"size\":14,\"color\":\"#A5A5A5\",\"bold\":0}],\"touchId\":\"\"}"}}],"ext":{"em_apns_ext":{"em_alert_body":"安全号通话结束，未接通","em_alert_title":"鱼泡网","em_push_content":"安全号通话结束，未接通","em_push_name":"鱼泡网"},"em_push_filter":{"ignore_device_id":["6b2e52cb-6a36-4195-9121-365191705a78"]},"sendFromAdmin":"sendFromAdmin"},"from":"yp-41468720","meta":{},"to":"210336809549827","type":"groupchat"}"}},{"channel_id":"1173220421107443#<a href="mailto:yuoao_210330785480708@conference.easemob.com">yuoao_210330785480708@conference.easemob.com</a>","unread_num":0,"meta":{"from":"1173220421107443#<a href="mailto:yuoao_admin@easemob.com">yuoao_admin@easemob.com</a>","to":"1173220421107443#<a href="mailto:yuoao_210330785480708@conference.easemob.com">yuoao_210330785480708@conference.easemob.com</a>","id":"1127089354817144432","timestamp":1679985739955,"payload":"{"bodies":[{"customEvent":"390.1","customExts":[{"to":"{\"content\":[{\"text\":\"安全号通话结束，未接通\",\"size\":14,\"color\":\"#A5A5A5\",\"bold\":0}],\"touchId\":\"\"}"},{"from":"{\"content\":[{\"text\":\"安全号通话结束，未接通\",\"size\":14,\"color\":\"#A5A5A5\",\"bold\":0}],\"touchId\":\"\"}"}],"type":"custom","v2:customExts":{"from":"{\"content\":[{\"text\":\"安全号通话结束，未接通\",\"size\":14,\"color\":\"#A5A5A5\",\"bold\":0}],\"touchId\":\"\"}","to":"{\"content\":[{\"text\":\"安全号通话结束，未接通\",\"size\":14,\"color\":\"#A5A5A5\",\"bold\":0}],\"touchId\":\"\"}"}}],"ext":{"em_apns_ext":{"em_alert_body":"安全号通话结束，未接通","em_alert_title":"鱼泡网","em_push_content":"安全号通话结束，未接通","em_push_name":"鱼泡网"},"sendFromAdmin":"sendFromAdmin"},"from":"yp-53143859","meta":{},"to":"210330785480708","type":"groupchat"}"}},{"channel_id":"1173220421107443#<a href="mailto:yuoao_209317626183696@conference.easemob.com">yuoao_209317626183696@conference.easemob.com</a>","unread_num":0,"meta":{"from":"1173220421107443#<a href="mailto:yuoao_yp-23539883@easemob.com">yuoao_yp-23539883@easemob.com</a>/android_b07a7eda-1631-4132-8acd-7b993655d9f4","to":"1173220421107443#<a href="mailto:yuoao_209317626183696@conference.easemob.com">yuoao_209317626183696@conference.easemob.com</a>","id":"1127023961918408152","timestamp":1679970514478,"payload":"{"bodies":[{"msg":"平台没有注意消息  可以直接拨打电话沟通","type":"txt"}],"ext":{"em_apns_ext":{"em_push_channel_id":"yupao_im","em_push_content":"陈丽帮:平台没有注意消息  可以直接拨打电话沟通","em_push_title":"鱼泡网"}},"from":"yp-23539883","meta":{},"to":"209317626183696","type":"groupchat"}"}},{"channel_id":"1173220421107443#<a href="mailto:yuoao_210225195974658@conference.easemob.com">yuoao_210225195974658@conference.easemob.com</a>","unread_num":0,"meta":{"from":"1173220421107443#<a href="mailto:yuoao_yp-53143859@easemob.com">yuoao_yp-53143859@easemob.com</a>/webim_random_1679884715974","to":"1173220421107443#<a href="mailto:yuoao_210225195974658@conference.easemob.com">yuoao_210225195974658@conference.easemob.com</a>","id":"1126655705776924256","timestamp":1679884773156,"payload":"{"bodies":[{"msg":"我对这个好活很感兴趣，请问还在找人吗？","type":"txt"}],"ext":{"em_apns_ext":{"em_push_content":"先生:我对这个好活很感兴趣，请问还在找人吗？","em_push_title":"鱼泡网"}},"from":"yp-53143859","meta":{},"to":"210225195974658","type":"groupchat"}"}},{"channel_id":"1173220421107443#<a href="mailto:yuoao_210056070103041@conference.easemob.com">yuoao_210056070103041@conference.easemob.com</a>","unread_num":0,"meta":{"from":"1173220421107443#<a href="mailto:yuoao_admin@easemob.com">yuoao_admin@easemob.com</a>","to":"1173220421107443#<a href="mailto:yuoao_210056070103041@conference.easemob.com">yuoao_210056070103041@conference.easemob.com</a>","id":"1125963867956975212","timestamp":1679723692158,"payload":"{"bodies":[{"msg":"老板您好，我刚刚查看过您的招工信息，但是电话没有打通，如果您还在找人可以直接给我打电话","type":"txt"}],"ext":{"em_apns_ext":{"em_alert_body":"老板您好，我刚刚查看过您的招工信息，但是电话没有打通，如果您还在找人可以直接给我打电话","em_alert_title":"鱼泡网","em_push_content":"老板您好，我刚刚查看过您的招工息，但是电话没有打通，如果您还在找人可以直接给我打电话","em_push_name":"鱼泡网"},"sendFromAdmin":"sendFromAdmin"},"from":"yp-53143859","meta":{},"to":"210056070103041","type":"groupchat"}"}},{"channel_id":"1173220421107443#<a href="mailto:yuoao_yupao625fce7bbce28@easemob.com">yuoao_yupao625fce7bbce28@easemob.com</a>","unread_num":0,"meta":{"from":"1173220421107443#<a href="mailto:yuoao_admin@easemob.com">yuoao_admin@easemob.com</a>","to":"1173220421107443#<a href="mailto:yuoao_yp-53143859@easemob.com">yuoao_yp-53143859@easemob.com</a>","id":"1125602331321173616","timestamp":1679639515321,"payload":"{"bodies":[{"customEvent":"10","customExts":[{"user_name":"先生"},{"type_show":"2"},{"notice":"你好，成都正急需外卖骑手、临时工"},{"msg_ext_json":"{\"log_id\":\"123744436531438593,bigdataJobPush\",\"type\":\"bigdataJobPush\"}"},{"localtion":"{\"address\":\"四川成都五大花园美食街(沙堰西一街店)\",\"latitude\":\"104.001387\",\"longitude\":\"30.656635\"}"},{"job_id":"123744436"},{"header_img":"/ios/230206/6003912051584376.png"},{"free_type":"0"},{"detail":"成都市武侯区招外卖骑手，临时工"},{"boss_user_id":"51584376"}],"type":"custom","v2:customExts":{"boss_user_id":"51584376","detail":"成都市武侯区招外卖骑手，临时工","free_type":"0","header_img":"/ios/230206/6003912051584376.png","job_id":"123744436","localtion":"{\"address\":\"四川成都五大花园美食街(沙堰西一街店)\",\"latitude\":\"104.001387\",\"longitude\":\"30.656635\"}","msg_ext_json":"{\"log_id\":\"123744436531438593,bigdataJobPush\",\"type\":\"bigdataJobPush\"}","notice":"你好，成都正急需外卖骑手、临时工","type_show":"2","user_name":"先生"}}],"ext":{"em_android_push_ext":{"huawei_channel_id":"SUBSCRIPTION","oppo_channel_id":"yupao_subscribe","xiaomi_channel_id":"103527"},"em_apns_ext":{"em_alert_body":"你好，成都正急需外卖骑手、临时工","em_alert_title":"鱼泡网","em_push_content":"你好，成都正急需外卖骑手、临时工","em_push_name":"鱼泡网","job_id":"123744436","msg_ext_json":"{\"log_id\":\"123744436531438593,bigdataJobPush\",\"type\":\"bigdataJobPush\"}"}},"from":"yupao625fce7bbce28","meta":{},"to":"yp-53143859","type":"chat"}"}},{"channel_id":"1173220421107443#<a href="mailto:yuoao_209244690382850@conference.easemob.com">yuoao_209244690382850@conference.easemob.com</a>","unread_num":0,"meta":{"from":"1173220421107443#<a href="mailto:yuoao_yp-53143859@easemob.com">yuoao_yp-53143859@easemob.com</a>/webim_random_1679035874805","to":"1173220421107443#<a href="mailto:yuoao_209244690382850@conference.easemob.com">yuoao_209244690382850@conference.easemob.com</a>","id":"1122639546656233056","timestamp":1678949688246,"payload":"{"bodies":[{"msg":"您好！请问还在找活吗？","type":"txt"}],"ext":{"em_apns_ext":{"em_push_content":"先生:您好！请问还在找活吗？","em_push_title":"鱼泡网"}},"from":"yp-53143859","meta":{},"to":"209244690382850","type":"groupchat"}"}},{"channel_id":"1173220421107443#<a href="mailto:yuoao_209244649488385@conference.easemob.com">yuoao_209244649488385@conference.easemob.com</a>","unread_num":0,"meta":{"from":"1173220421107443#<a href="mailto:yuoao_yp-53143859@easemob.com">yuoao_yp-53143859@easemob.com</a>/webim_random_1679035874805","to":"1173220421107443#<a href="mailto:yuoao_209244649488385@conference.easemob.com">yuoao_209244649488385@conference.easemob.com</a>","id":"1122639388388361824","timestamp":1678949651399,"payload":"{"bodies":[{"msg":"您好！请问还在找活吗？","type":"txt"}],"ext":{"em_apns_ext":{"em_push_content":"先生:您好！请问还在找活吗？","em_push_title":"鱼泡网"}},"from":"yp-53143859","meta":{},"to":"209244649488385","type":"groupchat"}"}},{"channel_id":"1173220421107443#<a href="mailto:yuoao_209076628815877@conference.easemob.com">yuoao_209076628815877@conference.easemob.com</a>","unread_num":0,"meta":{"from":"1173220421107443#<a href="mailto:yuoao_yp-53143859@easemob.com">yuoao_yp-53143859@easemob.com</a>/webim_random_1678789400720","to":"1173220421107443#<a href="mailto:yuoao_209076628815877@conference.easemob.com">yuoao_209076628815877@conference.easemob.com</a>","id":"1121951167870408292","timestamp":1678789412577,"payload":"{"bodies":[{"msg":"我对这个好活很感兴趣，请问还在找人吗？","type":"txt"}],"ext":{"em_apns_ext":{"em_push_content":"先生:我这个好活很感兴趣，请问还在找人吗？","em_push_title":"鱼泡网"}},"from":"yp-53143859","meta":{},"to":"209076628815877","type":"groupchat"}"}}]}</p>
+<p>msync_web_api:get_unread_num([&lt;&lt;"1127116525103220336"&gt;&gt;,&lt;&lt;"1127116525451347560"&gt;&gt;,<br>
+&lt;&lt;"1127116524432131692"&gt;&gt;,&lt;&lt;"1127116491372627560"&gt;&gt;,<br>
+&lt;&lt;"1127116490944808560"&gt;&gt;], &lt;&lt;"1127116525103220336"&gt;&gt;)</p>
+<p>msync_web_api:get_unread_num([&lt;&lt;"1127116525451347560"&gt;&gt;,&lt;&lt;"1127116524432131692"&gt;&gt;,<br>
+&lt;&lt;"1127116491372627560"&gt;&gt;,&lt;&lt;"1127116490944808560"&gt;&gt;,<br>
+&lt;&lt;"1127116525103220336"&gt;&gt;], &lt;&lt;"1127116525103220336"&gt;&gt;)</p>
+<p>lists:takewhile(fun(A) -&gt; A &gt; &lt;&lt;"1127116525103220336"&gt;&gt; end, [&lt;&lt;"1127116525103220336"&gt;&gt;,&lt;&lt;"1127116525451347560"&gt;&gt;,<br>
+&lt;&lt;"1127116524432131692"&gt;&gt;,&lt;&lt;"1127116491372627560"&gt;&gt;,<br>
+&lt;&lt;"1127116490944808560"&gt;&gt;]).</p>
+<p>lists:takewhile(fun(A) -&gt; A &gt; &lt;&lt;"1127116525103220336"&gt;&gt; end, [&lt;&lt;"1127116525451347560"&gt;&gt;,&lt;&lt;"1127116524432131692"&gt;&gt;,<br>
+&lt;&lt;"1127116491372627560"&gt;&gt;,&lt;&lt;"1127116490944808560"&gt;&gt;,<br>
+&lt;&lt;"1127116525103220336"&gt;&gt;]).</p><hr><p>Fri May  5 16:54:37 2023</p><script src="https://utteranc.es/client.js"
         repo="caixiangyue/caixiangyue.github.io"
         issue-term="pathname"
         theme="github-light"
@@ -707,23 +931,23 @@ PyMODINIT_FUNC <span class="pl-en">PyInit_hello</span>(<span class="pl-k">void</
 <description> <![CDATA[<h2>一. c宏</h2>
 <ol>
 <li>
-<p><code>do{}while(0)</code> 宏的用处?</p>
+<p><code class="notranslate">do{}while(0)</code> 宏的用处?</p>
 <p>避免调用者出现使用错误，保证程序执行的一致性。<br>
 例如：</p>
-<div class="highlight highlight-source-c"><pre>#<span class="pl-k">define</span> <span class="pl-en">FOO</span>() foo1();foo2();</pre></div>
+<div class="highlight highlight-source-c"><pre class="notranslate"><span class="pl-k">#define</span> <span class="pl-en">FOO</span>() foo1();foo2();</pre></div>
 <p>调用代码：</p>
-<div class="highlight highlight-source-c"><pre><span class="pl-k">if</span> (a &gt; <span class="pl-c1">0</span>)
+<div class="highlight highlight-source-c"><pre class="notranslate"><span class="pl-k">if</span> (<span class="pl-s1">a</span> <span class="pl-c1">&gt;</span> <span class="pl-c1">0</span>)
     <span class="pl-en">FOO</span>();</pre></div>
 <p>会被扩展成:</p>
-<div class="highlight highlight-source-c"><pre><span class="pl-k">if</span> (a &gt; <span class="pl-c1">0</span>)
-    <span class="pl-en">foo1</span>();foo2();</pre></div>
-<p>这时就产生了一个问题，若是<code>a &lt;= 0</code>，<code>foo2()</code>仍然会被调用。<br>
+<div class="highlight highlight-source-c"><pre class="notranslate"><span class="pl-k">if</span> (<span class="pl-s1">a</span> <span class="pl-c1">&gt;</span> <span class="pl-c1">0</span>)
+    <span class="pl-en">foo1</span>();<span class="pl-en">foo2</span>();</pre></div>
+<p>这时就产生了一个问题，若是<code class="notranslate">a &lt;= 0</code>，<code class="notranslate">foo2()</code>仍然会被调用。<br>
 正确的写法：</p>
-<div class="highlight highlight-source-c"><pre>#<span class="pl-k">define</span> <span class="pl-en">FOO</span>() \
-        <span class="pl-k">do</span>{ \
-            <span class="pl-c1">foo1</span>(); \
-            <span class="pl-c1">foo2</span>(); \
-        }<span class="pl-k">while</span>(<span class="pl-c1">0</span>)</pre></div>
+<div class="highlight highlight-source-c"><pre class="notranslate"><span class="pl-k">#define</span> <span class="pl-en">FOO</span>() \
+        do{ \
+            foo1(); \
+            foo2(); \
+        }while(0)</pre></div>
 </li>
 </ol>
 <h2>二. 计算机二三事</h2>
@@ -735,8 +959,8 @@ PyMODINIT_FUNC <span class="pl-en">PyInit_hello</span>(<span class="pl-k">void</
 <li>栈中的数据必须已知且大小固定（如c语言的数组）</li>
 <li>堆是缺乏组织的，当向堆中放入数据，操作系统会去寻找到一块足够大的空间，标记为已使用，并返回一个指向这块空间的指针</li>
 </ul>
-<p>操作栈空间是比堆速度快的，因为使用堆你需要先寻找到一块足够大的空间（<code>malloc</code>），而且使用的内存并不是连续的（如动态链表），需要在内存中跳来跳去，这些操作都会降低性能。<br>
-还有很多原因，如cpu对栈有直接支持（<code>push</code>, <code>pop</code>）；栈内存由操作系统管理，而堆内存由用户程序管理。</p>
+<p>操作栈空间是比堆速度快的，因为使用堆你需要先寻找到一块足够大的空间（<code class="notranslate">malloc</code>），而且使用的内存并不是连续的（如动态链表），需要在内存中跳来跳去，这些操作都会降低性能。<br>
+还有很多原因，如cpu对栈有直接支持（<code class="notranslate">push</code>, <code class="notranslate">pop</code>）；栈内存由操作系统管理，而堆内存由用户程序管理。</p>
 </li>
 <li>
 <p>指针</p>
@@ -758,11 +982,11 @@ PyMODINIT_FUNC <span class="pl-en">PyInit_hello</span>(<span class="pl-k">void</
 <ol>
 <li>
 <p>删除当前目录除某文件外的所有文件</p>
-<div class="highlight highlight-source-shell"><pre>ls <span class="pl-k">|</span> grep -v except_filename <span class="pl-k">|</span> xargs rm -rf</pre></div>
+<div class="highlight highlight-source-shell"><pre class="notranslate">ls <span class="pl-k">|</span> grep -v except_filename <span class="pl-k">|</span> xargs rm -rf</pre></div>
 </li>
 <li>
 <p>更新所有的module</p>
-<pre><code>git submodule update --init --recursive --remote
+<pre class="notranslate"><code class="notranslate">git submodule update --init --recursive --remote
 </code></pre>
 </li>
 </ol>
@@ -785,7 +1009,76 @@ PyMODINIT_FUNC <span class="pl-en">PyInit_hello</span>(<span class="pl-k">void</
 <h2>1.test</h2>
 <blockquote>
 <p>test</p>
-</blockquote><hr><p>Mon Feb 24 17:36:07 2020</p><script src="https://utteranc.es/client.js"
+</blockquote><hr><p>Tue Nov 23 15:44:51 2021</p><script src="https://utteranc.es/client.js"
+        repo="caixiangyue/caixiangyue.github.io"
+        issue-term="pathname"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+]]></description>
+</item>
+<item>
+<title>学习笔记</title>
+<link>https://caixiangyue.github.io/学习笔记.html</link>
+<description> <![CDATA[<h2>计算机网络</h2>
+<p><a href="https://www.cxyxiaowu.com/13489.html" rel="nofollow">网络</a></p>
+<ol>
+<li>三次握手</li>
+</ol>
+<p><a href="https://www.cxyxiaowu.com/15668.html" rel="nofollow">三次握手</a></p>
+<p>三次握手中第三次握手可以携带数据。</p>
+<h2>数据库</h2>
+<ol>
+<li>MySQL</li>
+</ol>
+<p><a href="https://www.cxyxiaowu.com/16302.html" rel="nofollow">MySQL</a></p>
+<h2>C++</h2>
+<ol>
+<li>
+<p>C++ 内存布局<br>
+堆区（低地址向高地址），栈区（高地址向低地址），代码段，文本段（字面量池），全局数据段（已初始化的数据，全局和静态变量），未初始化数据段（未初始化的数据）</p>
+</li>
+<li>
+<p>new和malloc区别<br>
+<a href="https://www.cnblogs.com/qg-whz/p/5140930.html" rel="nofollow">new和malloc区别</a></p>
+</li>
+<li>
+<p>c++ 强制类型转换</p>
+</li>
+</ol>
+<ul>
+<li>static_cast 编译时类型检查
+<ol>
+<li>基本数据类型间的转换，如char-&gt;int</li>
+<li>向上转型是安全的，向下转型是不安全的（没有运行时类型检查）</li>
+<li>把指针转换成空指针</li>
+</ol>
+</li>
+<li>dynamic_cast
+<ol>
+<li>主要用于多态，类层次间的转换</li>
+<li>引用类型可能会抛出std::bad_cast异常</li>
+</ol>
+</li>
+<li>const_cast</li>
+</ul>
+<ol start="4">
+<li>c++ 智能指针<br>
+unique_ptr</li>
+</ol>
+<h2>操作系统</h2>
+<h2>排序</h2>
+<p><a href="https://zhuanlan.zhihu.com/p/74820690" rel="nofollow">归并排序</a></p>
+<h2>设计模式</h2>
+<ol>
+<li>
+<p>单例模式</p>
+</li>
+<li>
+<p>工厂模式</p>
+</li>
+</ol><hr><p>Tue Nov 23 15:44:51 2021</p><script src="https://utteranc.es/client.js"
         repo="caixiangyue/caixiangyue.github.io"
         issue-term="pathname"
         theme="github-light"

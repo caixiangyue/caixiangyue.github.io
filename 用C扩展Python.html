@@ -6,55 +6,57 @@
   gtag('js', new Date());
   gtag('config', 'UA-160306868-1');
 </script>
-<title>用C扩展Python</title></head><body><blockquote>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5809313774160994"
+     crossorigin="anonymous"></script>
+     <title>用C扩展Python</title></head><body><blockquote>
 <p>用C语言写一个最简单的python扩展。</p>
 </blockquote>
 <h2>一. 上代码</h2>
 <ol>
 <li>hello.c</li>
 </ol>
-<div class="highlight highlight-source-c"><pre>#<span class="pl-k">include</span><span class="pl-s"><span class="pl-pds">&lt;</span>Python.h<span class="pl-pds">&gt;</span></span>
+<div class="highlight highlight-source-c"><pre class="notranslate"><span class="pl-k">#include</span><span class="pl-s">&lt;Python.h&gt;</span>
 
-<span class="pl-k">static</span> PyObject *<span class="pl-en">say_hello</span>(PyObject *self, PyObject *args) {
-    <span class="pl-k">return</span> <span class="pl-c1">Py_BuildValue</span>(<span class="pl-s"><span class="pl-pds">"</span>s<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>hello from c.<span class="pl-pds">"</span></span>);
+<span class="pl-k">static</span> <span class="pl-smi">PyObject</span> <span class="pl-c1">*</span><span class="pl-en">say_hello</span>(<span class="pl-smi">PyObject</span> <span class="pl-c1">*</span><span class="pl-s1">self</span>, <span class="pl-smi">PyObject</span> <span class="pl-c1">*</span><span class="pl-s1">args</span>) {
+    <span class="pl-k">return</span> <span class="pl-en">Py_BuildValue</span>(<span class="pl-s">"s"</span>, <span class="pl-s">"hello from c."</span>);
 }
 
-<span class="pl-k">static</span> PyMethodDef methods[] = {
-    {<span class="pl-s"><span class="pl-pds">"</span>say_hello<span class="pl-pds">"</span></span>, say_hello, METH_VARARGS, <span class="pl-s"><span class="pl-pds">"</span>say hello.<span class="pl-pds">"</span></span>},
+<span class="pl-k">static</span> <span class="pl-smi">PyMethodDef</span> <span class="pl-s1">methods</span>[] <span class="pl-c1">=</span> {
+    {<span class="pl-s">"say_hello"</span>, <span class="pl-s1">say_hello</span>, <span class="pl-c1">METH_VARARGS</span>, <span class="pl-s">"say hello."</span>},
     {<span class="pl-c1">NULL</span>, <span class="pl-c1">NULL</span>, <span class="pl-c1">0</span>, <span class="pl-c1">NULL</span>}
 };
 
-<span class="pl-k">static</span> <span class="pl-k">struct</span> PyModuleDef module_def =
+<span class="pl-k">static</span> <span class="pl-k">struct</span> <span class="pl-smi">PyModuleDef</span> <span class="pl-s1">module_def</span> <span class="pl-c1">=</span>
 {
-    PyModuleDef_HEAD_INIT,
-    <span class="pl-s"><span class="pl-pds">"</span>hello<span class="pl-pds">"</span></span>,
-    <span class="pl-s"><span class="pl-pds">"</span>say hello<span class="pl-pds">"</span></span>,
-    -<span class="pl-c1">1</span>,
-    methods
+    <span class="pl-s1">PyModuleDef_HEAD_INIT</span>,
+    <span class="pl-s">"hello"</span>,
+    <span class="pl-s">"say hello"</span>,
+    <span class="pl-c1">-1</span>,
+    <span class="pl-s1">methods</span>
 };
 
-PyMODINIT_FUNC <span class="pl-en">PyInit_hello</span>(<span class="pl-k">void</span>) {
-    <span class="pl-k">return</span> <span class="pl-c1">PyModule_Create</span>(&amp;module_def);
+<span class="pl-smi">PyMODINIT_FUNC</span> <span class="pl-en">PyInit_hello</span>(<span class="pl-smi">void</span>) {
+    <span class="pl-k">return</span> <span class="pl-en">PyModule_Create</span>(<span class="pl-c1">&amp;</span><span class="pl-s1">module_def</span>);
 }</pre></div>
 <ol start="2">
 <li>setup.py</li>
 </ol>
-<div class="highlight highlight-source-python"><pre><span class="pl-k">from</span> <span class="pl-s1">distutils</span>.<span class="pl-s1">core</span> <span class="pl-k">import</span> <span class="pl-s1">setup</span>, <span class="pl-v">Extension</span>
+<div class="highlight highlight-source-python"><pre class="notranslate"><span class="pl-k">from</span> <span class="pl-s1">distutils</span>.<span class="pl-s1">core</span> <span class="pl-k">import</span> <span class="pl-s1">setup</span>, <span class="pl-v">Extension</span>
 
 <span class="pl-s1">module</span> <span class="pl-c1">=</span> <span class="pl-v">Extension</span>(<span class="pl-s">'hello'</span>, <span class="pl-s1">sources</span> <span class="pl-c1">=</span> [<span class="pl-s">'hello.c'</span>])
 
 <span class="pl-en">setup</span>(<span class="pl-s1">name</span> <span class="pl-c1">=</span> <span class="pl-s">'say hello'</span>, <span class="pl-s1">version</span> <span class="pl-c1">=</span> <span class="pl-s">'0.0.1'</span>, <span class="pl-s1">ext_modules</span> <span class="pl-c1">=</span> [<span class="pl-s1">module</span>])</pre></div>
 <h2>二. 编译</h2>
-<div class="highlight highlight-source-shell"><pre>$ python setup.py build</pre></div>
+<div class="highlight highlight-source-shell"><pre class="notranslate">$ python setup.py build</pre></div>
 <h2>三. 调用</h2>
-<p><strong>注</strong> 此时想要调用需要把<code>hello.so</code>共享库加到PYTHONPATH环境变量中。</p>
-<div class="highlight highlight-source-python"><pre><span class="pl-c">#!/usr/bin/env python3</span>
+<p><strong>注</strong> 此时想要调用需要把<code class="notranslate">hello.so</code>共享库加到PYTHONPATH环境变量中。</p>
+<div class="highlight highlight-source-python"><pre class="notranslate"><span class="pl-c">#!/usr/bin/env python3</span>
 <span class="pl-k">import</span> <span class="pl-s1">hello</span>
 <span class="pl-en">print</span>(<span class="pl-s1">hello</span>.<span class="pl-en">say_hello</span>()) </pre></div>
 <h2>四. 参考</h2>
 <ul>
 <li><a href="https://docs.python.org/3/extending/extending.html" rel="nofollow">https://docs.python.org/3/extending/extending.html</a></li>
-</ul><hr><p>Mon Feb 24 17:36:07 2020</p><script src="https://utteranc.es/client.js"
+</ul><hr><p>Tue Nov 23 15:44:51 2021</p><script src="https://utteranc.es/client.js"
         repo="caixiangyue/caixiangyue.github.io"
         issue-term="pathname"
         theme="github-light"

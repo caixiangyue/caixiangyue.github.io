@@ -6,23 +6,25 @@
   gtag('js', new Date());
   gtag('config', 'UA-160306868-1');
 </script>
-<title>kafka学习</title></head><body><h4>环境搭建</h4>
-<p>启动<code>zookeeper</code></p>
-<pre><code>$ bin/zookeeper-server-start.sh config/zookeeper.properties
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5809313774160994"
+     crossorigin="anonymous"></script>
+     <title>kafka学习</title></head><body><h4>环境搭建</h4>
+<p>启动<code class="notranslate">zookeeper</code></p>
+<pre class="notranslate"><code class="notranslate">$ bin/zookeeper-server-start.sh config/zookeeper.properties
 </code></pre>
-<p>启动<code>kafka</code></p>
-<pre><code>$ bin/kafka-server-start.sh config/server.properties
+<p>启动<code class="notranslate">kafka</code></p>
+<pre class="notranslate"><code class="notranslate">$ bin/kafka-server-start.sh config/server.properties
 </code></pre>
 <p>创建topic</p>
-<pre><code>$ bin/kafka-topics.sh --create --topic t1 --bootstrap-server localhost:12346 --partitions 1 --replication-factor 1
+<pre class="notranslate"><code class="notranslate">$ bin/kafka-topics.sh --create --topic t1 --bootstrap-server localhost:12346 --partitions 1 --replication-factor 1
 
 Created topic t1
 </code></pre>
 <p>生产消息</p>
-<pre><code>$ bin/kafka-console-producer.sh --topic t1 --bootstrap-server localhost:12346
+<pre class="notranslate"><code class="notranslate">$ bin/kafka-console-producer.sh --topic t1 --bootstrap-server localhost:12346
 </code></pre>
 <p>消费消息</p>
-<pre><code>$ bin/kafka-console-consumer.sh --topic t1 --from-beginning --bootstrap-server localhost:12346
+<pre class="notranslate"><code class="notranslate">$ bin/kafka-console-consumer.sh --topic t1 --from-beginning --bootstrap-server localhost:12346
 </code></pre><hr><p>Tue Dec  7 16:32:28 2021</p><script src="https://utteranc.es/client.js"
         repo="caixiangyue/caixiangyue.github.io"
         issue-term="pathname"

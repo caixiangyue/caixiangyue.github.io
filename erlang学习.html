@@ -6,15 +6,17 @@
   gtag('js', new Date());
   gtag('config', 'UA-160306868-1');
 </script>
-<title>erlang学习</title></head><body><h4>hello world.</h4>
-<p>创建一个源文件<code>hello.erl</code></p>
-<div class="highlight highlight-source-erlang"><pre>-<span class="pl-k">module</span>(<span class="pl-en">hello</span>).
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5809313774160994"
+     crossorigin="anonymous"></script>
+     <title>erlang学习</title></head><body><h4>hello world.</h4>
+<p>创建一个源文件<code class="notranslate">hello.erl</code></p>
+<div class="highlight highlight-source-erlang"><pre class="notranslate">-<span class="pl-k">module</span>(<span class="pl-en">hello</span>).
 -<span class="pl-k">export</span>([<span class="pl-en">hello</span>/<span class="pl-c1">0</span>]).
 
 <span class="pl-en">hello</span>()<span class="pl-k">-&gt;</span>
     <span class="pl-en">io</span>:<span class="pl-en">format</span>(<span class="pl-s"><span class="pl-pds">"</span>hello world.<span class="pl-c1">~n</span><span class="pl-pds">"</span></span>).</pre></div>
 <p>编译运行</p>
-<div class="highlight highlight-source-erlang"><pre><span class="pl-ii">$ </span><span class="pl-c1">erl</span>
+<div class="highlight highlight-source-erlang"><pre class="notranslate"><span class="pl-ii">$ </span><span class="pl-c1">erl</span>
 <span class="pl-smi">Erlang</span><span class="pl-k">/</span><span class="pl-smi">OTP</span> <span class="pl-c1">24</span> [<span class="pl-c1">erts</span><span class="pl-k">-</span><span class="pl-c1">12.1</span>.<span class="pl-c1">5</span>] [<span class="pl-c1">source</span>] [<span class="pl-c1">64</span><span class="pl-k">-</span><span class="pl-c1">bit</span>] [<span class="pl-c1">smp</span>:<span class="pl-c1">8</span>:<span class="pl-c1">8</span>] [<span class="pl-c1">ds</span>:<span class="pl-c1">8</span>:<span class="pl-c1">8</span>:<span class="pl-c1">10</span>] [<span class="pl-c1">async</span><span class="pl-k">-</span><span class="pl-c1">threads</span>:<span class="pl-c1">1</span>] [<span class="pl-c1">jit</span>] [<span class="pl-c1">dtrace</span>]
 
 <span class="pl-smi">Eshell</span> <span class="pl-smi">V12</span>.<span class="pl-c1">1.5</span>  (<span class="pl-c1">abort</span> <span class="pl-c1">with</span> ^<span class="pl-smi">G</span>)
@@ -24,7 +26,7 @@
 <span class="pl-c1">hello</span> <span class="pl-c1">world</span>.
 <span class="pl-c1">ok</span></pre></div>
 <h4>元组</h4>
-<div class="highlight highlight-source-erlang"><pre><span class="pl-c1">1</span><span class="pl-k">&gt;</span> <span class="pl-smi">Point</span> <span class="pl-k">=</span> {<span class="pl-c1">4</span>, <span class="pl-c1">5</span>}.
+<div class="highlight highlight-source-erlang"><pre class="notranslate"><span class="pl-c1">1</span><span class="pl-k">&gt;</span> <span class="pl-smi">Point</span> <span class="pl-k">=</span> {<span class="pl-c1">4</span>, <span class="pl-c1">5</span>}.
 {<span class="pl-c1">4</span>,<span class="pl-c1">5</span>}
 <span class="pl-c1">2</span><span class="pl-k">&gt;</span> {<span class="pl-smi">X</span>, <span class="pl-smi">Y</span>} <span class="pl-k">=</span> <span class="pl-smi">Point</span>.
 {<span class="pl-c1">4</span>,<span class="pl-c1">5</span>}
@@ -36,7 +38,7 @@
 {<span class="pl-c1">point</span>,{<span class="pl-c1">4</span>,<span class="pl-c1">5</span>}}</pre></div>
 <h4>列表</h4>
 <p>基本操作</p>
-<div class="highlight highlight-source-erlang"><pre><span class="pl-k">&gt;</span> <span class="pl-smi">L</span> <span class="pl-k">=</span> [<span class="pl-c1">1</span>, <span class="pl-c1">2</span>, <span class="pl-c1">3</span>].
+<div class="highlight highlight-source-erlang"><pre class="notranslate"><span class="pl-k">&gt;</span> <span class="pl-smi">L</span> <span class="pl-k">=</span> [<span class="pl-c1">1</span>, <span class="pl-c1">2</span>, <span class="pl-c1">3</span>].
 [<span class="pl-c1">1</span>,<span class="pl-c1">2</span>,<span class="pl-c1">3</span>]
 <span class="pl-c1">2</span><span class="pl-k">&gt;</span> [<span class="pl-smi">H</span>|<span class="pl-smi">T</span>] <span class="pl-k">=</span> <span class="pl-smi">L</span>.
 [<span class="pl-c1">1</span>,<span class="pl-c1">2</span>,<span class="pl-c1">3</span>]
@@ -49,9 +51,9 @@
 <span class="pl-c1">6</span><span class="pl-k">&gt;</span> <span class="pl-smi">N</span><span class="pl-k">--</span>[<span class="pl-c1">1</span>].
 [<span class="pl-c1">2</span>,<span class="pl-c1">3</span>]</pre></div>
 <p>列表推导</p>
-<div class="highlight highlight-source-erlang"><pre><span class="pl-c1">10</span><span class="pl-k">&gt;</span> <span class="pl-smi">N</span>.
+<div class="highlight highlight-source-erlang"><pre class="notranslate"><span class="pl-c1">10</span><span class="pl-k">&gt;</span> <span class="pl-smi">N</span>.
 [<span class="pl-c1">1</span>,<span class="pl-c1">2</span>,<span class="pl-c1">3</span>]
-<span class="pl-c1">11</span><span class="pl-k">&gt;</span> [ <span class="pl-c1">2</span><span class="pl-k">*</span><span class="pl-smi">X</span> || <span class="pl-smi">X</span> <span class="pl-k">&lt;-</span> <span class="pl-smi">N</span> ]. 
+<span class="pl-c1">11</span><span class="pl-k">&gt;</span> [ <span class="pl-c1">2</span><span class="pl-k">*</span><span class="pl-smi">X</span> || <span class="pl-smi">X</span> <span class="pl-k">&lt;-</span> <span class="pl-smi">N</span> ].
 [<span class="pl-c1">2</span>,<span class="pl-c1">4</span>,<span class="pl-c1">6</span>]
 
 <span class="pl-c1">15</span><span class="pl-k">&gt;</span> <span class="pl-smi">W</span> <span class="pl-k">=</span> [<span class="pl-c1">1</span>, <span class="pl-c1">a</span>, <span class="pl-c1">b</span>, <span class="pl-c1">2</span>, <span class="pl-c1">3</span>].
@@ -59,17 +61,17 @@
 <span class="pl-c1">16</span><span class="pl-k">&gt;</span> [ <span class="pl-c1">2</span><span class="pl-k">*</span><span class="pl-smi">X</span> || <span class="pl-smi">X</span> <span class="pl-k">&lt;-</span> <span class="pl-smi">W</span>, <span class="pl-en">integer</span>(<span class="pl-smi">X</span>) ].
 [<span class="pl-c1">2</span>,<span class="pl-c1">4</span>,<span class="pl-c1">6</span>]</pre></div>
 <h4>位语法</h4>
-<div class="highlight highlight-source-erlang"><pre><span class="pl-c1">11</span><span class="pl-k">&gt;</span> <span class="pl-smi">Color</span> <span class="pl-k">=</span> <span class="pl-c1">16#FF00AA</span>.    
+<div class="highlight highlight-source-erlang"><pre class="notranslate"><span class="pl-c1">11</span><span class="pl-k">&gt;</span> <span class="pl-smi">Color</span> <span class="pl-k">=</span> <span class="pl-c1">16#FF00AA</span>.
 <span class="pl-c1">16711850</span>
-<span class="pl-c1">12</span><span class="pl-k">&gt;</span> <span class="pl-smi">Pixel</span> <span class="pl-k">=</span> &lt;&lt;<span class="pl-smi">Color</span>:<span class="pl-c1">24</span>&gt;&gt;. 
+<span class="pl-c1">12</span><span class="pl-k">&gt;</span> <span class="pl-smi">Pixel</span> <span class="pl-k">=</span> &lt;&lt;<span class="pl-smi">Color</span>:<span class="pl-c1">24</span>&gt;&gt;.
 &lt;&lt;<span class="pl-c1">255</span>,<span class="pl-c1">0</span>,<span class="pl-c1">170</span>&gt;&gt;
 <span class="pl-c1">13</span><span class="pl-k">&gt;</span> &lt;&lt;<span class="pl-smi">R</span>:<span class="pl-c1">8</span>, <span class="pl-smi">Rest</span>/<span class="pl-k">binary</span>&gt;&gt; <span class="pl-k">=</span> <span class="pl-smi">Pixel</span>.
 &lt;&lt;<span class="pl-c1">255</span>,<span class="pl-c1">0</span>,<span class="pl-c1">170</span>&gt;&gt;
 <span class="pl-c1">14</span><span class="pl-k">&gt;</span> <span class="pl-smi">R</span>.
 <span class="pl-c1">255</span></pre></div>
 <h4>函数</h4>
-<p>创建<code>same.erl</code></p>
-<div class="highlight highlight-source-erlang"><pre>-<span class="pl-k">module</span>(<span class="pl-en">same</span>).
+<p>创建<code class="notranslate">same.erl</code></p>
+<div class="highlight highlight-source-erlang"><pre class="notranslate">-<span class="pl-k">module</span>(<span class="pl-en">same</span>).
 -<span class="pl-k">compile</span>(<span class="pl-c1">export_all</span>).
 
 <span class="pl-en">same</span>(<span class="pl-smi">X</span>, <span class="pl-smi">X</span>)<span class="pl-k">-&gt;</span>
@@ -77,7 +79,7 @@
 <span class="pl-en">same</span>(<span class="pl-c1">_</span>,<span class="pl-c1">_</span>)<span class="pl-k">-&gt;</span>
     <span class="pl-c1">false</span>.</pre></div>
 <p>运行</p>
-<div class="highlight highlight-source-erlang"><pre><span class="pl-c1">1</span><span class="pl-k">&gt;</span> <span class="pl-en">c</span>(<span class="pl-c1">same</span>).
+<div class="highlight highlight-source-erlang"><pre class="notranslate"><span class="pl-c1">1</span><span class="pl-k">&gt;</span> <span class="pl-en">c</span>(<span class="pl-c1">same</span>).
 <span class="pl-c1">same</span>.<span class="pl-c1">erl</span>:<span class="pl-c1">2</span>:<span class="pl-c1">2</span>: <span class="pl-smi">Warning</span>: <span class="pl-c1">export_all</span> <span class="pl-c1">flag</span> <span class="pl-c1">enabled</span> <span class="pl-k">-</span> <span class="pl-c1">all</span> <span class="pl-c1">functions</span> <span class="pl-c1">will</span> <span class="pl-c1">be</span> <span class="pl-c1">exported</span>
 <span class="pl-c"><span class="pl-c">%</span>    2| -compile(export_all).</span>
 <span class="pl-c"><span class="pl-c">%</span>     |  ^</span>
@@ -86,7 +88,7 @@
 <span class="pl-c1">2</span><span class="pl-k">&gt;</span> <span class="pl-en">same</span>:<span class="pl-en">same</span>(<span class="pl-c1">1</span>,<span class="pl-c1">1</span>).
 <span class="pl-c1">true</span>
 <span class="pl-c1">3</span><span class="pl-k">&gt;</span> <span class="pl-en">same</span>:<span class="pl-en">same</span>(<span class="pl-c1">1</span>,<span class="pl-c1">2</span>).
-<span class="pl-c1">false</span></pre></div><hr><p>Thu Dec  9 17:08:39 2021</p><script src="https://utteranc.es/client.js"
+<span class="pl-c1">false</span></pre></div><hr><p>Tue Aug 23 14:48:22 2022</p><script src="https://utteranc.es/client.js"
         repo="caixiangyue/caixiangyue.github.io"
         issue-term="pathname"
         theme="github-light"
