@@ -5,10 +5,10 @@ just for fun. mail:caixiangyue007@gmail.com
 -----
         
 
+[似水年华](似水年华.html)
 [景色](景色.html)
 [学习笔记](学习笔记.html)
 [msync总结](msync总结.html)
-[似水年华](似水年华.html)
 [配置文件](配置文件.html)
 [erlang学习](erlang学习.html)
 [朝花夕拾](朝花夕拾.html)
