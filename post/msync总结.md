@@ -53,3 +53,14 @@ easemob_kafka: 读写kafka的核心模块
 - kafka_client_module brod | ekaf
 - queue_log_module kafka | redis
 - kafka_log_async true | false
+
+## 测试
+1. 登陆
+2. 禁言 （单聊，群聊，聊天室）
+3. 发消息（单聊，群聊，聊天室，消息撤回，消息透传和扩展）
+4. 好友（添加，删除，拒绝，接受）
+5. presence
+
+问题：
+1. 无法设置app_config
+2. 无法访问存储
