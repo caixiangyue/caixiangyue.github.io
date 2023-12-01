@@ -67,12 +67,14 @@ msync_easemob_sendmsg: 消费redis/kafka发消息</p>
 <li>发消息（单聊，群聊，聊天室，消息撤回，消息透传和扩展）</li>
 <li>好友（添加，删除，拒绝，接受）</li>
 <li>presence</li>
+<li>黑名单</li>
+<li>通知</li>
 </ol>
 <p>问题：</p>
 <ol>
 <li>无法设置app_config</li>
 <li>无法访问存储</li>
-</ol><hr><p>Thu Nov 30 17:55:33 2023</p><script src="https://utteranc.es/client.js"
+</ol><hr><p>Fri Dec  1 14:21:07 2023</p><script src="https://utteranc.es/client.js"
         repo="caixiangyue/caixiangyue.github.io"
         issue-term="pathname"
         theme="github-light"
